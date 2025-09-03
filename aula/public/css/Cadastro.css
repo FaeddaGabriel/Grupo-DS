@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    background: linear-gradient(to bottom, #ffffff, #3ca7ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    max-width: 500px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px #0077FF;
+    border: 2px solid #0077FF;
+}
+
+.formLogin {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.formLogin h1 {
+    color: #1f008d;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.formLogin p {
+    font-size: 14px;
+    color: #000000;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.formLogin label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 5px;
+}
+
+.formLogin input {
+    width: calc(100% - 20px);
+    padding: 12px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    border: 1px solid #1f008d;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #000000;
+    outline: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.formLogin input:focus {
+    border-color: #1f008d;
+    box-shadow: 0 0 5px #0077FF;
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    background-color: #0077FF;
+    color: #fff;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background-color:#0077FF;
+    box-shadow: 0px 0px 10px #0077FF;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: #333;
+    color: #0077FF;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+.btn-secondary:hover {
+    background-color: #0077FF;
+    color: #fff;
+}
