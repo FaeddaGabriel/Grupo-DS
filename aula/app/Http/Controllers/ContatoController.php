@@ -41,9 +41,9 @@ class ContatoController extends Controller
     {
         $Contato = new ContatoModel(); //Contato é um objeto (da pra por qualquer nome)
 
-		$Contato->nome = $request->txContNome; //"nome" é a coluna da tabela agora o "$Contato" é o objeto, txContNome é o mesmo que vai estar na view pra salvar, funciona tipo id
-		$Contato->email = $request->txContEmail;
-        $Contato->mensagem = $request->txContMsg;
+		$Contato->nomeContato = $request->txContNome; //"nomeContato" é a coluna da tabela agora o "$Contato" é o objeto, txContNome é o mesmo que vai estar na view pra salvar, funciona tipo id
+		$Contato->emailContato = $request->txContEmail;
+        $Contato->mensagemContato = $request->txContMsg;
         $Contato->save();
 
 		return redirect()->action('App\Http\Controllers\ContatoController@exibirContato');

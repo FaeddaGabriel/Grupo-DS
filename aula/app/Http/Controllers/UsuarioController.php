@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UsuarioModel;
+use App\Models\ContatoModel;
 use Illuminate\Http\Request;
 
-use App\Models\NomeModel;
-
-class NomeController extends Controller
+class UsuarioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,17 +15,19 @@ class NomeController extends Controller
      */
     public function index()
     {
-        $nomeUsuario = NomeModel::all();
-        foreach($nomeUsuario as $n){
-            echo $n->idUsuario . " ";
-            echo $n->nomeUsuario . "<br /> ";
-        }
+        //
     }
-
-    public function exibirNome() 
+    public function exibirCadastro() 
     { 
-        $nomeUsuario = NomeModel::all();
-        return view('nomeView',compact('nomeUsuario')); 
+        $usuarios = UsuarioModel::all();
+        return view('Cadastro', compact('usuarios')); //retorna pra view e em cima pega todos os registros do banco
+    }
+    public function exibirConsultas() 
+    { 
+        $usuarios = UsuarioModel::all();
+        $contatos = ContatoModel::all();
+        
+        return view('Consultas', compact('usuarios', 'contatos'));
     }
     
     /**
@@ -46,12 +48,14 @@ class NomeController extends Controller
      */
     public function store(Request $request)
     {
-        $nomeUsuario = new NomeModel();
-
-		$nomeUsuario->nomeUsuario = $request->txNome; //nomeUsuario é a tabela agora o $nomeUsuario é o objeto, txNome é o mesmo que vai estar na view pra salvar
-		$nomeUsuario->save();
-
-		return redirect()->action('App\Http\Controllers\NomeController@exibirNome');
+        $usuario = new UsuarioModel(); //usuario é um objeto (da pra por qualquer nome)
+        
+        $usuario->NomeUsuario = $request->txNome; //"NomeUsuario" é a coluna da tabela agora o "$Usuario" é o objeto, txNome é o mesmo que vai estar na view pra salvar, funciona tipo id
+        $usuario->emailUsuario = $request->txEmail;
+        $usuario->senhaUsuario = $request->txSenha;
+        $usuario->save();
+        
+        return redirect()->action('App\Http\Controllers\UsuarioController@exibirCadastro');
     }
 
     /**

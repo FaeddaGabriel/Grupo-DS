@@ -27,7 +27,7 @@
             <button class="btn" type="submit" value="Salvar">Cadastrar</button>
         </form>
 
-        <p><a href="/Form" class="btn-secondary">Já possui um cadastro? Aperte aqui </a></p>
+        <p><a href="/Login" class="btn-secondary">Já possui um cadastro? Aperte aqui </a></p>
     </div>
 
 </body>
