@@ -1,0 +1,7 @@
+git clone https://github.com/FaeddaGabriel/Grupo-DS.git
+cd Grupo-DS\aula
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+php artisan serve
