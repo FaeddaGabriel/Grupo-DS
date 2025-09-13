@@ -28,10 +28,10 @@
           <tbody>
             @foreach ($usuarios as $usuario)
             <tr>
-              <td>{{ $usuario->idUsuario }}</td>
-              <td>{{ $usuario->nomeUsuario }}</td>
-              <td>{{ $usuario->emailUsuario }}</td>
-              <td>{{ $usuario->senhaUsuario }}</td>
+              <td>{{ $usuario->id }}</td>
+              <td>{{ $usuario->name }}</td>
+              <td>{{ $usuario->email }}</td>
+              <td>{{ $usuario->password }}</td>
             </tr>
             @endforeach
           </tbody>
@@ -56,9 +56,9 @@
             @foreach ($contatos as $contato)
             <tr>
               <td>{{ $contato->idContato }}</td>
-              <td>{{ $contato->nome }}</td>
-              <td>{{ $contato->email }}</td>
-              <td>{{ $contato->mensagem }}</td>
+              <td>{{ $contato->nomeContato }}</td>
+              <td>{{ $contato->emailContato }}</td>
+              <td>{{ $contato->mensagemContato }}</td>
             </tr>
             @endforeach
           </tbody>
