@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 11/09/2025 às 03:30
+-- Tempo de geração: 13/09/2025 às 20:08
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -35,34 +35,6 @@ CREATE TABLE `tbcontato` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `tbcontato`
---
-
-INSERT INTO `tbcontato` (`idContato`, `nomeContato`, `emailContato`, `mensagemContato`) VALUES
-(1, 'Danilo teste contato', 'TesteConsultaEmail@gmail.com', 'Testando a Consulta');
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `tbusuario`
---
-
-CREATE TABLE `tbusuario` (
-  `idUsuario` int(11) NOT NULL,
-  `nomeUsuario` varchar(100) NOT NULL,
-  `emailUsuario` varchar(100) NOT NULL,
-  `senhaUsuario` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `tbusuario`
---
-
-INSERT INTO `tbusuario` (`idUsuario`, `nomeUsuario`, `emailUsuario`, `senhaUsuario`) VALUES
-(1, 'Administrador', 'admin@gmail.com', '$2y$10$Zl7mFRQzlmXxSKHnBtT4GuwN4YIXAJzoaU0sIGz0W1RZCl6aMgIEO'),
-(2, 'Testando Consulta Cadastro', 'TesteCadastro@gmail.com', '1234');
-
---
 -- Índices para tabelas despejadas
 --
 
@@ -73,13 +45,6 @@ ALTER TABLE `tbcontato`
   ADD PRIMARY KEY (`idContato`);
 
 --
--- Índices de tabela `tbusuario`
---
-ALTER TABLE `tbusuario`
-  ADD PRIMARY KEY (`idUsuario`),
-  ADD UNIQUE KEY `emailUsuario` (`emailUsuario`);
-
---
 -- AUTO_INCREMENT para tabelas despejadas
 --
 
@@ -87,13 +52,7 @@ ALTER TABLE `tbusuario`
 -- AUTO_INCREMENT de tabela `tbcontato`
 --
 ALTER TABLE `tbcontato`
-  MODIFY `idContato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de tabela `tbusuario`
---
-ALTER TABLE `tbusuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idContato` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -9,37 +9,20 @@
 </head>
 <body>
   <div class="page">
-    <form action="/" method="POST" class="formLogin" onsubmit="return checkAdmin(event)">
+    <form action="{{ route('login.process') }}" method="POST" class="formLogin">
       @csrf
       <h1>Login</h1>
       <p>Digite os seus dados de acesso no campo abaixo.</p>
 
       <label for="txEmail">E-mail</label>
-      <input type="email" id="txEmail" name="txEmail" placeholder="Digite seu e-mail" autofocus required>
+      <input type="email" id="email" name="email" placeholder="Digite seu e-mail" autofocus required>
 
       <label for="txSenha">Senha</label>
-      <input type="password" id="txSenha" name="txSenha" placeholder="Digite sua senha" required autocomplete="off">
+      <input type="password" id="password" name="password" placeholder="Digite sua senha" required autocomplete="off">
 
       <input type="submit" value="Acessar" class="btn">
     </form>
   </div>
 
-  <script>
-    function checkAdmin(event) {
-      // Captura os valores dos inputs
-      const email = document.getElementById('txEmail').value;
-      const senha = document.getElementById('txSenha').value;
-
-      // Verifica se é o email e senha do administrador
-      if(email === 'admin@gmail.com' && senha === 'admin123') {
-        event.preventDefault(); // Impede o envio do formulário
-        window.location.href = "/Consultas"; // Redireciona para a página de consultas com "C" maiúsculo
-        return false;
-      }
-      
-      // Para demais usuários, deixa o formulário seguir seu comportamento normal
-      return true;
-    }
-  </script>
 </body>
 </html>

@@ -32,6 +32,12 @@
         <li><a href="/Cadastro">Cadastre-se</a></li>
     </ul>
     
+<form action="{{ route('fazerLogOut') }}" method="POST">
+    @csrf
+    <button type="submit">Sair</button>
+</form>
+
+
 </nav>
     </div>
 
