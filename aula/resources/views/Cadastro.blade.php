@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="/css/cadastro.css">
 </head>
 <body>
+<a href="{{ route('home') }}" class="logo-link">
+    <img src="{{ asset('images/King1.png') }}" alt="Logo" class="logo-img">
+</a>
+
 
     <div class="page">
         <form class="formLogin" action="{{url('/Cadastro/inserir')}}" method="post"> <!--action fala pra onde vai o submit-->
@@ -27,7 +31,7 @@
             <button class="btn" type="submit" value="Salvar">Cadastrar</button>
         </form>
 
-        <p><a href="/Login" class="btn-secondary">Já possui um cadastro? Aperte aqui </a></p>
+        <p><a href="/Login" >Já possui um cadastro? Aperte aqui </a></p>
     </div>
 
 </body>

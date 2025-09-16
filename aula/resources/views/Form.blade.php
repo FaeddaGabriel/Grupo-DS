@@ -8,6 +8,11 @@
   <link rel="stylesheet" href="css/Form.css">
 </head>
 <body>
+<a href="{{ route('home') }}" class="logo-link">
+    <img src="{{ asset('images/King1.png') }}" alt="Logo" class="logo-img">
+</a>
+
+
   <div class="page">
     <form action="{{ route('login.process') }}" method="POST" class="formLogin">
       @csrf
@@ -22,6 +27,7 @@
 
       <input type="submit" value="Acessar" class="btn">
     </form>
+    <p><a href="/Cadastro">Não possui Conta? Cadastre-se aqui! </a></p>
   </div>
 
 </body>

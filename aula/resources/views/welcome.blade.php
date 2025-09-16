@@ -12,34 +12,36 @@
     <!-- Se houver necessidade de scripts adicionais, adicione aqui -->
 </head>
 <body>
-    <div class="hero">
-        <nav>
-            <img src="{{ asset('images/King1.png') }}" alt="">
-            <h2 class="logo">Sports<span>King</span></h2>
-            <div class="search-bar">
-                <input type="text" placeholder="Buscar...">
-                <button type="button">🔍</button>
-            </div>
-            <ul>
-                <li>
-                    <a href="#">Sobre</a>
-                    <ul class="sub-menu">
-                        <li><a href="#">Sobre nós</a></li>
-                    </ul>
-                </li>
-                
-        <li><a href="/Contato">Contato</a></li>
-        <li><a href="/Cadastro">Cadastre-se</a></li>
-    </ul>
-    
-<form action="{{ route('fazerLogOut') }}" method="POST">
-    @csrf
-    <button type="submit">Sair</button>
-</form>
+<div class="hero">
+    <nav>
+        <img src="{{ asset('images/King1.png') }}" alt="">
+        <h2 class="logo">Sports<span>King</span></h2>
+        <div class="search-bar">
+            <input type="text" placeholder="Buscar...">
+            <button type="button">🔍</button>
+        </div>
+        <ul>
+            <li>
+                <a href="#">Sobre</a>
+                <ul class="sub-menu">
+                    <li><a href="#">Sobre nós</a></li>
+                </ul>
+            </li>
+            <li><a href="/Contato">Contato</a></li>
+            <li><a href="/Cadastro">Cadastrar-se</a></li>
 
+            <!-- Aqui seu botão de logout -->
+            <li class="cadastro">
+    <form id="logout-form" action="{{ route('fazerLogOut') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
+    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sair</a>
+</li>
 
-</nav>
-    </div>
+        </ul>
+    </nav>
+</div>
+
 
     <div class="destaques"> 
         <h3>Destaques</h3>
