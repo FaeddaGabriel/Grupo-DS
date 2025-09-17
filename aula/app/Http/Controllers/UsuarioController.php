@@ -55,15 +55,27 @@ class UsuarioController extends Controller
      */
 
 
-    public function fazerLogin(Request $request){   
-     
-        if(!Auth::attempt($request->only(['email','password']))){                               
-            return redirect('/Login');
-        }       
-        else{
-            return redirect('/');        
-        }
+    public function fazerLogin(Request $request)
+{
+    // tenta autenticar com email e senha
+    if (!Auth::attempt($request->only(['email', 'password']))) {                               
+        return redirect('/Login')->withErrors([
+            'login' => 'Credenciais inválidas.'
+        ]);
     }
+
+    // autenticação bem-sucedida
+    $request->session()->regenerate(); // importante pra segurança
+    $user = Auth::user();
+
+    // redireciona conforme nivel_acesso
+    if ($user->nivel_acesso == 0) {
+        return redirect()->route('consultas'); // admin
+    } else {
+        return redirect()->route('home');  // usuário comum
+    }
+}
+
 
     public function fazerLogOut(Request $request){
         Auth::logout();
@@ -76,9 +88,11 @@ class UsuarioController extends Controller
         
         $usuario->name = $request->txNome; //"NomeUsuario" é a coluna da tabela agora o "$Usuario" é o objeto, txNome é o mesmo que vai estar na view pra salvar, funciona tipo id
         $usuario->email = $request->txEmail;
-        $usuario->password = Hash::make($request->txSenha);        
+        $usuario->password = Hash::make($request->txSenha);  
+        $usuario->nivel_acesso = 1; // 0 = admin | 1 = usuário comum      
         $usuario->save();
         
+        //Logar o usuário automaticamente após o cadastro
         //Auth::login($usuario);
 
         return redirect('/Login');  
