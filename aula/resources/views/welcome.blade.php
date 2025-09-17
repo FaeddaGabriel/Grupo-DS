@@ -12,34 +12,9 @@
     <!-- Se houver necessidade de scripts adicionais, adicione aqui -->
 </head>
 <body>
+<!-- NavBar Atualizada em NavBar blade, chamada pelo include agr-->
 <div class="hero">
-    <nav>
-        <img src="{{ asset('images/King1.png') }}" alt="">
-        <h2 class="logo">Sports<span>King</span></h2>
-        <div class="search-bar">
-            <input type="text" placeholder="Buscar...">
-            <button type="button">🔍</button>
-        </div>
-        <ul>
-            <li>
-                <a href="#">Sobre</a>
-                <ul class="sub-menu">
-                    <li><a href="#">Sobre nós</a></li>
-                </ul>
-            </li>
-            <li><a href="/Contato">Contato</a></li>
-            <li><a href="/Cadastro">Cadastrar-se</a></li>
-
-            <!-- Aqui seu botão de logout -->
-            <li class="cadastro">
-    <form id="logout-form" action="{{ route('fazerLogOut') }}" method="POST" style="display: none;">
-        @csrf
-    </form>
-    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sair</a>
-</li>
-
-        </ul>
-    </nav>
+    @include('NavBar')
 </div>
 
 
@@ -223,25 +198,9 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-column">
-            <h3>Endereço</h3>
-            <p>Rua da Amostra, 123</p>
-            <p>Cidade, Estado</p>
-        </div>
-        <div class="footer-column">
-            <h3>Contato</h3>
-            <p>Email: joaowladson.com</p>
-            <p>Telefone: (11) 9515-88928</p>
-        </div>
-        <div class="footer-column">
-            <h3>Mídias Sociais</h3>
-            <a href="#" class="social-link">Facebook</a>
-            <a href="#" class="social-link">Instagram</a>
-            <a href="#" class="social-link">Twitter</a>
-        </div>
-    </footer>
+    <!-- Footer atualizado pra só include-->
+   
+    @include('Footer')
   
     <div class="fundo">
         <h1>©Etec de Guaianazes 2025</h1>
