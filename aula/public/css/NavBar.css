@@ -21,10 +21,12 @@
     padding: 0;
 }
 
+
 .nav-links li {
-    display: inline;
+    display: inline; 
 }
 
+/* Estilizando links */
 .nav-links li a {
     color: white;
     text-decoration: none;
@@ -37,7 +39,27 @@
     color: #f4a261;
 }
 
-/* Alinhando o botão de cadastro à direita */
-.cadastro {
+/* Só o botão "Cadastrar-se" fica na extrema direita */
+.cadastro.cadastrar-se {
     margin-left: auto;
+}
+
+/* Form dentro do menu fica inline, sem quebrar linha */
+.nav-links li form {
+    display: inline;
+}
+
+/* Botão sair estilizado como link */
+.logout-button {
+    background: none;
+    border: none;
+    color: white;
+    font: inherit;
+    cursor: pointer;
+    padding: 10px;
+    text-decoration: underline;
+}
+
+.logout-button:hover {
+    text-decoration: none;
 }

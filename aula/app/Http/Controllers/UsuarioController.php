@@ -79,7 +79,7 @@ class UsuarioController extends Controller
 
     public function fazerLogOut(Request $request){
         Auth::logout();
-        return redirect('/Login');  
+        return redirect('/');  
     }
 
     public function store(Request $request)
