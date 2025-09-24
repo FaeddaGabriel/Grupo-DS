@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ContatoModel;
 use Illuminate\Http\Request;
 
-//Para o login utilizar:
+//Pra o login utilizar:
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\AuthenticationException;
@@ -92,11 +92,30 @@ class UsuarioController extends Controller
         $usuario->nivel_acesso = 1; // 0 = admin | 1 = usuário comum      
         $usuario->save();
         
-        //Logar o usuário automaticamente após o cadastro
+        //Loga o usuário automaticamente após o cadastro
         //Auth::login($usuario);
 
         return redirect('/Login');  
-  }    
+  }
+  
+    public function storeApi(Request $request)
+    {
+
+        $image = $request->file('foto');
+
+        if ($image == null) {
+            $path = "";
+        } else {
+            $path = $image->store('imagesPicture', 'public');
+        }
+
+        $user->foto_perfil = $path;
+        $user->save();
+
+        return "Foto salva com sucesso!";
+    }
+
+
     /**
      * Display the specified resource.
      *
