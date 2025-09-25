@@ -557,3 +557,24 @@ footer {
 .buy-buttonN:hover {
     background-color: #003366;
 }
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;           
+    border: 1px solid #f5c6cb;  
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.alert-message {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #eee;
+    padding: 10px 20px;
+    border: 1px solid #000;
+    z-index: 9999;
+}

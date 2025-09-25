@@ -29,6 +29,7 @@ class UsuarioController extends Controller
         $usuarios = User::all();
         return view('Cadastro', compact('usuarios')); //retorna pra view e em cima pega todos os registros do banco
     }
+    
     public function exibirConsultas() 
     { 
         $usuarios = User::all();
@@ -55,32 +56,33 @@ class UsuarioController extends Controller
      */
 
 
-    public function fazerLogin(Request $request)
-{
+    public function fazerLogin(Request $request){
     // tenta autenticar com email e senha
     if (!Auth::attempt($request->only(['email', 'password']))) {                               
-        return redirect('/Login')->withErrors([
-            'login' => 'Credenciais inválidas.'
-        ]);
+        return redirect('/Login')
+            ->withErrors(['login' => 'Credenciais inválidas.'])
+            ->withInput();
     }
 
     // autenticação bem-sucedida
     $request->session()->regenerate(); // importante pra segurança
     $user = Auth::user();
 
-    // redireciona conforme nivel_acesso
+    // redireciona conforme nivel_acesso, com mensagem de sucesso
     if ($user->nivel_acesso == 0) {
-        return redirect()->route('consultas'); // admin
+        return redirect()->route('consultas')
+                         ->with('success', 'Login realizado com sucesso!'); // admin
     } else {
-        return redirect()->route('home');  // usuário comum
+        return redirect()->route('home')
+                         ->with('success', 'Login realizado com sucesso!');  // usuário comum
     }
 }
 
 
     public function fazerLogOut(Request $request){
-        Auth::logout();
-        return redirect('/');  
-    }
+    Auth::logout();
+    return redirect('/')->with('success', 'Logout realizado com sucesso!');
+}
 
     public function store(Request $request)
     {

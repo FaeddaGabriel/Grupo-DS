@@ -17,16 +17,29 @@
     <form action="{{ route('login.process') }}" method="POST" class="formLogin">
       @csrf
       <h1>Login</h1>
-      <p>Digite os seus dados de acesso no campo abaixo.</p>
+        <p>Digite os seus dados de acesso no campo abaixo.</p>
 
-      <label for="txEmail">E-mail</label>
-      <input type="email" id="email" name="email" placeholder="Digite seu e-mail" autofocus required>
+       @if ($errors->any())
+        <div class="error-message">
+         @foreach ($errors->all() as $error)
+          <p>{{ $error }}</p>
+         @endforeach
+        </div>
+      @endif
 
-      <label for="txSenha">Senha</label>
-      <input type="password" id="password" name="password" placeholder="Digite sua senha" required autocomplete="off">
+  <label for="txEmail">E-mail</label>
+  <input type="email" id="email" name="email" 
+         placeholder="Digite seu e-mail" 
+         value="{{ old('email') }}" 
+         autofocus required>
 
-      <input type="submit" value="Acessar" class="btn">
-    </form>
+  <label for="txSenha">Senha</label>
+  <input type="password" id="password" name="password" 
+         placeholder="Digite sua senha" 
+         required autocomplete="off">
+
+  <input type="submit" value="Acessar" class="btn">
+</form>
     <p><a href="/Cadastro">Não possui Conta? Cadastre-se aqui! </a></p>
   </div>
 
