@@ -10,7 +10,9 @@
 </head>
 
 <body>
-
+<a href="{{ route('home') }}" class="logo-link">
+    <img src="{{ asset('images/King1.png') }}" alt="Logo" class="logo-img">
+</a>
 
     <div class="page">
         <form class="formLogin" action="{{url('/Contato/inserir')}}" method="post">

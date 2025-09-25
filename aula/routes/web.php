@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('/Contato', function () {
+    return view('Contato');
+})->name('Contato');
+
 // Formulário de login (GET)
 Route::get('/Login', function () {
     return view('Form');

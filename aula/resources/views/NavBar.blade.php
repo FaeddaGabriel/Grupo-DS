@@ -18,7 +18,7 @@
         <li><a href="/Contato">Contato</a></li>
 
         @guest
-        <li><a href="/Cadastro">Cadastrar-se</a></li>
+        <li><a href="/Cadastro">Cadastrar</a></li>
         <li><a href="/Login">Login</a></li>
         @endguest
 

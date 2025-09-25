@@ -109,3 +109,15 @@ body {
     background-color: #0077FF;
     color: #fff;
 }
+.logo-link {
+    display: block;
+    padding: 10px;
+    position: absolute; 
+    top: 0;
+    left: 100px; 
+}
+
+.logo-img {
+    height: 120px; 
+    width: auto;
+}
