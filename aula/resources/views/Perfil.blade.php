@@ -29,7 +29,6 @@
             <div>
                 <p>Nome: {{ auth()->user()->name }}</p>
                 <p>Email: {{ auth()->user()->email }}</p>
-                <p>Nível de acesso: {{ auth()->user()->nivel_acesso == 0 ? 'Admin' : 'Usuário' }}</p>
             </div>
 
             <button type="submit">Salvar</button>
