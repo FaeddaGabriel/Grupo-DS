@@ -98,22 +98,23 @@ class UsuarioController extends Controller
         return redirect('/Login');  
   }
   
-    public function storeApi(Request $request)
-    {
+public function fotoPerfil(Request $request)
+{
+    $user = auth()->user();
 
-        $image = $request->file('foto');
+    $image = $request->file('foto');
 
-        if ($image == null) {
-            $path = "";
-        } else {
-            $path = $image->store('imagesPicture', 'public');
-        }
-
-        $user->foto_perfil = $path;
-        $user->save();
-
-        return "Foto salva com sucesso!";
+    if ($image == null) {
+        $path = "";
+    } else {
+        $path = $image->store('imagesPicture', 'public');
     }
+
+    $user->foto_perfil = $path;
+    $user->save();
+
+    return "Foto salva com sucesso!";
+}
 
 
     /**

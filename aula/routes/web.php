@@ -34,11 +34,11 @@ Route::post('/Cadastro/inserir', [UsuarioController::class, 'store'])->name('cad
 
 // Rotas protegidas por autenticação e nível de acesso
 Route::middleware(['auth', 'nivel:0'])->group(function () {
-    // Página de consultas só para admin
+    // Página de consultas só para o admin
     Route::get('/Consultas', [UsuarioController::class, 'exibirConsultas'])->name('consultas');
 });
 
-// Rotas protegidas apenas para usuários comuns (opcional)
+// Rotas protegidas por autenticação e nível de acesso (usuário comum)
 Route::middleware(['auth', 'nivel:1'])->group(function () {
     Route::get('/home', function () {
         return view('welcome');
@@ -48,3 +48,10 @@ Route::middleware(['auth', 'nivel:1'])->group(function () {
 // Contato
 Route::get('/Contato', 'App\Http\Controllers\ContatoController@exibirContato');
 Route::post('/Contato/inserir', 'App\Http\Controllers\ContatoController@store');
+
+// Perfil do usuário
+Route::get('/Perfil', function () {
+    return view('Perfil');
+});
+
+Route::middleware('auth')->put('/perfil/foto', [UsuarioController::class, 'fotoPerfil'])->name('perfil.foto');
