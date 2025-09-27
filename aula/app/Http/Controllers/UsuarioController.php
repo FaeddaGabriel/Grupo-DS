@@ -102,20 +102,19 @@ class UsuarioController extends Controller
   
 public function fotoPerfil(Request $request)
 {
-    $user = auth()->user();
+    $user = $request->user() ?? auth()->user();
 
     $image = $request->file('foto');
 
-    if ($image == null) {
-        $path = "";
-    } else {
+    if ($image) {
         $path = $image->store('imagesPicture', 'public');
+        $user->foto_perfil = $path;
+        $user->save();
     }
 
-    $user->foto_perfil = $path;
-    $user->save();
-
     return view('Perfil');
+    //embaixo é pra retornar a foto em json, mostra no postman se tirar o return em cima
+    //return response()->json(['foto' => $user->foto_perfil]);
 }
 
 

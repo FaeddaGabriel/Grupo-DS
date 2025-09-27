@@ -19,4 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('auth:sanctum')->put('/perfil/foto', [UsuarioController::class, 'fotoPerfil']);
+Route::middleware('auth:sanctum')->post('/perfil/foto', [UsuarioController::class, 'fotoPerfil']);
