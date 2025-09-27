@@ -115,7 +115,7 @@ public function fotoPerfil(Request $request)
     $user->foto_perfil = $path;
     $user->save();
 
-    return "Foto salva com sucesso!";
+    return view('Perfil');
 }
 
 
