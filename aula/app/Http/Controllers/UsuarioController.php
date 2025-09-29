@@ -112,7 +112,7 @@ public function fotoPerfil(Request $request)
         $user->save();
     }
 
-    return view('Perfil');
+     return redirect()->route('perfil');
     //embaixo é pra retornar a foto em json, mostra no postman se tirar o return em cima
     //return response()->json(['foto' => $user->foto_perfil]);
 }
