@@ -27,6 +27,11 @@ Route::get('/Login', function () {
     return view('Form');
 })->name('login');
 
+// Perfil público
+Route::get('/Perfil', function () {
+    return view('Perfil');
+})->name('Perfil');
+
 // Processa o login (POST)
 Route::post('/Login', [UsuarioController::class, 'fazerLogin'])->name('login.process');
 
