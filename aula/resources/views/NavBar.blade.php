@@ -15,7 +15,6 @@
             </ul>
         </li>
     <li><a href="/Contato">Contato</a></li>
-        <li><a href="/Perfil">Perfil</a></li>
         
         @guest
         <li><a href="/Cadastro">Cadastrar</a></li>
@@ -24,9 +23,9 @@
         @endguest
 
         @auth
+        <li><a href="/Perfil">Perfil</a></li>
         <li class="cadastro">
             <form id="logout-form" action="{{ route('fazerLogOut') }}" method="POST" style="display: none;">
-
             
                 @csrf
             </form>

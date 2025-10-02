@@ -100,26 +100,27 @@ class UsuarioController extends Controller
         return redirect('/Login');  
   }
   
-public function fotoPerfil(Request $request)
-{
-    $user = $request->user() ?? auth()->user();
-
-    $image = $request->file('foto');
-
-    if ($image) {
-        $path = $image->store('imagesPicture', 'public');
-        $user->foto_perfil = $path;
-        $user->save();
-
-        // Mensagem de sucesso
-        return redirect()->route('perfil')->with('success', 'Modificações salvas com sucesso!');
-    }
-
-    // se nenhuma imagem tenha sido enviada
-    return redirect()->route('perfil')->with('success', 'Nenhuma imagem foi enviada.');
-    //embaixo é pra retornar a foto em json, mostra no postman se tirar o return em cima
-    //return response()->json(['foto' => $user->foto_perfil]);
-}
+  public function fotoPerfil(Request $request)
+  {
+      $user = $request->user() ?? auth()->user();
+  
+      // Validação para garantir que o arquivo é uma imagem válida
+      $request->validate([
+          'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // max 2MB
+      ]);
+  
+      $image = $request->file('foto');
+  
+      if ($image) {
+          $path = $image->store('imagesPicture', 'public');
+          $user->foto_perfil = $path;
+          $user->save();
+  
+          return redirect()->route('perfil')->with('success', 'Modificações salvas com sucesso!');
+      }
+  
+      return redirect()->route('perfil')->with('error', 'Nenhuma imagem foi enviada.');
+  }
 
      
 
