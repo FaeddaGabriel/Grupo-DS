@@ -6,39 +6,45 @@
     <link rel="stylesheet" href="css/Perfil.css">
 </head>
 <body>
+    <a href="{{ route('home') }}" class="logo-link">
+    <img src="{{ asset('images/King1.png') }}" alt="Logo" class="logo-img">
+</a>
     <div class="container">
         <h2>Perfil do Usuário</h2>
+
+               @if(session('success'))
+    <div class="alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+
+
+        <!-- Imagem de perfil no topo -->
+        <div class="profile-picture-wrapper">
+            @if(auth()->check() && auth()->user()->foto_perfil)
+                <img src="{{ asset('storage/' . auth()->user()->foto_perfil) }}" alt="Foto de Perfil" class="profile-picture">
+            @else
+                <div class="profile-picture no-photo">Sem foto</div>
+            @endif
+        </div>
 
         <form action="{{ route('perfil.foto') }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
-            <!-- Upload de Foto com estilo personalizado -->
+            <!-- Upload de Foto -->
             <div class="custom-file-upload">
                 <label for="foto">Foto de Perfil</label>
-
-                <!-- Botão estilizado -->
                 <label class="file-label" for="foto">Escolher arquivo</label>
                 <input type="file" name="foto" id="foto" class="hidden-file">
-
-                <!-- Texto com nome do arquivo -->
                 <span id="file-name">Nenhum arquivo escolhido</span>
             </div>
 
-            <!-- Exibição da foto atual -->
-            <div>
-                <p>Foto atual:</p>
-                @if(auth()->check() && auth()->user()->foto_perfil)
-                    <img src="{{ asset('storage/' . auth()->user()->foto_perfil) }}" alt="Foto de Perfil" width="120">
-                @else
-                    <img src="{{ asset('storage/imagesPicture/default.png') }}" alt="Sem foto" width="120">
-                @endif
-            </div>
-
             <!-- Informações do usuário -->
-            <div>
-                <p>Nome: {{ auth()->user()->name }}</p>
-                <p>Email: {{ auth()->user()->email }}</p>
+            <div class="user-info">
+                <p><strong>Nome:</strong> {{ auth()->user()->name }}</p>
+                <p><strong>Email:</strong> {{ auth()->user()->email }}</p>
             </div>
 
             <!-- Botão de envio -->

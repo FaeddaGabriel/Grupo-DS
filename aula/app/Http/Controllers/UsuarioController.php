@@ -110,12 +110,17 @@ public function fotoPerfil(Request $request)
         $path = $image->store('imagesPicture', 'public');
         $user->foto_perfil = $path;
         $user->save();
+
+        // Mensagem de sucesso
+        return redirect()->route('perfil')->with('success', 'Modificações salvas com sucesso!');
     }
 
-    return view('Perfil');
-    //embaixo é pra retornar a foto em json, mostra no postman se tirar o return em cima
-    //return response()->json(['foto' => $user->foto_perfil]);
+    // Caso nenhuma imagem tenha sido enviada
+    return redirect()->route('perfil')->with('success', 'Nenhuma imagem foi enviada.');
 }
+
+     
+
 
 
     /**
