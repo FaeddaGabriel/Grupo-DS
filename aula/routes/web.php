@@ -46,6 +46,10 @@ Route::post('/Cadastro/inserir', [UsuarioController::class, 'store'])->name('cad
 Route::middleware(['auth', 'nivel:0'])->group(function () {
     // Página de consultas só para o admin
     Route::get('/Consultas', [UsuarioController::class, 'exibirConsultas'])->name('consultas');
+
+// Dashboard do admin
+Route::get('/Dashboard', [UsuarioController::class, 'dashboard'])
+    ->name('dashboard');
 });
 
 // Rotas protegidas por autenticação e nível de acesso (usuário comum)

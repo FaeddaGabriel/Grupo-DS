@@ -122,7 +122,20 @@ class UsuarioController extends Controller
       return redirect()->route('perfil')->with('error', 'Nenhuma imagem foi enviada.');
   }
 
-     
+   public function dashboard()
+{
+    $totalUsuarios = \App\Models\User::count();
+    $totalContatos = \App\Models\ContatoModel::count();
+
+    // Últimos 5 usuários
+    $usuariosRecentes = \App\Models\User::orderBy('created_at', 'desc')->take(5)->get();
+
+    // Últimos 5 contatos
+    $contatosRecentes = \App\Models\ContatoModel::orderBy('created_at', 'desc')->take(5)->get();
+
+    return view('Dashboard', compact('totalUsuarios', 'totalContatos', 'usuariosRecentes', 'contatosRecentes'));
+}
+
 
 
 
