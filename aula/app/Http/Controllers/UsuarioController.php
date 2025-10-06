@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ContatoModel;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 //Pra o login utilizar:
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -122,19 +122,65 @@ class UsuarioController extends Controller
       return redirect()->route('perfil')->with('error', 'Nenhuma imagem foi enviada.');
   }
 
-   public function dashboard()
-{
-    $totalUsuarios = \App\Models\User::count();
-    $totalContatos = \App\Models\ContatoModel::count();
+        public function dashboard()
+    {
+        // Pega o total de usuários e contatos pra mostrar nos cards.
+        $totalUsuarios = User::count();
+        $totalContatos = ContatoModel::count();
 
-    // Últimos 5 usuários
-    $usuariosRecentes = \App\Models\User::orderBy('created_at', 'desc')->take(5)->get();
+        // Busca os 5 usuários mais recentes que se cadastraram.
+        $usuariosRecentes = User::select('id', 'name', 'email', 'nivel_acesso', 'created_at')
+            ->latest()
+            ->take(5)
+            ->get();
 
-    // Últimos 5 contatos
-    $contatosRecentes = \App\Models\ContatoModel::orderBy('created_at', 'desc')->take(5)->get();
+        // Pega as 5 últimas mensagens de contato que chegaram.
+        $contatosRecentes = ContatoModel::select('nomeContato as nome', 'emailContato as email', 'mensagemContato as mensagem', 'created_at')
+            ->latest()
+            ->take(5)
+            ->get();
+        
+        // Agora deixa preparado tudo que a galera do front vai precisar.
 
-    return view('Dashboard', compact('totalUsuarios', 'totalContatos', 'usuariosRecentes', 'contatosRecentes'));
-}
+        // Deixa a lista de usuários prontinha, já tratando o "Admin/Usuário".
+        $listaUsuarios = $usuariosRecentes->map(function ($usuario) {
+            return (object) [
+                'nome' => $usuario->name,
+                'email' => $usuario->email,
+                'tipo' => $usuario->nivel_acesso == 0 ? 'Admin' : 'Usuário',
+            ];
+        });
+
+        // Prepara a lista de contatos, já cortando a mensagem pra não ficar gigante.
+        $listaContatos = $contatosRecentes->map(function ($contato) {
+            return (object) [
+                'nome' => $contato->nome,
+                'email' => $contato->email,
+                'mensagem' => \Illuminate\Support\Str::limit($contato->mensagem, 100),
+            ];
+        });
+
+        // Monta os dados pro gráfico de usuários.
+        $labelsGraficoUsuarios = $usuariosRecentes->pluck('name');
+        $dadosGraficoUsuarios = $usuariosRecentes->pluck('id');
+
+        // Monta os dados pro gráfico de contatos.
+        $labelsGraficoContatos = $contatosRecentes->pluck('nome');
+        $dadosGraficoContatos = $contatosRecentes->map(fn($item, $key) => 5 - $key);
+
+        // Manda tudo pra view. ksksk se lasca ai povo do front
+        return view('Dashboard', compact(
+            'totalUsuarios',
+            'totalContatos',
+            'listaUsuarios',
+            'listaContatos',
+            'labelsGraficoUsuarios',
+            'dadosGraficoUsuarios',
+            'labelsGraficoContatos',
+            'dadosGraficoContatos'
+        ));
+    }
+
 
 
 
