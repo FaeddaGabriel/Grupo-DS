@@ -70,7 +70,7 @@ class UsuarioController extends Controller
 
     // redireciona conforme nivel_acesso, com mensagem de sucesso
     if ($user->nivel_acesso == 0) {
-        return redirect()->route('consultas')
+        return redirect()->route('dashboard')
                          ->with('success', 'Login realizado com sucesso!'); // admin
     } else {
         return redirect()->route('home')
