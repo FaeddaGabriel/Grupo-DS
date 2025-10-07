@@ -1,0 +1,148 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+    color: #333;
+    padding: 2rem;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Título */
+h2 {
+    font-size: 2.2rem;
+    color: #0077FF;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+/* Cards */
+.dashboard-cards {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.card {
+    flex: 1;
+    min-width: 200px;
+    background: #f8faff;
+    padding: 1.5rem;
+    border-left: 6px solid #0077FF;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease;
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+}
+
+.card h4 {
+    font-size: 1.2rem;
+    color: #3ca7ff;
+    margin-bottom: 0.5rem;
+}
+
+.card p {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #0077FF;
+}
+
+/* Divisor */
+hr {
+    border: none;
+    height: 1px;
+    background-color: #ddd;
+    margin: 2rem 0;
+}
+
+/* Gráficos */
+.dashboard-charts {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.dashboard-charts > div {
+    flex: 1;
+    min-width: 300px;
+    background-color: #f5faff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.dashboard-charts h3 {
+    color: #0077FF;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+/* Listas */
+.dashboard-lists {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.dashboard-lists > div {
+    flex: 1;
+    min-width: 300px;
+    background-color: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.dashboard-lists h3 {
+    color: #0077FF;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.dashboard-lists ul {
+    list-style: none;
+}
+
+.dashboard-lists li {
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e0e0e0;
+    line-height: 1.5;
+    color: #444;
+}
+
+.dashboard-lists li strong {
+    color: #3ca7ff;
+}
+
+.dashboard-lists li span {
+    display: block;
+    margin-top: 4px;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .dashboard-cards,
+    .dashboard-charts,
+    .dashboard-lists {
+        flex-direction: column;
+    }
+}

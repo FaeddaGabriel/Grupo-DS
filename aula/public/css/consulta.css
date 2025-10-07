@@ -6,27 +6,25 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    /* Fundo: originalmente um gradiente de preto para vermelho, agora de branco para azul */
     background: linear-gradient(to bottom, #ffffff, #479cfd);
-    /* Texto: originalmente branco, agora preto */
     color: #000000;
     line-height: 1.6;
 }
 
 /* Header */
 .header {
-    /* Originalmente: background-color: #8B0000 (vermelho escuro) → agora: azul */
     background-color: #0077FF;
     padding: 20px;
-    text-align: center;
-    /* Border-bottom originalmente #BF0000 → agora azul */
     border-bottom: 3px solid #0077FF;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza o conteúdo da header */
 }
 
 .header h1 {
-    /* Originalmente branco, agora preto */
     color: #000000;
-    margin: 0;
+    margin-top: 10px;
+    font-weight: 600;
 }
 
 /* Container principal */
@@ -39,21 +37,16 @@ body {
 /* Seção de consulta */
 .consulta {
     margin-bottom: 40px;
-    /* Fundo originalmente preto (#1A1A1A) → agora branco */
     background: #ffffff;
     padding: 20px;
-    /* Border originalmente vermelho (#BF0000) → agora azul */
     border: 2px solid #0077FF;
     border-radius: 8px;
-    /* Box-shadow originalmente com vermelho → agora com azul (usando rgba com azul) */
     box-shadow: 0 4px 8px rgba(0, 0, 255, 0.5);
 }
 
 .consulta h2 {
     margin-bottom: 20px;
-    /* Cor originalmente #FF3333 (vermelho intenso) → agora azul */
     color: #0077FF;
-    /* Border-bottom originalmente vermelho → agora azul */
     border-bottom: 2px solid #0077FF;
     padding-bottom: 10px;
 }
@@ -69,20 +62,17 @@ body {
 }
 
 .table thead {
-    /* Originally #BF0000 → agora azul */
     background-color: #0077FF;
 }
 
 .table thead th {
     padding: 12px;
     text-align: left;
-    /* Originalmente branco → agora preto */
     color: #000000;
     font-weight: bold;
 }
 
 .table tbody tr {
-    /* Border-bottom originalmente vermelho escuro (#8B0000) → agora azul */
     border-bottom: 1px solid #0077FF;
 }
 
@@ -91,43 +81,44 @@ body {
 }
 
 .table tbody tr:nth-child(even) {
-    /* Originalmente #600000 (vermelho escuro) → agora azul */
     background-color: #0077FF;
 }
 
 .table tbody tr:hover {
-    /* Originalmente #FF0000 (vermelho vivo) → agora azul */
     background-color: #0077FF;
 }
 
 /* Link de retorno */
 .back-link {
+    max-width: 400px;  /* Limita largura para não estourar */
+    margin: 20px auto;
     text-align: center;
-    margin: 20px 0;
 }
 
 .back-link a {
-    text-decoration: none;
-    /* Originalmente branco → agora preto */
-    color: #000000;
-    font-weight: bold;
-    /* Border originalmente #FF0000 → agora azul */
-    border: 2px solid #0077FF;
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto;
+    text-align: center;
+    box-sizing: border-box;
     padding: 10px 20px;
     border-radius: 4px;
+    border: 2px solid #0077FF;
+    font-weight: bold;
+    color: #000000;
+    background-color: #ffffff;
     transition: background-color 0.3s, color 0.3s;
+    text-decoration: none;
 }
 
 .back-link a:hover {
-    /* Background: originalmente vermelho vivo (#FF0000) → azul */
     background-color: #0077FF;
-    /* Texto originalmente #1A1A1A (praticamente preto) → agora branco */
     color: #ffffff;
 }
 
 /* Footer */
 .footer {
-    /* Background originalmente #8B0000 → agora azul */
     background-color: #0077FF;
     text-align: center;
     padding: 15px;
@@ -135,4 +126,105 @@ body {
     bottom: 0;
     width: 100%;
     font-size: 0.9em;
+}
+
+/* RESPONSIVO */
+
+/* Tablets e pequenos desktops */
+@media (max-width: 992px) {
+    .container {
+        width: 95%;
+        margin: 20px auto;
+    }
+
+    .consulta {
+        padding: 15px;
+        margin-bottom: 30px;
+    }
+
+    .header {
+        padding: 15px;
+    }
+
+    .header h1 {
+        font-size: 1.8rem;
+    }
+
+    .table thead th, 
+    .table tbody td {
+        padding: 10px;
+    }
+
+    .back-link a {
+        padding: 8px 16px;
+        font-size: 0.9em;
+    }
+
+    .footer {
+        font-size: 0.85em;
+        padding: 12px;
+    }
+}
+
+/* Smartphones */
+@media (max-width: 600px) {
+    .header h1 {
+        font-size: 1.4rem;
+    }
+
+    .consulta h2 {
+        font-size: 1.2rem;
+    }
+
+    .table thead {
+        display: none; /* Esconde cabeçalho para melhor visualização em tela pequena */
+    }
+
+    .table tbody tr {
+        display: block;
+        margin-bottom: 15px;
+        border: 2px solid #0077FF;
+        border-radius: 8px;
+        padding: 10px;
+        background: #ffffff;
+        box-shadow: 0 2px 5px rgba(0,0,255,0.2);
+    }
+
+    .table tbody td {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 10px;
+        border: none;
+        border-bottom: 1px solid #0077FF;
+        position: relative;
+        text-align: right;
+    }
+
+    .table tbody td:last-child {
+        border-bottom: none;
+    }
+
+    /* Usar o data-label para o texto do lado esquerdo */
+    .table tbody td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        font-weight: bold;
+        color: #0077FF;
+        text-align: left;
+    }
+
+    .back-link a {
+        padding: 10px 15px;
+        font-size: 1em;
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        max-width: none;
+    }
+    
+    .footer {
+        font-size: 0.8em;
+        padding: 10px;
+    }
 }
