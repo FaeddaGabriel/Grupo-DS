@@ -46,7 +46,7 @@ class ContatoController extends Controller
         $Contato->mensagemContato = $request->txContMsg;
         $Contato->save();
 
-		return redirect()->action('App\Http\Controllers\ContatoController@exibirContato');
+		return redirect()->action([ContatoController::class, 'exibirContato']) ->with('success', 'Mensagem enviada com sucesso!');
     }
 
     /**

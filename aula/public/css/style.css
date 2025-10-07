@@ -579,9 +579,9 @@ footer {
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #ffffff;
-    color: #333;
-    border: 1px solid #ccc;
+    background-color: #d1f5d3;
+    color: #27632a;
+    border: 1px solid #b5e3b8;
     padding: 12px 20px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);

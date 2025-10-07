@@ -10,9 +10,15 @@
 </head>
 
 <body>
-<a href="{{ route('home') }}" class="logo-link">
-    <img src="{{ asset('images/King1.png') }}" alt="Logo" class="logo-img">
-</a>
+    @if(session('success'))
+        <div class="alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    <a href="{{ route('home') }}" class="logo-link">
+        <img src="{{ asset('images/King1.png') }}" alt="Logo" class="logo-img">
+    </a>
 
     <div class="page">
         <form class="formLogin" action="{{url('/Contato/inserir')}}" method="post">
@@ -29,13 +35,11 @@
 
             <label for="feedback">Fale conosco</label>
             <input type="text" id="feedback" name="txContMsg" placeholder="Escreva seu Feedback aqui" required>
-
             <br>
 
-            <button class="btn" type="submit" value=Salvar>Enviar</button>
+            <button class="btn" type="submit" value="Salvar">Enviar</button>
             <p><a href="{{ url('/') }}">Voltar</a></p>
         </form>
     </div>
-    
 </body>
 </html>
