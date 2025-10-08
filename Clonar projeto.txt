@@ -1,4 +1,4 @@
-https://github.com/Danilo-RC/Projeto-SportsKing.git
+git clone https://github.com/Danilo-RC/Projeto-SportsKing.git
 cd Grupo-DS\aula
 composer install
 cp .env.example .env 
