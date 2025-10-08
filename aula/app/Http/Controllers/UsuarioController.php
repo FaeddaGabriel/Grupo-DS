@@ -225,6 +225,96 @@ class UsuarioController extends Controller
 
 
 
+    public function analise()
+    {
+        // Consulta 1: Total de usuários por nível de acesso
+        $usuariosPorNivel = DB::select("
+            SELECT 
+                CASE 
+                    WHEN nivel_acesso = 0 THEN 'Administrador'
+                    ELSE 'Usuário Comum'
+                END as tipo_usuario,
+                COUNT(*) as total
+            FROM users
+            GROUP BY nivel_acesso
+            ORDER BY nivel_acesso
+        ");
+
+        // Consulta 2: Usuários cadastrados por mês (últimos 6 meses)
+        $usuariosPorMesRecente = DB::select("
+            SELECT 
+                DATE_FORMAT(created_at, '%Y-%m') as mes,
+                DATE_FORMAT(created_at, '%M/%Y') as mes_nome,
+                COUNT(*) as total
+            FROM users
+            WHERE created_at >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
+            GROUP BY DATE_FORMAT(created_at, '%Y-%m')
+            ORDER BY mes ASC
+        ");
+
+        // Consulta 3: Contatos por tamanho de mensagem
+        $contatosPorTamanho = DB::select("
+            SELECT 
+                CASE 
+                    WHEN LENGTH(mensagemContato) < 50 THEN 'Curta (< 50 caracteres)'
+                    WHEN LENGTH(mensagemContato) < 100 THEN 'Média (50-100 caracteres)'
+                    WHEN LENGTH(mensagemContato) < 200 THEN 'Longa (100-200 caracteres)'
+                    ELSE 'Muito Longa (> 200 caracteres)'
+                END as tamanho,
+                COUNT(*) as total
+            FROM tbcontato
+            GROUP BY tamanho
+            ORDER BY total DESC
+        ");
+
+        // Consulta 4: Média de usuários cadastrados por dia da semana
+        $usuariosPorDiaSemana = DB::select("
+            SELECT 
+                CASE DAYOFWEEK(created_at)
+                    WHEN 1 THEN 'Domingo'
+                    WHEN 2 THEN 'Segunda-feira'
+                    WHEN 3 THEN 'Terça-feira'
+                    WHEN 4 THEN 'Quarta-feira'
+                    WHEN 5 THEN 'Quinta-feira'
+                    WHEN 6 THEN 'Sexta-feira'
+                    WHEN 7 THEN 'Sábado'
+                END as dia_semana,
+                COUNT(*) as total
+            FROM users
+            GROUP BY DAYOFWEEK(created_at)
+            ORDER BY DAYOFWEEK(created_at)
+        ");
+
+        // Preparar dados para os gráficos
+        
+        // Gráfico 1: Barras - Usuários por nível
+        $grafico1Labels = [];
+        $grafico1Dados = [];
+        foreach ($usuariosPorNivel as $item) {
+            $grafico1Labels[] = $item->tipo_usuario;
+            $grafico1Dados[] = $item->total;
+        }
+
+        // Gráfico 2: Linha - Usuários por mês
+        $grafico2Labels = [];
+        $grafico2Dados = [];
+        foreach ($usuariosPorMesRecente as $item) {
+            $grafico2Labels[] = $item->mes_nome;
+            $grafico2Dados[] = $item->total;
+        }
+
+        return view('analise', compact(
+            'usuariosPorNivel',
+            'usuariosPorMesRecente',
+            'contatosPorTamanho',
+            'usuariosPorDiaSemana',
+            'grafico1Labels',
+            'grafico1Dados',
+            'grafico2Labels',
+            'grafico2Dados'
+        ));
+    }
+
     /**
      * Display the specified resource.
      *

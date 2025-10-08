@@ -56,6 +56,10 @@
             <span class="icon">📊</span>
             <span>Dashboard</span>
         </a>
+        <a href="{{ route('analise') }}" class="{{ request()->routeIs('analise') ? 'active' : '' }}">
+            <span class="icon">📈</span>
+            <span>Análise</span>
+        </a>
         <a href="#">
             <span class="icon">📋</span>
             <span>Avaliações</span>

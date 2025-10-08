@@ -79,6 +79,50 @@ Verificar se os seeders foram criados corretamente e se conseguem popular o banc
 
 ---
 
+## Testando a Tarefa 4 (Branch: feat/pagina-exercicios)
+
+### Objetivo
+Verificar se a página de análise foi criada corretamente com as 4 consultas de agregação e os 2 gráficos ECharts.
+
+### Passos para Testar
+
+1. **Verificar a estrutura de arquivos**
+   - Confirme que o arquivo `resources/views/analise.blade.php` foi criado
+   - Verifique se a rota `/analise` foi adicionada em `routes/web.php`
+   - Confirme que o método `analise()` foi adicionado em `app/Http/Controllers/UsuarioController.php`
+
+2. **Acessar a página de análise**
+   - Faça login como administrador
+   - No menu lateral, clique no novo link "Análise" (ícone 📈)
+   - Ou acesse diretamente a rota `/analise`
+
+3. **Verificar as consultas de agregação**
+   - A página deve exibir 4 tabelas com os resultados das consultas:
+     1. **Usuários por Nível de Acesso**: Mostra a quantidade de administradores e usuários comuns
+     2. **Usuários Cadastrados por Mês**: Mostra os cadastros dos últimos 6 meses
+     3. **Contatos por Tamanho de Mensagem**: Agrupa os contatos por tamanho (curta, média, longa, muito longa)
+     4. **Usuários Cadastrados por Dia da Semana**: Mostra a distribuição de cadastros por dia da semana
+
+4. **Verificar os gráficos ECharts**
+   - A página deve exibir 2 gráficos diferentes:
+     1. **Gráfico de Barras Horizontais**: Distribuição de usuários por nível de acesso
+     2. **Gráfico de Área**: Evolução de cadastros nos últimos 6 meses
+   - Os gráficos devem ser interativos (tooltips ao passar o mouse)
+   - Teste a responsividade redimensionando a janela
+
+5. **Verificar a navegação**
+   - O link "Análise" no menu lateral deve estar destacado quando na página
+   - Navegue entre Dashboard e Análise para verificar que ambas as páginas funcionam corretamente
+
+### Observações
+- Esta tarefa implementa os exercícios solicitados no PDF:
+  - ✅ Pelo menos 4 consultas com funções de agregação
+  - ✅ Pelo menos 2 gráficos de tipos diferentes usando ECharts
+- Os gráficos utilizam dados reais do banco de dados (não são estáticos)
+- As consultas utilizam funções SQL de agregação: `COUNT()`, `GROUP BY`, `DATE_FORMAT()`, `CASE WHEN`, etc.
+
+---
+
 ## Testando a Tarefa 1 (Branch: feat/dashboard-redesign)
 
 ### Objetivo
