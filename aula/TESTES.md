@@ -4,6 +4,41 @@ Este documento contém as instruções para testar cada uma das funcionalidades 
 
 ---
 
+## Testando a Tarefa 2 (Branch: refactor/estrutura-aplicacao)
+
+### Objetivo
+Verificar se a reestruturação do código foi realizada com sucesso, incluindo a criação de layouts e componentes reutilizáveis.
+
+### Passos para Testar
+
+1. **Verificar a estrutura de arquivos**
+   - Confirme que a pasta `resources/views/layouts` foi criada
+   - Verifique se existem os arquivos:
+     - `resources/views/layouts/base.blade.php`
+     - `resources/views/layouts/menu.blade.php`
+
+2. **Navegar por todas as páginas do site**
+   - Acesse a página inicial (`/`)
+   - Acesse a página de login (`/Login`)
+   - Acesse a página de cadastro (`/Cadastro`)
+   - Acesse a página de contato (`/Contato`)
+   - Acesse o dashboard (`/Dashboard`)
+
+3. **Verificar se todas as páginas continuam funcionando**
+   - Confirme que não há quebras visuais
+   - Verifique se o menu lateral aparece corretamente no dashboard
+   - Teste a navegação entre as páginas
+
+4. **Verificar a consistência do layout**
+   - O dashboard deve usar o layout base e incluir o menu lateral
+   - O menu deve ser consistente em todas as páginas que o utilizam
+
+### Observações
+- Esta tarefa focou na organização do código, não em mudanças visuais
+- O comportamento das páginas deve permanecer o mesmo
+
+---
+
 ## Testando a Tarefa 1 (Branch: feat/dashboard-redesign)
 
 ### Objetivo
@@ -43,6 +78,41 @@ Verificar se o dashboard foi modernizado com sucesso, incluindo o novo design, m
 ### Observações
 - Se não houver dados suficientes no banco, os gráficos podem aparecer vazios ou com poucos pontos
 - A Tarefa 3 criará seeders para popular o banco com dados de teste
+
+---
+
+## Testando a Tarefa 2 (Branch: refactor/estrutura-aplicacao)
+
+### Objetivo
+Verificar se a reestruturação do código foi realizada com sucesso, incluindo a criação de layouts e componentes reutilizáveis.
+
+### Passos para Testar
+
+1. **Verificar a estrutura de arquivos**
+   - Confirme que a pasta `resources/views/layouts` foi criada
+   - Verifique se existem os arquivos:
+     - `resources/views/layouts/base.blade.php`
+     - `resources/views/layouts/menu.blade.php`
+
+2. **Navegar por todas as páginas do site**
+   - Acesse a página inicial (`/`)
+   - Acesse a página de login (`/Login`)
+   - Acesse a página de cadastro (`/Cadastro`)
+   - Acesse a página de contato (`/Contato`)
+   - Acesse o dashboard (`/Dashboard`)
+
+3. **Verificar se todas as páginas continuam funcionando**
+   - Confirme que não há quebras visuais
+   - Verifique se o menu lateral aparece corretamente no dashboard
+   - Teste a navegação entre as páginas
+
+4. **Verificar a consistência do layout**
+   - O dashboard deve usar o layout base e incluir o menu lateral
+   - O menu deve ser consistente em todas as páginas que o utilizam
+
+### Observações
+- Esta tarefa focou na organização do código, não em mudanças visuais
+- O comportamento das páginas deve permanecer o mesmo
 
 ---
 
