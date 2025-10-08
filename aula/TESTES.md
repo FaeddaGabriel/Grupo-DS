@@ -39,6 +39,46 @@ Verificar se a reestruturação do código foi realizada com sucesso, incluindo 
 
 ---
 
+## Testando a Tarefa 3 (Branch: feat/dados-de-teste)
+
+### Objetivo
+Verificar se os seeders foram criados corretamente e se conseguem popular o banco de dados com dados de teste.
+
+### Passos para Testar
+
+1. **Configurar o arquivo .env**
+   - Certifique-se de que o arquivo `.env` está configurado com as credenciais corretas do banco de dados
+   - Verifique as variáveis: `DB_CONNECTION`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`
+
+2. **Executar as migrations e seeders**
+   - Execute o comando: `php artisan migrate:fresh --seed`
+   - Este comando irá:
+     - Recriar todas as tabelas do banco de dados
+     - Executar os seeders `UsuarioSeeder` e `ContatoSeeder`
+
+3. **Verificar o banco de dados**
+   - Acesse o banco de dados (via phpMyAdmin, MySQL Workbench ou linha de comando)
+   - Verifique se a tabela `users` contém aproximadamente 60 registros
+   - Verifique se a tabela `tbcontato` contém aproximadamente 120 registros
+   - Confirme que as datas de `created_at` estão distribuídas ao longo dos últimos 12 meses
+
+4. **Acessar o Dashboard**
+   - Faça login como administrador
+   - Acesse a rota `/Dashboard`
+   - Os gráficos agora devem exibir dados ricos e variados:
+     - O gráfico de linha deve mostrar a distribuição de usuários por mês
+     - O gráfico de barras deve mostrar a comparação entre usuários com e sem ocorrência
+     - Os cards de indicadores devem mostrar números realistas
+
+### Observações
+- **Importante**: O comando `migrate:fresh` irá apagar todos os dados existentes no banco
+- Se você já possui dados importantes, use apenas `php artisan db:seed` para executar os seeders
+- Os seeders criam:
+  - 60 usuários com datas variadas nos últimos 12 meses
+  - 120 contatos com mensagens de tamanhos variados (curtas, médias e longas)
+
+---
+
 ## Testando a Tarefa 1 (Branch: feat/dashboard-redesign)
 
 ### Objetivo
