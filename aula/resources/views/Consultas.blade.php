@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Consultas</title>
-  <link rel="stylesheet" href="{{ asset('css/consulta.css') }}">
+
+  <!-- CSS da página -->
+  <link rel="stylesheet" href="{{ asset('css/consulta.css') }}" />
+  <link rel="stylesheet" href="{{ asset('css/Dashboard.css') }}" />
+  <!-- CSS da Navbar (IMPORTANTE para o hambúrguer) -->
+  <link rel="stylesheet" href="{{ asset('css/ADMnavbar.css') }}" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <header class="header">
+    @include('ADMnavbar')
     <h1>Sistema de Consultas</h1>
   </header>
 
@@ -28,10 +37,10 @@
           <tbody>
             @foreach ($usuarios as $usuario)
             <tr>
-              <td>{{ $usuario->id }}</td>
-              <td>{{ $usuario->name }}</td>
-              <td>{{ $usuario->email }}</td>
-              <td>{{ $usuario->password }}</td>
+              <td data-label="ID">{{ $usuario->id }}</td>
+              <td data-label="Nome">{{ $usuario->name }}</td>
+              <td data-label="Email">{{ $usuario->email }}</td>
+              <td data-label="Senha">{{ $usuario->password }}</td>
             </tr>
             @endforeach
           </tbody>
@@ -55,10 +64,10 @@
           <tbody>
             @foreach ($contatos as $contato)
             <tr>
-              <td>{{ $contato->idContato }}</td>
-              <td>{{ $contato->nomeContato }}</td>
-              <td>{{ $contato->emailContato }}</td>
-              <td>{{ $contato->mensagemContato }}</td>
+              <td data-label="ID">{{ $contato->idContato }}</td>
+              <td data-label="Nome">{{ $contato->nomeContato }}</td>
+              <td data-label="Email">{{ $contato->emailContato }}</td>
+              <td data-label="Mensagem">{{ $contato->mensagemContato }}</td>
             </tr>
             @endforeach
           </tbody>
