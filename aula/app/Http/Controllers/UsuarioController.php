@@ -122,62 +122,102 @@ class UsuarioController extends Controller
       return redirect()->route('perfil')->with('error', 'Nenhuma imagem foi enviada.');
   }
 
-        public function dashboard()
+    public function dashboard()
     {
-        // Pega o total de usuários e contatos pra mostrar nos cards.
+        // Contadores totais para os cards
         $totalUsuarios = User::count();
         $totalContatos = ContatoModel::count();
-
-        // Busca os 5 usuários mais recentes que se cadastraram.
-        $usuariosRecentes = User::select('id', 'name', 'email', 'nivel_acesso', 'created_at')
-            ->latest()
-            ->take(5)
-            ->get();
-
-        // Pega as 5 últimas mensagens de contato que chegaram.
-        $contatosRecentes = ContatoModel::select('nomeContato as nome', 'emailContato as email', 'mensagemContato as mensagem', 'created_at')
-            ->latest()
-            ->take(5)
-            ->get();
         
-        // Agora deixa preparado tudo que a galera do front vai precisar.
+        // Contagem de usuários com ocorrência (exemplo: usuários com nível 0)
+        $usuariosComOcorrencia = User::where('nivel_acesso', 0)->count();
+        
+        // Contagem de usuários sem ocorrência (exemplo: usuários com nível 1)
+        $usuariosSemOcorrencia = User::where('nivel_acesso', 1)->count();
+        
+        // Contagem de usuários cadastrados este mês
+        $usuariosEsteMes = User::whereMonth('created_at', date('m'))
+                               ->whereYear('created_at', date('Y'))
+                               ->count();
 
-        // Deixa a lista de usuários prontinha, já tratando o "Admin/Usuário".
-        $listaUsuarios = $usuariosRecentes->map(function ($usuario) {
-            return (object) [
-                'nome' => $usuario->name,
-                'email' => $usuario->email,
-                'tipo' => $usuario->nivel_acesso == 0 ? 'Admin' : 'Usuário',
-            ];
-        });
+        // Buscar usuários agrupados por mês de criação (últimos 12 meses)
+        $usuariosPorMes = DB::select("
+            SELECT 
+                DATE_FORMAT(created_at, '%Y-%m') as mes,
+                COUNT(*) as total
+            FROM users
+            WHERE created_at >= DATE_SUB(NOW(), INTERVAL 12 MONTH)
+            GROUP BY DATE_FORMAT(created_at, '%Y-%m')
+            ORDER BY mes ASC
+        ");
 
-        // Prepara a lista de contatos, já cortando a mensagem pra não ficar gigante.
-        $listaContatos = $contatosRecentes->map(function ($contato) {
-            return (object) [
-                'nome' => $contato->nome,
-                'email' => $contato->email,
-                'mensagem' => \Illuminate\Support\Str::limit($contato->mensagem, 100),
-            ];
-        });
+        // Buscar contatos agrupados por assunto (mensagem)
+        // Como não há campo 'subject', vamos agrupar por comprimento da mensagem como exemplo
+        $contatosPorAssunto = DB::select("
+            SELECT 
+                CASE 
+                    WHEN LENGTH(mensagemContato) < 50 THEN 'Curta'
+                    WHEN LENGTH(mensagemContato) < 100 THEN 'Média'
+                    ELSE 'Longa'
+                END as assunto,
+                COUNT(*) as total
+            FROM tbcontato
+            GROUP BY assunto
+        ");
 
-        // Monta os dados pro gráfico de usuários.
-        $labelsGraficoUsuarios = $usuariosRecentes->pluck('name');
-        $dadosGraficoUsuarios = $usuariosRecentes->pluck('id');
+        // Preparar dados para os gráficos
+        $mesesLabels = [];
+        $mesesDados = [];
+        foreach ($usuariosPorMes as $item) {
+            $mesesLabels[] = $item->mes;
+            $mesesDados[] = $item->total;
+        }
 
-        // Monta os dados pro gráfico de contatos.
-        $labelsGraficoContatos = $contatosRecentes->pluck('nome');
-        $dadosGraficoContatos = $contatosRecentes->map(fn($item, $key) => 5 - $key);
+        $assuntosLabels = [];
+        $assuntosDados = [];
+        foreach ($contatosPorAssunto as $item) {
+            $assuntosLabels[] = $item->assunto;
+            $assuntosDados[] = $item->total;
+        }
 
-        // Manda tudo pra view. ksksk se lasca ai povo do front
+        // Dados para gráfico de barras comparativo (exemplo: usuários por nível de acesso)
+        $usuariosPorNivel = DB::select("
+            SELECT 
+                CASE 
+                    WHEN nivel_acesso = 0 THEN 'Fizeram Ocorrência'
+                    ELSE 'Não Fizeram Ocorrência'
+                END as categoria,
+                COUNT(*) as total
+            FROM users
+            GROUP BY categoria
+        ");
+
+        $nivelLabels = [];
+        $nivelDados = [];
+        foreach ($usuariosPorNivel as $item) {
+            $nivelLabels[] = $item->categoria;
+            $nivelDados[] = $item->total;
+        }
+
+        // Dados para gráfico de radar (análise multivariada - exemplo com dados fictícios)
+        $radarCategorias = ['Sales', 'Administration', 'Technology', 'Customer Support', 'Development', 'Marketing'];
+        $radarOrcamento = [4300, 3000, 2800, 2500, 1900, 3500];
+        $radarGastoReal = [5000, 3400, 2300, 2100, 2500, 2700];
+
         return view('Dashboard', compact(
             'totalUsuarios',
             'totalContatos',
-            'listaUsuarios',
-            'listaContatos',
-            'labelsGraficoUsuarios',
-            'dadosGraficoUsuarios',
-            'labelsGraficoContatos',
-            'dadosGraficoContatos'
+            'usuariosComOcorrencia',
+            'usuariosSemOcorrencia',
+            'usuariosEsteMes',
+            'mesesLabels',
+            'mesesDados',
+            'assuntosLabels',
+            'assuntosDados',
+            'nivelLabels',
+            'nivelDados',
+            'radarCategorias',
+            'radarOrcamento',
+            'radarGastoReal'
         ));
     }
 
