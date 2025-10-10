@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('idContato');
             $table->string('nomeContato');
             $table->string('emailContato');
-            $table->string('mensagemContato');
+            $table->text('mensagemContato');
             $table->timestamps();
         });
     }

@@ -227,50 +227,50 @@ class UsuarioController extends Controller
 
     public function analise()
     {
+        // --- MELHORIA: Usar o Query Builder do Laravel ---
+        // É mais seguro, legível e evita erros de SQL como o 'ONLY_FULL_GROUP_BY'.
+
         // Consulta 1: Total de usuários por nível de acesso
-        $usuariosPorNivel = DB::select("
-            SELECT 
-                CASE 
-                    WHEN nivel_acesso = 0 THEN 'Administrador'
-                    ELSE 'Usuário Comum'
-                END as tipo_usuario,
-                COUNT(*) as total
-            FROM users
-            GROUP BY nivel_acesso
-            ORDER BY nivel_acesso
-        ");
+        $usuariosPorNivel = DB::table('users')
+            ->select(
+                DB::raw("CASE WHEN nivel_acesso = 0 THEN 'Administrador' ELSE 'Usuário Comum' END as tipo_usuario"),
+                DB::raw("COUNT(*) as total")
+            )
+            ->groupBy('tipo_usuario', 'nivel_acesso') // Agrupa pelo alias e pelo campo original para ordenação
+            ->orderBy('nivel_acesso')
+            ->get();
 
         // Consulta 2: Usuários cadastrados por mês (últimos 6 meses)
-        $usuariosPorMesRecente = DB::select("
-            SELECT 
-                DATE_FORMAT(created_at, '%Y-%m') as mes,
-                DATE_FORMAT(created_at, '%M/%Y') as mes_nome,
-                COUNT(*) as total
-            FROM users
-            WHERE created_at >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
-            GROUP BY DATE_FORMAT(created_at, '%Y-%m')
-            ORDER BY mes ASC
-        ");
+        $usuariosPorMesRecente = DB::table('users')
+            ->select(
+                DB::raw("DATE_FORMAT(created_at, '%Y-%m') as mes"),
+                DB::raw("DATE_FORMAT(created_at, '%M/%Y') as mes_nome"),
+                DB::raw("COUNT(*) as total")
+            )
+            ->where('created_at', '>=', now()->subMonths(6))
+            ->groupBy('mes', 'mes_nome') // CORREÇÃO: Adicionado 'mes_nome' ao GROUP BY
+            ->orderBy('mes', 'ASC')
+            ->get();
 
         // Consulta 3: Contatos por tamanho de mensagem
-        $contatosPorTamanho = DB::select("
-            SELECT 
-                CASE 
+        $contatosPorTamanho = DB::table('tbcontato')
+            ->select(
+                DB::raw("CASE 
                     WHEN LENGTH(mensagemContato) < 50 THEN 'Curta (< 50 caracteres)'
                     WHEN LENGTH(mensagemContato) < 100 THEN 'Média (50-100 caracteres)'
                     WHEN LENGTH(mensagemContato) < 200 THEN 'Longa (100-200 caracteres)'
                     ELSE 'Muito Longa (> 200 caracteres)'
-                END as tamanho,
-                COUNT(*) as total
-            FROM tbcontato
-            GROUP BY tamanho
-            ORDER BY total DESC
-        ");
+                END as tamanho"),
+                DB::raw("COUNT(*) as total")
+            )
+            ->groupBy('tamanho') // CORREÇÃO: Agrupar pelo alias 'tamanho'
+            ->orderBy('total', 'DESC')
+            ->get();
 
         // Consulta 4: Média de usuários cadastrados por dia da semana
-        $usuariosPorDiaSemana = DB::select("
-            SELECT 
-                CASE DAYOFWEEK(created_at)
+        $usuariosPorDiaSemana = DB::table('users')
+            ->select(
+                DB::raw("CASE DAYOFWEEK(created_at)
                     WHEN 1 THEN 'Domingo'
                     WHEN 2 THEN 'Segunda-feira'
                     WHEN 3 THEN 'Terça-feira'
@@ -278,30 +278,23 @@ class UsuarioController extends Controller
                     WHEN 5 THEN 'Quinta-feira'
                     WHEN 6 THEN 'Sexta-feira'
                     WHEN 7 THEN 'Sábado'
-                END as dia_semana,
-                COUNT(*) as total
-            FROM users
-            GROUP BY DAYOFWEEK(created_at)
-            ORDER BY DAYOFWEEK(created_at)
-        ");
+                END as dia_semana"),
+                DB::raw("COUNT(*) as total")
+            )
+            ->groupBy('dia_semana', DB::raw("DAYOFWEEK(created_at)")) // CORREÇÃO: Agrupar pelo nome e pela função para garantir a ordem
+            ->orderBy(DB::raw("DAYOFWEEK(created_at)"), 'ASC')
+            ->get();
 
-        // Preparar dados para os gráficos
-        
+        // --- MELHORIA: Preparar dados para os gráficos usando coleções do Laravel ---
+        // O método pluck() é mais limpo e funcional para transformar coleções.
+
         // Gráfico 1: Barras - Usuários por nível
-        $grafico1Labels = [];
-        $grafico1Dados = [];
-        foreach ($usuariosPorNivel as $item) {
-            $grafico1Labels[] = $item->tipo_usuario;
-            $grafico1Dados[] = $item->total;
-        }
+        $grafico1Labels = $usuariosPorNivel->pluck('tipo_usuario');
+        $grafico1Dados = $usuariosPorNivel->pluck('total');
 
         // Gráfico 2: Linha - Usuários por mês
-        $grafico2Labels = [];
-        $grafico2Dados = [];
-        foreach ($usuariosPorMesRecente as $item) {
-            $grafico2Labels[] = $item->mes_nome;
-            $grafico2Dados[] = $item->total;
-        }
+        $grafico2Labels = $usuariosPorMesRecente->pluck('mes_nome');
+        $grafico2Dados = $usuariosPorMesRecente->pluck('total');
 
         return view('analise', compact(
             'usuariosPorNivel',
@@ -314,6 +307,7 @@ class UsuarioController extends Controller
             'grafico2Dados'
         ));
     }
+
 
     /**
      * Display the specified resource.
