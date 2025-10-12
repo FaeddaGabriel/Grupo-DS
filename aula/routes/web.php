@@ -27,11 +27,6 @@ Route::get('/Login', function () {
     return view('Form');
 })->name('login');
 
-// Perfil público
-Route::get('/Perfil', function () {
-    return view('Perfil');
-})->name('Perfil');
-
 // Processa o login (POST)
 Route::post('/Login', [UsuarioController::class, 'fazerLogin'])->name('login.process');
 
@@ -42,23 +37,21 @@ Route::post('/logout', [UsuarioController::class, 'fazerLogOut'])->name('fazerLo
 Route::get('/Cadastro', [UsuarioController::class, 'exibirCadastro'])->name('cadastro');
 Route::post('/Cadastro/inserir', [UsuarioController::class, 'store'])->name('cadastro.store');
 
-// Rotas protegidas por autenticação e nível de acesso
+// Rotas protegidas por autenticação e nível de acesso (apenas admin)
 Route::middleware(['auth', 'nivel:0'])->group(function () {
     // Página de consultas só para o admin
     Route::get('/Consultas', [UsuarioController::class, 'exibirConsultas'])->name('consultas');
 
-// Dashboard do admin
-Route::get('/Dashboard', [UsuarioController::class, 'dashboard'])
-    ->name('dashboard');
+    // Dashboard do admin
+    Route::get('/Dashboard', [UsuarioController::class, 'dashboard'])->name('dashboard');
 
     // Página de exercícios
-    Route::get('/exercicio', [UsuarioController::class, 'exercicio'])
-        ->name('exercicio');
+    Route::get('/exercicio', [UsuarioController::class, 'exercicio'])->name('exercicio');
 });
 
-// Rotas protegidas por autenticação e nível de acesso (usuário comum)
-Route::middleware(['auth', 'nivel:1'])->group(function () {
-    // Página inicial protegida para usuário comum
+// Rotas acessíveis por autenticação e nível de acesso (admin e usuário comum)
+Route::middleware(['auth', 'nivel:0,1'])->group(function () {
+    // Página inicial protegida
     Route::get('/home', function () {
         return view('welcome');
     })->name('home.protected');
