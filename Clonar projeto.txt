@@ -1,5 +1,5 @@
-git clone https://github.com/Danilo-RC/Projeto-SportsKing.git
-cd Projeto-SportsKing\aula
+git clone https://github.com/FaeddaGabriel/Grupo-DS.git
+cd Grupo-DS\aula
 composer install
 cp .env.example .env 
 php artisan key:generate
