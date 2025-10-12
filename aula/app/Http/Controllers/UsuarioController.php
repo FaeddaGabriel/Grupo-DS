@@ -239,16 +239,13 @@ class UsuarioController extends Controller
 
     public function exercicio()
     {
-        // --- MELHORIA: Usar o Query Builder do Laravel ---
-        // É mais seguro, legível e evita erros de SQL como o 'ONLY_FULL_GROUP_BY'.
-
         // Consulta 1: Total de usuários por nível de acesso
         $usuariosPorNivel = DB::table('users')
             ->select(
                 DB::raw("CASE WHEN nivel_acesso = 0 THEN 'Administrador' ELSE 'Usuário Comum' END as tipo_usuario"),
                 DB::raw("COUNT(*) as total")
             )
-            ->groupBy('tipo_usuario', 'nivel_acesso') // Agrupa pelo alias e pelo campo original para ordenação
+            ->groupBy('tipo_usuario', 'nivel_acesso')
             ->orderBy('nivel_acesso')
             ->get();
 
@@ -260,23 +257,30 @@ class UsuarioController extends Controller
                 DB::raw("COUNT(*) as total")
             )
             ->where('created_at', '>=', now()->subMonths(6))
-            ->groupBy('mes', 'mes_nome') // CORREÇÃO: Adicionado 'mes_nome' ao GROUP BY
+            ->groupBy('mes', 'mes_nome')
             ->orderBy('mes', 'ASC')
             ->get();
 
-        // Consulta 3: Contatos por tamanho de mensagem
+        // Consulta 3: Contatos agrupados por tamanho da mensagem
         $contatosPorTamanho = DB::table('tbcontato')
             ->select(
                 DB::raw("CASE 
                     WHEN LENGTH(mensagemContato) < 50 THEN 'Curta (< 50 caracteres)'
-                    WHEN LENGTH(mensagemContato) < 100 THEN 'Média (50-100 caracteres)'
-                    WHEN LENGTH(mensagemContato) < 200 THEN 'Longa (100-200 caracteres)'
+                    WHEN LENGTH(mensagemContato) >= 50 AND LENGTH(mensagemContato) < 100 THEN 'Média (50-100 caracteres)'
+                    WHEN LENGTH(mensagemContato) >= 100 AND LENGTH(mensagemContato) < 200 THEN 'Longa (100-200 caracteres)'
                     ELSE 'Muito Longa (> 200 caracteres)'
                 END as tamanho"),
                 DB::raw("COUNT(*) as total")
             )
-            ->groupBy('tamanho') // CORREÇÃO: Agrupar pelo alias 'tamanho'
-            ->orderBy('total', 'DESC')
+            ->groupBy('tamanho')
+            ->orderBy(DB::raw("
+                CASE
+                    WHEN tamanho = 'Curta (< 50 caracteres)' THEN 1
+                    WHEN tamanho = 'Média (50-100 caracteres)' THEN 2
+                    WHEN tamanho = 'Longa (100-200 caracteres)' THEN 3
+                    ELSE 4
+                END
+            "), 'ASC')
             ->get();
 
         // Consulta 4: Média de usuários cadastrados por dia da semana
@@ -293,18 +297,13 @@ class UsuarioController extends Controller
                 END as dia_semana"),
                 DB::raw("COUNT(*) as total")
             )
-            ->groupBy('dia_semana', DB::raw("DAYOFWEEK(created_at)")) // CORREÇÃO: Agrupar pelo nome e pela função para garantir a ordem
+            ->groupBy('dia_semana', DB::raw("DAYOFWEEK(created_at)"))
             ->orderBy(DB::raw("DAYOFWEEK(created_at)"), 'ASC')
             ->get();
 
-        // --- MELHORIA: Preparar dados para os gráficos usando coleções do Laravel ---
-        // O método pluck() é mais limpo e funcional para transformar coleções.
-
-        // Gráfico 1: Barras - Usuários por nível
+        // Dados para as tabelas
         $grafico1Labels = $usuariosPorNivel->pluck('tipo_usuario');
         $grafico1Dados = $usuariosPorNivel->pluck('total');
-
-        // Gráfico 2: Linha - Usuários por mês
         $grafico2Labels = $usuariosPorMesRecente->pluck('mes_nome');
         $grafico2Dados = $usuariosPorMesRecente->pluck('total');
 

@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
 </head>
 <body>
-    @include('layouts.menu')
+    @include('layouts.menu' )
 
     <div id="analise-root">
         <div class="main-content">
@@ -18,11 +18,11 @@
                 <p>Exercícios do PDF com consultas de agregação e gráficos ECharts</p>
             </div>
 
-            <!-- Seção de Resultados das Consultas -->
+            <!-- Seção de Resultados das Consultas (Dados Dinâmicos) -->
             <div style="margin-bottom: 30px;">
-                <h2 style="font-size: 24px; color: #2d3748; margin-bottom: 20px;">📊 Resultados das Consultas de Agregação</h2>
+                <h2 style="font-size: 24px; color: #2d3748; margin-bottom: 20px;">📊 Consultas de Agregação</h2>
                 
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 20px;">
                     <!-- Consulta 1: Usuários por Nível -->
                     <div class="card" style="padding: 20px;">
                         <h3 style="font-size: 16px; color: #4a5568; margin-bottom: 15px; font-weight: 600;">1. Usuários por Nível de Acesso</h3>
@@ -114,13 +114,10 @@
                 <h2 style="font-size: 24px; color: #2d3748; margin-bottom: 20px;">📈 Gráficos de Visualização</h2>
                 
                 <div class="charts-grid">
-                    <!-- Gráfico 1: Barras Horizontais - Usuários por Nível -->
                     <div class="chart-container">
                         <h3>Distribuição de Usuários por Nível de Acesso</h3>
                         <div id="graficoBarrasHorizontal" class="chart"></div>
                     </div>
-
-                    <!-- Gráfico 2: Área - Usuários por Mês -->
                     <div class="chart-container">
                         <h3>Evolução de Cadastros (Últimos 6 Meses)</h3>
                         <div id="graficoArea" class="chart"></div>
@@ -130,96 +127,56 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <script>
-        // Gráfico 1: Barras Horizontais - Usuários por Nível
+        // Gráfico 1: Barras Horizontais - Usuários por Nível (DADOS ESTÁTICOS)
         var chartBarrasHorizontal = echarts.init(document.getElementById('graficoBarrasHorizontal'));
         var optionBarrasHorizontal = {
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    type: 'shadow'
-                }
-            },
-            grid: {
-                left: '20%'
-            },
-            xAxis: {
-                type: 'value',
-                name: 'Quantidade'
-            },
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            grid: { left: '20%' },
+            xAxis: { type: 'value', name: 'Quantidade' },
             yAxis: {
                 type: 'category',
-                data: @json($grafico1Labels)
+                data: ['Usuário Comum', 'Administrador'] // Labels estáticos
             },
             series: [{
                 name: 'Total de Usuários',
                 type: 'bar',
-                data: @json($grafico1Dados),
+                data: [50, 12], // Dados numéricos estáticos
                 itemStyle: {
                     color: function(params) {
                         var colors = ['#4299e1', '#48bb78'];
                         return colors[params.dataIndex % colors.length];
                     }
                 },
-                label: {
-                    show: true,
-                    position: 'right',
-                    formatter: '{c}'
-                }
+                label: { show: true, position: 'right', formatter: '{c}' }
             }]
         };
         chartBarrasHorizontal.setOption(optionBarrasHorizontal);
 
-        // Gráfico 2: Área - Usuários por Mês
+        // Gráfico 2: Área - Usuários por Mês (DADOS ESTÁTICOS)
         var chartArea = echarts.init(document.getElementById('graficoArea'));
         var optionArea = {
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    type: 'cross'
-                }
-            },
+            tooltip: { trigger: 'axis', axisPointer: { type: 'cross' } },
             xAxis: {
                 type: 'category',
-                data: @json($grafico2Labels),
+                data: ['Maio/2025', 'Junho/2025', 'Julho/2025', 'Agosto/2025', 'Setembro/2025', 'Outubro/2025'], // Labels estáticos
                 boundaryGap: false,
-                axisLabel: {
-                    rotate: 45
-                }
+                axisLabel: { rotate: 45 }
             },
-            yAxis: {
-                type: 'value',
-                name: 'Usuários'
-            },
+            yAxis: { type: 'value', name: 'Usuários' },
             series: [{
                 name: 'Cadastros',
                 type: 'line',
-                data: @json($grafico2Dados),
+                data: [8, 15, 11, 20, 14, 25], // Dados numéricos estáticos
                 smooth: true,
                 areaStyle: {
                     color: {
-                        type: 'linear',
-                        x: 0,
-                        y: 0,
-                        x2: 0,
-                        y2: 1,
-                        colorStops: [{
-                            offset: 0,
-                            color: 'rgba(72, 187, 120, 0.8)'
-                        }, {
-                            offset: 1,
-                            color: 'rgba(72, 187, 120, 0.1)'
-                        }]
+                        type: 'linear', x: 0, y: 0, x2: 0, y2: 1,
+                        colorStops: [{ offset: 0, color: 'rgba(72, 187, 120, 0.8)' }, { offset: 1, color: 'rgba(72, 187, 120, 0.1)' }]
                     }
                 },
-                lineStyle: {
-                    color: '#48bb78',
-                    width: 3
-                },
-                itemStyle: {
-                    color: '#48bb78'
-                }
+                lineStyle: { color: '#48bb78', width: 3 },
+                itemStyle: { color: '#48bb78' }
             }]
         };
         chartArea.setOption(optionArea);
