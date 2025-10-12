@@ -16,7 +16,7 @@
   <div id="dashboard-root">
     <div class="main-content">
       <div class="header">
-          <h1>Painel Administrativo</h1>
+          <h1>Dashboard</h1>
           <p>Visão geral do sistema e análise de dados</p>
       </div>
 

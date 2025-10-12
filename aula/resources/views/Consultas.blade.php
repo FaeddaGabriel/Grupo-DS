@@ -17,6 +17,7 @@
     <div class="main-content">
       <div class="header">
           <h1>Sistema de Consultas</h1>
+          <p>Visualize os dados de usuários e contatos</p>
       </div>
 
       <main>
@@ -73,10 +74,6 @@
                   </table>
               </div>
           </section>
-
-          <div class="back-link">
-              <a href="{{ url('/') }}">Voltar</a>
-          </div>
       </main>
     </div>
   </div>

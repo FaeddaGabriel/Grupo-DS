@@ -23,6 +23,9 @@
         @endguest
 
         @auth
+        @if (Auth::user()->nivel_acesso == 0)
+        <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+        @endif
         <li><a href="/Perfil">Perfil</a></li>
         <li class="cadastro">
             <form id="logout-form" action="{{ route('fazerLogOut') }}" method="POST" style="display: none;">

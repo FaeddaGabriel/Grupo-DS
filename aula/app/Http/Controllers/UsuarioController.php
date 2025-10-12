@@ -86,18 +86,26 @@ class UsuarioController extends Controller
 
     public function store(Request $request)
     {
-        $usuario = new User(); //usuario é um objeto (da pra por qualquer nome)
-        
-        $usuario->name = $request->txNome; //"NomeUsuario" é a coluna da tabela agora o "$Usuario" é o objeto, txNome é o mesmo que vai estar na view pra salvar, funciona tipo id
-        $usuario->email = $request->txEmail;
-        $usuario->password = Hash::make($request->txSenha);  
-        $usuario->nivel_acesso = 1; // 0 = admin | 1 = usuário comum      
-        $usuario->save();
+        $request->validate([
+            'txNome' => 'required|string|max:255',
+            'txEmail' => 'required|string|email|max:255|unique:users,email',
+            'txSenha' => 'required|string|min:3',
+            'txSexo' => 'required|string',
+        ]);
+
+        // Ele funciona em conjunto com a propriedade '$fillable' no Model 'User'.
+        User::create([
+            'name' => $request->txNome, //"NomeUsuario" é a coluna da tabela agora o "$Usuario" é o objeto, txNome é o mesmo que vai estar na view pra salvar, funciona tipo id
+            'email' => $request->txEmail,
+            'sexo' => $request->txSexo,
+            'password' => Hash::make($request->txSenha),  
+            'nivel_acesso' => 1, // 0 = admin | 1 = usuário comum      
+        ]);
         
         //Loga o usuário automaticamente após o cadastro
         //Auth::login($usuario);
 
-        return redirect('/Login');  
+        return redirect('/Login'); 
   }
   
   public function fotoPerfil(Request $request)

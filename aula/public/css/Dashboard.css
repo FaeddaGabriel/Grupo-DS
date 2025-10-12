@@ -1,4 +1,4 @@
-/* Reset */
+/* Reset e Padrões Globais */
 * {
     margin: 0;
     padding: 0;
@@ -9,153 +9,24 @@
 body {
     background-color: #f5f5f5;
     color: #333;
-    /* Remova o padding para tela cheia */
-    padding: 0;
     min-height: 100vh;
     width: 100vw;
     overflow-x: hidden;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* Título */
-h2 {
-    font-size: 2.2rem;
-    color: #0077ff;
-    margin-bottom: 2rem;
-    font-weight: 600;
-}
-
-/* Cards */
-.dashboard-cards {
-    display: flex;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-    margin-bottom: 2rem;
-}
-
-.card {
-    flex: 1;
-    min-width: 200px;
-    background: #f8faff;
-    padding: 1.5rem;
-    border-left: 6px solid #0077ff;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease;
-    text-align: center;
-}
-
-.card:hover {
-    transform: translateY(-4px);
-}
-
-.card h4 {
-    font-size: 1.2rem;
-    color: #3ca7ff;
-    margin-bottom: 0.5rem;
-}
-
-.card p {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #0077ff;
-}
-
-/* Divisor */
-hr {
-    border: none;
-    height: 1px;
-    background-color: #ddd;
-    margin: 2rem 0;
-}
-
-/* Gráficos */
-.dashboard-charts {
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
-    margin-top: 2rem;
-}
-
-.dashboard-charts > div {
-    flex: 1;
-    min-width: 300px;
-    background-color: #f5faff;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-.dashboard-charts h3 {
-    color: #0077ff;
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
-}
-
-/* Listas */
-.dashboard-lists {
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
-    margin-top: 2rem;
-}
-
-.dashboard-lists > div {
-    flex: 1;
-    min-width: 300px;
-    background-color: #f9f9f9;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
-
-.dashboard-lists h3 {
-    color: #0077ff;
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
-}
-
-.dashboard-lists ul {
-    list-style: none;
-}
-
-.dashboard-lists li {
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid #e0e0e0;
-    line-height: 1.5;
-    color: #444;
-}
-
-.dashboard-lists li strong {
-    color: #3ca7ff;
-}
-
-.dashboard-lists li span {
-    display: block;
-    margin-top: 4px;
-    color: #666;
-    font-size: 0.95rem;
-}
-
-/* Dashboard Styles */
+/* Layout Principal da Dashboard com Menu Lateral */
 #dashboard-root {
-    font-family: "Inter", sans-serif;
-    background-color: #f5f5f5;
     display: flex;
     min-height: 100vh;
 }
 
 #dashboard-root .main-content {
-    margin-left: 240px;
+    margin-left: 240px; /* Espaço para o menu lateral de 240px */
     flex: 1;
     padding: 30px;
 }
 
+/* Cabeçalho do Conteúdo Principal */
 #dashboard-root .header {
     margin-bottom: 30px;
 }
@@ -171,9 +42,10 @@ hr {
     font-size: 14px;
 }
 
+/* Grid de Cards de Indicadores */
 #dashboard-root .cards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 20px;
     margin-bottom: 30px;
 }
@@ -205,9 +77,10 @@ hr {
     color: #2d3748;
 }
 
+/* Grid de Gráficos */
 #dashboard-root .charts-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     gap: 20px;
 }
 
@@ -230,16 +103,24 @@ hr {
     height: 300px;
 }
 
-@media (max-width: 768px) {
-    .dashboard-cards,
-    .dashboard-charts,
-    .dashboard-lists {
-        flex-direction: column;
-    }
-    #dashboard-root .main-content {
-        margin-left: 200px;
-    }
+/* Responsividade */
+@media (max-width: 992px) {
     #dashboard-root .charts-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Uma coluna para os gráficos */
+    }
+}
+
+@media (max-width: 768px) {
+    #dashboard-root .main-content {
+        margin-left: 0; /* Remove a margem para o menu poder sobrepor ou ser escondido */
+        padding: 20px;
+    }
+
+    #dashboard-root .header h1 {
+        font-size: 28px;
+    }
+
+    #dashboard-root .cards-grid {
+        grid-template-columns: 1fr; /* Uma coluna para os cards */
     }
 }
