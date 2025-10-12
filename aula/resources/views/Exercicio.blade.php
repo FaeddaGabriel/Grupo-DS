@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Análise - Exercícios do PDF</title>
+    <title>Exercício - Exercícios do PDF</title>
     <link rel="stylesheet" href="{{ asset('css/exercicio.css') }}" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
@@ -14,8 +14,8 @@
     <div id="analise-root">
         <div class="main-content">
             <div class="header">
-                <h1>Página de Análise</h1>
-                <p>Implementação dos exercícios do PDF com consultas de agregação e gráficos ECharts</p>
+                <h1>Página de Exercícios</h1>
+                <p>Exercícios do PDF com consultas de agregação e gráficos ECharts</p>
             </div>
 
             <!-- Seção de Resultados das Consultas -->

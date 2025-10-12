@@ -122,22 +122,17 @@ class UsuarioController extends Controller
       return redirect()->route('perfil')->with('error', 'Nenhuma imagem foi enviada.');
   }
 
+// Cole este código no seu Controller, substituindo a função dashboard antiga.
+
     public function dashboard()
     {
         // Contadores totais para os cards
         $totalUsuarios = User::count();
-        $totalContatos = ContatoModel::count();
-        
-        // Contagem de usuários com ocorrência (exemplo: usuários com nível 0)
-        $usuariosComOcorrencia = User::where('nivel_acesso', 0)->count();
-        
-        // Contagem de usuários sem ocorrência (exemplo: usuários com nível 1)
-        $usuariosSemOcorrencia = User::where('nivel_acesso', 1)->count();
         
         // Contagem de usuários cadastrados este mês
         $usuariosEsteMes = User::whereMonth('created_at', date('m'))
-                               ->whereYear('created_at', date('Y'))
-                               ->count();
+                            ->whereYear('created_at', date('Y'))
+                            ->count();
 
         // Buscar usuários agrupados por mês de criação (últimos 12 meses)
         $usuariosPorMes = DB::select("
@@ -148,19 +143,6 @@ class UsuarioController extends Controller
             WHERE created_at >= DATE_SUB(NOW(), INTERVAL 12 MONTH)
             GROUP BY DATE_FORMAT(created_at, '%Y-%m')
             ORDER BY mes ASC
-        ");
-
-        // Buscar contatos agrupados por assunto (mensagem)
-        $contatosPorAssunto = DB::select("
-            SELECT 
-                CASE 
-                    WHEN LENGTH(mensagemContato) < 50 THEN 'Curta'
-                    WHEN LENGTH(mensagemContato) < 100 THEN 'Média'
-                    ELSE 'Longa'
-                END as assunto,
-                COUNT(*) as total
-            FROM tbcontato
-            GROUP BY assunto
         ");
 
         // Buscar contatos agrupados por mês de criação (últimos 12 meses)
@@ -189,13 +171,6 @@ class UsuarioController extends Controller
             $contatosDados[] = $item->total;
         }
 
-        $assuntosLabels = [];
-        $assuntosDados = [];
-        foreach ($contatosPorAssunto as $item) {
-            $assuntosLabels[] = $item->assunto;
-            $assuntosDados[] = $item->total;
-        }
-
         // Gráfico 3: Dados para análise de usuários com e sem contato
         $totalComContato = DB::table('users')
             ->whereIn('id', function($query) {
@@ -210,26 +185,49 @@ class UsuarioController extends Controller
         $usuariosContatoLabels = ['Com contato', 'Sem contato'];
         $usuariosContatoDados = [$totalComContato, $totalSemContato];
 
+        // Gráfico 4 (Novo): Buscar dados de distribuição por sexo
+        $sexoData = DB::select("
+            SELECT 
+                CASE 
+                    WHEN sexo IS NULL OR sexo = '' THEN 'Não Informado' 
+                    ELSE sexo 
+                END as sexo_label,
+                COUNT(*) as total
+            FROM users
+            GROUP BY sexo_label
+        ");
+
+        // Preparar dados para o gráfico de pizza de sexo
+        $sexoLabels = [];
+        $sexoDados = [];
+        $colors = [
+            'Masculino' => '#4299e1',
+            'Feminino' => '#f56565',
+            'Não Informado' => '#a0aec0'
+        ];
+        foreach ($sexoData as $item) {
+            $sexoLabels[] = $item->sexo_label;
+            $sexoDados[] = [
+                'value' => $item->total,
+                'name' => $item->sexo_label,
+                'itemStyle' => ['color' => $colors[$item->sexo_label] ?? '#ccc']
+            ];
+        }
+
+        // Retornar a view com todas as variáveis necessárias
         return view('Dashboard', compact(
             'totalUsuarios',
-            'totalContatos',
-            'usuariosComOcorrencia',
-            'usuariosSemOcorrencia',
             'usuariosEsteMes',
             'mesesLabels',
             'mesesDados',
             'contatosLabels',
             'contatosDados',
-            'assuntosLabels',
-            'assuntosDados',
             'usuariosContatoLabels',
-            'usuariosContatoDados'
+            'usuariosContatoDados',
+            'sexoLabels',
+            'sexoDados'
         ));
     }
-
-
-
-
 
     public function exercicio()
     {

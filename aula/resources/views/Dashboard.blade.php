@@ -56,9 +56,16 @@
 
           <!-- Gráfico 3: Barras - Comparativo de usuários com e sem contato -->
           <div class="chart-container">
-              <h3>Usuários</h3>
+              <h3>Usuários com e sem Contato</h3>
               <div id="graficoBarras" class="chart"></div>
           </div>
+
+          <!-- Gráfico 4: Pizza - Distribuição por Sexo -->
+          <div class="chart-container">
+              <h3>Distribuição por Sexo dos Usuários</h3>
+              <div id="graficoPizzaSexo" class="chart"></div>
+          </div>
+
       </div>
     </div>
   </div>
@@ -127,12 +134,50 @@
           }]
       };
       chartBarras.setOption(optionBarras);
+        // Gráfico 4: Pizza - Distribuição por Sexo
+      var chartPizzaSexo = echarts.init(document.getElementById('graficoPizzaSexo'));
+      var optionPizzaSexo = {
+          tooltip: {
+              trigger: 'item',
+              formatter: '{b}: {c} ({d}%)'
+          },
+          legend: {
+              bottom: '5%',
+              left: 'center',
+              data: @json($sexoLabels)
+          },
+          series: [{
+              name: 'Distribuição',
+              type: 'pie',
+              radius: ['40%', '70%'],
+              avoidLabelOverlap: false,
+              itemStyle: {
+                  borderRadius: 10,
+                  borderColor: '#fff',
+                  borderWidth: 2
+              },
+              label: {
+                  show: false,
+                  position: 'center'
+              },
+              emphasis: {
+                  label: {
+                      show: true,
+                      fontSize: 20,
+                      fontWeight: 'bold'
+                  }
+              },
+              data: @json($sexoDados)
+          }]
+      };
+      chartPizzaSexo.setOption(optionPizzaSexo);
 
       // Responsividade dos gráficos
       window.addEventListener('resize', function() {
           chartLinha.resize();
           chartLinhaContatos.resize();
           chartBarras.resize();
+          chartPizzaSexo.resize();
       });
   </script>
 </body>
