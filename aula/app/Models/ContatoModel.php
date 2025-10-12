@@ -12,4 +12,9 @@ class ContatoModel extends Model
 
     public $timestamps = false; //pra não mostrar data e hora no banco uma coisa assim
 	protected $fillable = ['nomeContato','emailContato','mensagemContato']; //fillable é tipo preenchivel, em seguida tem um vetor que mostra qual coluna vc quer preencher
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

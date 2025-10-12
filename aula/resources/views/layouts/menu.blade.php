@@ -50,47 +50,19 @@
 </style>
 
 <div class="sidebar">
-    <h2>🏠 DashBoard</h2>
+    <h2>🛠️ Painel ADM</h2>
     <nav>
         <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
             <span class="icon">📊</span>
             <span>Dashboard</span>
         </a>
-        <a href="{{ route('analise') }}" class="{{ request()->routeIs('analise') ? 'active' : '' }}">
-            <span class="icon">📈</span>
-            <span>Análise</span>
+        <a href="{{ route('consultas') }}" class="{{ request()->routeIs('consultas') ? 'active' : '' }}">
+            <span class="icon">🗂️</span>
+            <span>Consultas</span>
         </a>
-        <a href="#">
-            <span class="icon">📋</span>
-            <span>Avaliações</span>
-        </a>
-        <a href="#">
-            <span class="icon">💬</span>
-            <span>Chat</span>
-        </a>
-        <a href="#">
-            <span class="icon">🔍</span>
-            <span>Status</span>
-        </a>
-        <a href="#">
-            <span class="icon">👁️</span>
-            <span>Views</span>
-        </a>
-        <a href="#">
-            <span class="icon">⚠️</span>
-            <span>Ocorrencias</span>
-        </a>
-        <a href="#">
-            <span class="icon">👤</span>
-            <span>Administradores</span>
-        </a>
-        <a href="#">
-            <span class="icon">👥</span>
-            <span>Usuários</span>
-        </a>
-        <a href="#">
-            <span class="icon">⚙️</span>
-            <span>Configurações</span>
+        <a href="{{ route('exercicio') }}" class="{{ request()->routeIs('exercicio') ? 'active' : '' }}">
+            <span class="icon">📘</span>
+            <span>Exercícios</span>
         </a>
     </nav>
 </div>

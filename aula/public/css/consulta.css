@@ -5,17 +5,21 @@
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(to bottom, #ffffff, #479cfd);
+    font-family: "Inter", sans-serif;
+    background: #f5f5f5;
     color: #000000;
     line-height: 1.6;
+    padding: 0;
+    min-height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
 }
 
 /* Header */
 .header {
-    background-color: #0077FF;
+    background-color: #0077ff;
     padding: 20px;
-    border-bottom: 3px solid #0077FF;
+    border-bottom: 3px solid #0077ff;
     display: flex;
     flex-direction: column;
     align-items: center; /* Centraliza o conteúdo da header */
@@ -39,15 +43,15 @@ body {
     margin-bottom: 40px;
     background: #ffffff;
     padding: 20px;
-    border: 2px solid #0077FF;
+    border: 2px solid #0077ff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 255, 0.5);
 }
 
 .consulta h2 {
     margin-bottom: 20px;
-    color: #0077FF;
-    border-bottom: 2px solid #0077FF;
+    color: #0077ff;
+    border-bottom: 2px solid #0077ff;
     padding-bottom: 10px;
 }
 
@@ -62,7 +66,7 @@ body {
 }
 
 .table thead {
-    background-color: #0077FF;
+    background-color: #0077ff;
 }
 
 .table thead th {
@@ -73,7 +77,7 @@ body {
 }
 
 .table tbody tr {
-    border-bottom: 1px solid #0077FF;
+    border-bottom: 1px solid #0077ff;
 }
 
 .table tbody td {
@@ -81,16 +85,16 @@ body {
 }
 
 .table tbody tr:nth-child(even) {
-    background-color: #0077FF;
+    background-color: #0077ff;
 }
 
 .table tbody tr:hover {
-    background-color: #0077FF;
+    background-color: #0077ff;
 }
 
 /* Link de retorno */
 .back-link {
-    max-width: 400px;  /* Limita largura para não estourar */
+    max-width: 400px; /* Limita largura para não estourar */
     margin: 20px auto;
     text-align: center;
 }
@@ -104,7 +108,7 @@ body {
     box-sizing: border-box;
     padding: 10px 20px;
     border-radius: 4px;
-    border: 2px solid #0077FF;
+    border: 2px solid #0077ff;
     font-weight: bold;
     color: #000000;
     background-color: #ffffff;
@@ -113,19 +117,116 @@ body {
 }
 
 .back-link a:hover {
-    background-color: #0077FF;
+    background-color: #0077ff;
     color: #ffffff;
 }
 
 /* Footer */
 .footer {
-    background-color: #0077FF;
+    background-color: #0077ff;
     text-align: center;
     padding: 15px;
     position: fixed;
     bottom: 0;
     width: 100%;
     font-size: 0.9em;
+}
+
+/* Consultas Root Styles */
+#consultas-root {
+    font-family: "Inter", sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    min-height: 100vh;
+}
+
+#consultas-root .main-content {
+    margin-left: 240px;
+    flex: 1;
+    padding: 30px;
+}
+
+#consultas-root .header {
+    margin-bottom: 30px;
+}
+
+#consultas-root .header h1 {
+    font-size: 32px;
+    color: #2d3748;
+    margin-bottom: 10px;
+}
+
+#consultas-root .header p {
+    color: #718096;
+    font-size: 14px;
+}
+
+#consultas-root .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+#consultas-root .card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#consultas-root .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+#consultas-root .card h3 {
+    font-size: 14px;
+    color: #718096;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+#consultas-root .card .value {
+    font-size: 36px;
+    font-weight: 700;
+    color: #2d3748;
+}
+
+#consultas-root .charts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+#consultas-root .chart-container {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#consultas-root .chart-container h3 {
+    font-size: 18px;
+    color: #2d3748;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+#consultas-root .chart {
+    width: 100%;
+    height: 300px;
+}
+
+@media (max-width: 768px) {
+    #consultas-root .main-content {
+        margin-left: 200px;
+    }
+    #consultas-root .charts-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* RESPONSIVO */
@@ -150,7 +251,7 @@ body {
         font-size: 1.8rem;
     }
 
-    .table thead th, 
+    .table thead th,
     .table tbody td {
         padding: 10px;
     }
@@ -183,11 +284,11 @@ body {
     .table tbody tr {
         display: block;
         margin-bottom: 15px;
-        border: 2px solid #0077FF;
+        border: 2px solid #0077ff;
         border-radius: 8px;
         padding: 10px;
         background: #ffffff;
-        box-shadow: 0 2px 5px rgba(0,0,255,0.2);
+        box-shadow: 0 2px 5px rgba(0, 0, 255, 0.2);
     }
 
     .table tbody td {
@@ -195,7 +296,7 @@ body {
         justify-content: space-between;
         padding: 8px 10px;
         border: none;
-        border-bottom: 1px solid #0077FF;
+        border-bottom: 1px solid #0077ff;
         position: relative;
         text-align: right;
     }
@@ -210,7 +311,7 @@ body {
         position: absolute;
         left: 10px;
         font-weight: bold;
-        color: #0077FF;
+        color: #0077ff;
         text-align: left;
     }
 
@@ -222,7 +323,7 @@ body {
         box-sizing: border-box;
         max-width: none;
     }
-    
+
     .footer {
         font-size: 0.8em;
         padding: 10px;

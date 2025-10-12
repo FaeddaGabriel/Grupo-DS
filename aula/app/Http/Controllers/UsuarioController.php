@@ -151,7 +151,6 @@ class UsuarioController extends Controller
         ");
 
         // Buscar contatos agrupados por assunto (mensagem)
-        // Como não há campo 'subject', vamos agrupar por comprimento da mensagem como exemplo
         $contatosPorAssunto = DB::select("
             SELECT 
                 CASE 
@@ -164,12 +163,30 @@ class UsuarioController extends Controller
             GROUP BY assunto
         ");
 
+        // Buscar contatos agrupados por mês de criação (últimos 12 meses)
+        $contatosPorMes = DB::select("
+            SELECT 
+                DATE_FORMAT(created_at, '%Y-%m') as mes,
+                COUNT(*) as total
+            FROM tbcontato
+            WHERE created_at >= DATE_SUB(NOW(), INTERVAL 12 MONTH)
+            GROUP BY DATE_FORMAT(created_at, '%Y-%m')
+            ORDER BY mes ASC
+        ");
+
         // Preparar dados para os gráficos
         $mesesLabels = [];
         $mesesDados = [];
         foreach ($usuariosPorMes as $item) {
             $mesesLabels[] = $item->mes;
             $mesesDados[] = $item->total;
+        }
+
+        $contatosLabels = [];
+        $contatosDados = [];
+        foreach ($contatosPorMes as $item) {
+            $contatosLabels[] = $item->mes;
+            $contatosDados[] = $item->total;
         }
 
         $assuntosLabels = [];
@@ -179,29 +196,19 @@ class UsuarioController extends Controller
             $assuntosDados[] = $item->total;
         }
 
-        // Dados para gráfico de barras comparativo (exemplo: usuários por nível de acesso)
-        $usuariosPorNivel = DB::select("
-            SELECT 
-                CASE 
-                    WHEN nivel_acesso = 0 THEN 'Fizeram Ocorrência'
-                    ELSE 'Não Fizeram Ocorrência'
-                END as categoria,
-                COUNT(*) as total
-            FROM users
-            GROUP BY categoria
-        ");
+        // Gráfico 3: Dados para análise de usuários com e sem contato
+        $totalComContato = DB::table('users')
+            ->whereIn('id', function($query) {
+                $query->select('user_id')->from('tbcontato')->whereNotNull('user_id');
+            })->count();
 
-        $nivelLabels = [];
-        $nivelDados = [];
-        foreach ($usuariosPorNivel as $item) {
-            $nivelLabels[] = $item->categoria;
-            $nivelDados[] = $item->total;
-        }
+        $totalSemContato = DB::table('users')
+            ->whereNotIn('id', function($query) {
+                $query->select('user_id')->from('tbcontato')->whereNotNull('user_id');
+            })->count();
 
-        // Dados para gráfico de radar (análise multivariada - exemplo com dados fictícios)
-        $radarCategorias = ['Sales', 'Administration', 'Technology', 'Customer Support', 'Development', 'Marketing'];
-        $radarOrcamento = [4300, 3000, 2800, 2500, 1900, 3500];
-        $radarGastoReal = [5000, 3400, 2300, 2100, 2500, 2700];
+        $usuariosContatoLabels = ['Com contato', 'Sem contato'];
+        $usuariosContatoDados = [$totalComContato, $totalSemContato];
 
         return view('Dashboard', compact(
             'totalUsuarios',
@@ -211,13 +218,12 @@ class UsuarioController extends Controller
             'usuariosEsteMes',
             'mesesLabels',
             'mesesDados',
+            'contatosLabels',
+            'contatosDados',
             'assuntosLabels',
             'assuntosDados',
-            'nivelLabels',
-            'nivelDados',
-            'radarCategorias',
-            'radarOrcamento',
-            'radarGastoReal'
+            'usuariosContatoLabels',
+            'usuariosContatoDados'
         ));
     }
 
@@ -225,7 +231,7 @@ class UsuarioController extends Controller
 
 
 
-    public function analise()
+    public function exercicio()
     {
         // --- MELHORIA: Usar o Query Builder do Laravel ---
         // É mais seguro, legível e evita erros de SQL como o 'ONLY_FULL_GROUP_BY'.
@@ -296,7 +302,7 @@ class UsuarioController extends Controller
         $grafico2Labels = $usuariosPorMesRecente->pluck('mes_nome');
         $grafico2Dados = $usuariosPorMesRecente->pluck('total');
 
-        return view('analise', compact(
+        return view('exercicio', compact(
             'usuariosPorNivel',
             'usuariosPorMesRecente',
             'contatosPorTamanho',

@@ -29,9 +29,26 @@ class UsuarioSeeder extends Seeder
             'Adriana Soares', 'Leandro Macedo', 'Cristina Fonseca', 'Márcio Viana', 'Elaine Borges'
         ];
 
-        $usuarios = [];
+        $usuarios = [
+            [
+                'name' => 'admin',
+                'email' => 'adm@gmail.com',
+                'password' => Hash::make('123'),
+                'nivel_acesso' => 0,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'name' => 'Usuario',
+                'email' => 'teste@gmail.com',
+                'password' => Hash::make('123'),
+                'nivel_acesso' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+        ];
         
-        // Criar 50+ usuários com datas variadas nos últimos 12 meses
+        // Criar 60 usuários de teste
         for ($i = 0; $i < 60; $i++) {
             // Gerar uma data aleatória nos últimos 12 meses
             $diasAtras = rand(0, 365);
@@ -56,6 +73,6 @@ class UsuarioSeeder extends Seeder
         // Inserir todos os usuários de uma vez
         DB::table('users')->insert($usuarios);
         
-        $this->command->info('60 usuários de teste criados com sucesso!');
+        $this->command->info('62 usuários de teste criados com sucesso!');
     }
 }

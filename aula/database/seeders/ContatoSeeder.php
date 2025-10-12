@@ -46,6 +46,9 @@ class ContatoSeeder extends Seeder
             'Olá! Sou estudante de Educação Física e estou desenvolvendo meu trabalho de conclusão de curso sobre gestão esportiva. Durante minhas pesquisas, encontrei a plataforma de vocês e fiquei muito interessado em conhecer mais sobre como a tecnologia pode auxiliar na administração de clubes e centros esportivos. Gostaria de saber se seria possível agendar uma entrevista com alguém da equipe para conversar sobre o desenvolvimento do sistema, os desafios enfrentados e as perspectivas futuras do mercado.'
         ];
 
+        // Buscar todos os IDs de usuários existentes
+        $userIds = DB::table('users')->pluck('id')->toArray();
+
         $contatos = [];
         
         // Criar 120 contatos com mensagens variadas
@@ -69,8 +72,12 @@ class ContatoSeeder extends Seeder
             
             $nome = $nomes[array_rand($nomes)];
             $email = strtolower(str_replace(' ', '.', $nome)) . ($i + 1) . '@email.com';
-            
+
+            // Seleciona um user_id aleatório (ou null se não houver usuários)
+            $user_id = count($userIds) > 0 ? $userIds[array_rand($userIds)] : null;
+
             $contatos[] = [
+                'user_id' => $user_id,
                 'nomeContato' => $nome,
                 'emailContato' => $email,
                 'mensagemContato' => $mensagem,

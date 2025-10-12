@@ -51,9 +51,9 @@ Route::middleware(['auth', 'nivel:0'])->group(function () {
 Route::get('/Dashboard', [UsuarioController::class, 'dashboard'])
     ->name('dashboard');
 
-    // Página de análise com exercícios do PDF
-    Route::get('/analise', [UsuarioController::class, 'analise'])
-        ->name('analise');
+    // Página de exercícios
+    Route::get('/exercicio', [UsuarioController::class, 'exercicio'])
+        ->name('exercicio');
 });
 
 // Rotas protegidas por autenticação e nível de acesso (usuário comum)
