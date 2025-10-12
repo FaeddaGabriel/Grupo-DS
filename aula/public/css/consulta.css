@@ -1,3 +1,4 @@
+/* Reset e Padrões Globais */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -5,53 +6,61 @@
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(to bottom, #ffffff, #479cfd);
-    color: #000000;
+    font-family: "Inter", sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
     line-height: 1.6;
+    min-height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
 }
 
-/* Header */
-.header {
-    background-color: #0077FF;
-    padding: 20px;
-    border-bottom: 3px solid #0077FF;
+/* Layout Principal da Página de Consultas com Menu Lateral */
+#consultas-root {
     display: flex;
-    flex-direction: column;
-    align-items: center; /* Centraliza o conteúdo da header */
+    min-height: 100vh;
 }
 
-.header h1 {
-    color: #000000;
-    margin-top: 10px;
-    font-weight: 600;
+#consultas-root .main-content {
+    margin-left: 240px; /* Espaço para o menu lateral de 240px */
+    flex: 1;
+    padding: 30px;
 }
 
-/* Container principal */
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 30px auto;
+/* Cabeçalho do Conteúdo Principal */
+#consultas-root .header {
+    margin-bottom: 30px;
 }
 
-/* Seção de consulta */
+#consultas-root .header h1 {
+    font-size: 32px;
+    color: #2d3748;
+    margin-bottom: 10px;
+}
+
+#consultas-root .header p {
+    color: #718096;
+    font-size: 14px;
+}
+
+/* Container para as seções de tabela */
 .consulta {
     margin-bottom: 40px;
     background: #ffffff;
     padding: 20px;
-    border: 2px solid #0077FF;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 255, 0.5);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .consulta h2 {
     margin-bottom: 20px;
-    color: #0077FF;
-    border-bottom: 2px solid #0077FF;
+    color: #2d3748;
+    border-bottom: 2px solid #e2e8f0;
     padding-bottom: 10px;
+    font-size: 22px;
 }
 
-/* Tabelas */
+/* Estilos da Tabela */
 .table-responsive {
     overflow-x: auto;
 }
@@ -62,169 +71,86 @@ body {
 }
 
 .table thead {
-    background-color: #0077FF;
+    background-color: #f7fafc;
 }
 
 .table thead th {
-    padding: 12px;
+    padding: 12px 15px;
     text-align: left;
-    color: #000000;
-    font-weight: bold;
+    color: #4a5568;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
 }
 
 .table tbody tr {
-    border-bottom: 1px solid #0077FF;
+    border-bottom: 1px solid #e2e8f0;
 }
 
 .table tbody td {
-    padding: 12px;
+    padding: 12px 15px;
+    color: #2d3748;
+    vertical-align: middle;
 }
 
-.table tbody tr:nth-child(even) {
-    background-color: #0077FF;
+.table tbody tr:last-child {
+    border-bottom: none;
 }
 
 .table tbody tr:hover {
-    background-color: #0077FF;
+    background-color: #f7fafc;
 }
 
-/* Link de retorno */
-.back-link {
-    max-width: 400px;  /* Limita largura para não estourar */
-    margin: 20px auto;
-    text-align: center;
-}
-
-.back-link a {
-    display: block;
-    width: 100%;
-    max-width: 200px;
-    margin: 0 auto;
-    text-align: center;
-    box-sizing: border-box;
-    padding: 10px 20px;
-    border-radius: 4px;
-    border: 2px solid #0077FF;
-    font-weight: bold;
-    color: #000000;
-    background-color: #ffffff;
-    transition: background-color 0.3s, color 0.3s;
-    text-decoration: none;
-}
-
-.back-link a:hover {
-    background-color: #0077FF;
-    color: #ffffff;
-}
-
-/* Footer */
-.footer {
-    background-color: #0077FF;
-    text-align: center;
-    padding: 15px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    font-size: 0.9em;
-}
-
-/* RESPONSIVO */
-
-/* Tablets e pequenos desktops */
+/* Responsividade */
 @media (max-width: 992px) {
-    .container {
-        width: 95%;
-        margin: 20px auto;
-    }
-
-    .consulta {
-        padding: 15px;
-        margin-bottom: 30px;
-    }
-
-    .header {
-        padding: 15px;
-    }
-
-    .header h1 {
-        font-size: 1.8rem;
-    }
-
-    .table thead th, 
-    .table tbody td {
-        padding: 10px;
-    }
-
-    .back-link a {
-        padding: 8px 16px;
-        font-size: 0.9em;
-    }
-
-    .footer {
-        font-size: 0.85em;
-        padding: 12px;
+    #consultas-root .main-content {
+        padding: 20px;
     }
 }
 
-/* Smartphones */
-@media (max-width: 600px) {
-    .header h1 {
-        font-size: 1.4rem;
-    }
-
-    .consulta h2 {
-        font-size: 1.2rem;
+@media (max-width: 768px) {
+    #consultas-root .main-content {
+        margin-left: 0; /* Remove a margem para o menu poder sobrepor ou ser escondido */
     }
 
     .table thead {
-        display: none; /* Esconde cabeçalho para melhor visualização em tela pequena */
+        display: none; /* Esconde o cabeçalho da tabela em telas pequenas */
     }
 
     .table tbody tr {
         display: block;
         margin-bottom: 15px;
-        border: 2px solid #0077FF;
+        border: 1px solid #e2e8f0;
         border-radius: 8px;
         padding: 10px;
         background: #ffffff;
-        box-shadow: 0 2px 5px rgba(0,0,255,0.2);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .table tbody tr:hover {
+        background-color: #ffffff; /* Reseta o hover para não interferir no layout de card */
     }
 
     .table tbody td {
         display: flex;
         justify-content: space-between;
-        padding: 8px 10px;
+        align-items: center;
+        padding: 10px;
         border: none;
-        border-bottom: 1px solid #0077FF;
-        position: relative;
+        border-bottom: 1px solid #f1f1f1;
         text-align: right;
     }
 
-    .table tbody td:last-child {
+    .table tbody tr td:last-child {
         border-bottom: none;
     }
 
-    /* Usar o data-label para o texto do lado esquerdo */
+    /* Adiciona o label do cabeçalho antes do dado usando o atributo 'data-label' */
     .table tbody td::before {
         content: attr(data-label);
-        position: absolute;
-        left: 10px;
         font-weight: bold;
-        color: #0077FF;
+        color: #4a5568;
         text-align: left;
-    }
-
-    .back-link a {
-        padding: 10px 15px;
-        font-size: 1em;
-        display: block;
-        width: 100%;
-        box-sizing: border-box;
-        max-width: none;
-    }
-    
-    .footer {
-        font-size: 0.8em;
-        padding: 10px;
+        margin-right: 10px;
     }
 }

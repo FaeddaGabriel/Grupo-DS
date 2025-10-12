@@ -11,19 +11,25 @@
     <img src="{{ asset('images/King1.png') }}" alt="Logo" class="logo-img">
 </a>
 
-
     <div class="page">
-        <form class="formLogin" action="{{url('/Cadastro/inserir')}}" method="post"> <!--action fala pra onde vai o submit-->
-            @csrf <!--variavel do laravel pra ter mais segurança no banco de dados etc-->
+        <form class="formLogin" action="{{url('/Cadastro/inserir')}}" method="post">
+            @csrf
             <h1>Crie sua Conta</h1>
             <p>Preencha os campos abaixo para se cadastrar</p>
 
             <label for="name">Nome Completo</label>
             <input type="text" name="txNome" placeholder="Digite seu nome" required>
-            <br>
 
             <label for="email">E-mail</label>
             <input type="email" id="email" name="txEmail" placeholder="Digite seu e-mail" required>
+
+            <label for="sexo">Sexo</label>
+            <select name="txSexo" id="sexo" required>
+                <option value="" disabled selected>Selecione seu sexo</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Feminino">Feminino</option>
+                <option value="Outro">Outro</option>
+            </select>
 
             <label for="password">Senha</label>
             <input type="password" id="password" name="txSenha" placeholder="Crie uma senha" required>

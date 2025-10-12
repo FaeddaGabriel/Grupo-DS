@@ -50,6 +50,10 @@ Route::middleware(['auth', 'nivel:0'])->group(function () {
 // Dashboard do admin
 Route::get('/Dashboard', [UsuarioController::class, 'dashboard'])
     ->name('dashboard');
+
+    // Página de exercícios
+    Route::get('/exercicio', [UsuarioController::class, 'exercicio'])
+        ->name('exercicio');
 });
 
 // Rotas protegidas por autenticação e nível de acesso (usuário comum)

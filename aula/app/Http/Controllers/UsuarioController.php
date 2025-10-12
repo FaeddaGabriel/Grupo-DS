@@ -86,18 +86,26 @@ class UsuarioController extends Controller
 
     public function store(Request $request)
     {
-        $usuario = new User(); //usuario é um objeto (da pra por qualquer nome)
-        
-        $usuario->name = $request->txNome; //"NomeUsuario" é a coluna da tabela agora o "$Usuario" é o objeto, txNome é o mesmo que vai estar na view pra salvar, funciona tipo id
-        $usuario->email = $request->txEmail;
-        $usuario->password = Hash::make($request->txSenha);  
-        $usuario->nivel_acesso = 1; // 0 = admin | 1 = usuário comum      
-        $usuario->save();
+        $request->validate([
+            'txNome' => 'required|string|max:255',
+            'txEmail' => 'required|string|email|max:255|unique:users,email',
+            'txSenha' => 'required|string|min:3',
+            'txSexo' => 'required|string',
+        ]);
+
+        // Ele funciona em conjunto com a propriedade '$fillable' no Model 'User'.
+        User::create([
+            'name' => $request->txNome, //"NomeUsuario" é a coluna da tabela agora o "$Usuario" é o objeto, txNome é o mesmo que vai estar na view pra salvar, funciona tipo id
+            'email' => $request->txEmail,
+            'sexo' => $request->txSexo,
+            'password' => Hash::make($request->txSenha),  
+            'nivel_acesso' => 1, // 0 = admin | 1 = usuário comum      
+        ]);
         
         //Loga o usuário automaticamente após o cadastro
         //Auth::login($usuario);
 
-        return redirect('/Login');  
+        return redirect('/Login'); 
   }
   
   public function fotoPerfil(Request $request)
@@ -122,67 +130,194 @@ class UsuarioController extends Controller
       return redirect()->route('perfil')->with('error', 'Nenhuma imagem foi enviada.');
   }
 
-        public function dashboard()
+// Cole este código no seu Controller, substituindo a função dashboard antiga.
+
+    public function dashboard()
     {
-        // Pega o total de usuários e contatos pra mostrar nos cards.
+        // Contadores totais para os cards
         $totalUsuarios = User::count();
-        $totalContatos = ContatoModel::count();
-
-        // Busca os 5 usuários mais recentes que se cadastraram.
-        $usuariosRecentes = User::select('id', 'name', 'email', 'nivel_acesso', 'created_at')
-            ->latest()
-            ->take(5)
-            ->get();
-
-        // Pega as 5 últimas mensagens de contato que chegaram.
-        $contatosRecentes = ContatoModel::select('nomeContato as nome', 'emailContato as email', 'mensagemContato as mensagem', 'created_at')
-            ->latest()
-            ->take(5)
-            ->get();
         
-        // Agora deixa preparado tudo que a galera do front vai precisar.
+        // Contagem de usuários cadastrados este mês
+        $usuariosEsteMes = User::whereMonth('created_at', date('m'))
+                            ->whereYear('created_at', date('Y'))
+                            ->count();
 
-        // Deixa a lista de usuários prontinha, já tratando o "Admin/Usuário".
-        $listaUsuarios = $usuariosRecentes->map(function ($usuario) {
-            return (object) [
-                'nome' => $usuario->name,
-                'email' => $usuario->email,
-                'tipo' => $usuario->nivel_acesso == 0 ? 'Admin' : 'Usuário',
+        // Buscar usuários agrupados por mês de criação (últimos 12 meses)
+        $usuariosPorMes = DB::select("
+            SELECT 
+                DATE_FORMAT(created_at, '%Y-%m') as mes,
+                COUNT(*) as total
+            FROM users
+            WHERE created_at >= DATE_SUB(NOW(), INTERVAL 12 MONTH)
+            GROUP BY DATE_FORMAT(created_at, '%Y-%m')
+            ORDER BY mes ASC
+        ");
+
+        // Buscar contatos agrupados por mês de criação (últimos 12 meses)
+        $contatosPorMes = DB::select("
+            SELECT 
+                DATE_FORMAT(created_at, '%Y-%m') as mes,
+                COUNT(*) as total
+            FROM tbcontato
+            WHERE created_at >= DATE_SUB(NOW(), INTERVAL 12 MONTH)
+            GROUP BY DATE_FORMAT(created_at, '%Y-%m')
+            ORDER BY mes ASC
+        ");
+
+        // Preparar dados para os gráficos
+        $mesesLabels = [];
+        $mesesDados = [];
+        foreach ($usuariosPorMes as $item) {
+            $mesesLabels[] = $item->mes;
+            $mesesDados[] = $item->total;
+        }
+
+        $contatosLabels = [];
+        $contatosDados = [];
+        foreach ($contatosPorMes as $item) {
+            $contatosLabels[] = $item->mes;
+            $contatosDados[] = $item->total;
+        }
+
+        // Gráfico 3: Dados para análise de usuários com e sem contato
+        $totalComContato = DB::table('users')
+            ->whereIn('id', function($query) {
+                $query->select('user_id')->from('tbcontato')->whereNotNull('user_id');
+            })->count();
+
+        $totalSemContato = DB::table('users')
+            ->whereNotIn('id', function($query) {
+                $query->select('user_id')->from('tbcontato')->whereNotNull('user_id');
+            })->count();
+
+        $usuariosContatoLabels = ['Com contato', 'Sem contato'];
+        $usuariosContatoDados = [$totalComContato, $totalSemContato];
+
+        // Gráfico 4 (Novo): Buscar dados de distribuição por sexo
+        $sexoData = DB::select("
+            SELECT 
+                CASE 
+                    WHEN sexo IS NULL OR sexo = '' THEN 'Não Informado' 
+                    ELSE sexo 
+                END as sexo_label,
+                COUNT(*) as total
+            FROM users
+            GROUP BY sexo_label
+        ");
+
+        // Preparar dados para o gráfico de pizza de sexo
+        $sexoLabels = [];
+        $sexoDados = [];
+        $colors = [
+            'Masculino' => '#4299e1',
+            'Feminino' => '#f56565',
+            'Não Informado' => '#a0aec0'
+        ];
+        foreach ($sexoData as $item) {
+            $sexoLabels[] = $item->sexo_label;
+            $sexoDados[] = [
+                'value' => $item->total,
+                'name' => $item->sexo_label,
+                'itemStyle' => ['color' => $colors[$item->sexo_label] ?? '#ccc']
             ];
-        });
+        }
 
-        // Prepara a lista de contatos, já cortando a mensagem pra não ficar gigante.
-        $listaContatos = $contatosRecentes->map(function ($contato) {
-            return (object) [
-                'nome' => $contato->nome,
-                'email' => $contato->email,
-                'mensagem' => \Illuminate\Support\Str::limit($contato->mensagem, 100),
-            ];
-        });
-
-        // Monta os dados pro gráfico de usuários.
-        $labelsGraficoUsuarios = $usuariosRecentes->pluck('name');
-        $dadosGraficoUsuarios = $usuariosRecentes->pluck('id');
-
-        // Monta os dados pro gráfico de contatos.
-        $labelsGraficoContatos = $contatosRecentes->pluck('nome');
-        $dadosGraficoContatos = $contatosRecentes->map(fn($item, $key) => 5 - $key);
-
-        // Manda tudo pra view. ksksk se lasca ai povo do front
+        // Retornar a view com todas as variáveis necessárias
         return view('Dashboard', compact(
             'totalUsuarios',
-            'totalContatos',
-            'listaUsuarios',
-            'listaContatos',
-            'labelsGraficoUsuarios',
-            'dadosGraficoUsuarios',
-            'labelsGraficoContatos',
-            'dadosGraficoContatos'
+            'usuariosEsteMes',
+            'mesesLabels',
+            'mesesDados',
+            'contatosLabels',
+            'contatosDados',
+            'usuariosContatoLabels',
+            'usuariosContatoDados',
+            'sexoLabels',
+            'sexoDados'
         ));
     }
 
+    public function exercicio()
+    {
+        // Consulta 1: Total de usuários por nível de acesso
+        $usuariosPorNivel = DB::table('users')
+            ->select(
+                DB::raw("CASE WHEN nivel_acesso = 0 THEN 'Administrador' ELSE 'Usuário Comum' END as tipo_usuario"),
+                DB::raw("COUNT(*) as total")
+            )
+            ->groupBy('tipo_usuario', 'nivel_acesso')
+            ->orderBy('nivel_acesso')
+            ->get();
 
+        // Consulta 2: Usuários cadastrados por mês (últimos 6 meses)
+        $usuariosPorMesRecente = DB::table('users')
+            ->select(
+                DB::raw("DATE_FORMAT(created_at, '%Y-%m') as mes"),
+                DB::raw("DATE_FORMAT(created_at, '%M/%Y') as mes_nome"),
+                DB::raw("COUNT(*) as total")
+            )
+            ->where('created_at', '>=', now()->subMonths(6))
+            ->groupBy('mes', 'mes_nome')
+            ->orderBy('mes', 'ASC')
+            ->get();
 
+        // Consulta 3: Contatos agrupados por tamanho da mensagem
+        $contatosPorTamanho = DB::table('tbcontato')
+            ->select(
+                DB::raw("CASE 
+                    WHEN LENGTH(mensagemContato) < 50 THEN 'Curta (< 50 caracteres)'
+                    WHEN LENGTH(mensagemContato) >= 50 AND LENGTH(mensagemContato) < 100 THEN 'Média (50-100 caracteres)'
+                    WHEN LENGTH(mensagemContato) >= 100 AND LENGTH(mensagemContato) < 200 THEN 'Longa (100-200 caracteres)'
+                    ELSE 'Muito Longa (> 200 caracteres)'
+                END as tamanho"),
+                DB::raw("COUNT(*) as total")
+            )
+            ->groupBy('tamanho')
+            ->orderBy(DB::raw("
+                CASE
+                    WHEN tamanho = 'Curta (< 50 caracteres)' THEN 1
+                    WHEN tamanho = 'Média (50-100 caracteres)' THEN 2
+                    WHEN tamanho = 'Longa (100-200 caracteres)' THEN 3
+                    ELSE 4
+                END
+            "), 'ASC')
+            ->get();
+
+        // Consulta 4: Média de usuários cadastrados por dia da semana
+        $usuariosPorDiaSemana = DB::table('users')
+            ->select(
+                DB::raw("CASE DAYOFWEEK(created_at)
+                    WHEN 1 THEN 'Domingo'
+                    WHEN 2 THEN 'Segunda-feira'
+                    WHEN 3 THEN 'Terça-feira'
+                    WHEN 4 THEN 'Quarta-feira'
+                    WHEN 5 THEN 'Quinta-feira'
+                    WHEN 6 THEN 'Sexta-feira'
+                    WHEN 7 THEN 'Sábado'
+                END as dia_semana"),
+                DB::raw("COUNT(*) as total")
+            )
+            ->groupBy('dia_semana', DB::raw("DAYOFWEEK(created_at)"))
+            ->orderBy(DB::raw("DAYOFWEEK(created_at)"), 'ASC')
+            ->get();
+
+        // Dados para as tabelas
+        $grafico1Labels = $usuariosPorNivel->pluck('tipo_usuario');
+        $grafico1Dados = $usuariosPorNivel->pluck('total');
+        $grafico2Labels = $usuariosPorMesRecente->pluck('mes_nome');
+        $grafico2Dados = $usuariosPorMesRecente->pluck('total');
+
+        return view('exercicio', compact(
+            'usuariosPorNivel',
+            'usuariosPorMesRecente',
+            'contatosPorTamanho',
+            'usuariosPorDiaSemana',
+            'grafico1Labels',
+            'grafico1Dados',
+            'grafico2Labels',
+            'grafico2Dados'
+        ));
+    }
 
 
     /**
