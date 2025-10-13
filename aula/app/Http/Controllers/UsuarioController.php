@@ -56,27 +56,33 @@ class UsuarioController extends Controller
      */
 
 
-    public function fazerLogin(Request $request){
-    // tenta autenticar com email e senha
-    if (!Auth::attempt($request->only(['email', 'password']))) {                               
-        return redirect('/Login')
-            ->withErrors(['login' => 'Credenciais inválidas.'])
-            ->withInput();
+    // Em app/Http/Controllers/UsuarioController.php
+
+public function fazerLogin(Request $request){
+    // 1. Valida as credenciais e tenta fazer o login
+    $credentials = $request->only('email', 'password');
+
+    if (Auth::attempt($credentials)) {
+        // 2. SUCESSO: O login foi bem-sucedido. Agora podemos trabalhar com o usuário.
+        $request->session()->regenerate();
+        $user = Auth::user();
+
+        // 3. Redireciona com base no nível de acesso
+        if ($user->nivel_acesso == 0) {
+            // Se for admin, vai para a dashboard
+            return redirect()->route('dashboard')->with('success', 'Login realizado com sucesso!');
+        } else {
+            // Se for usuário comum, vai para a página inicial PÚBLICA ('/')
+            return redirect('/')->with('success', 'Login realizado com sucesso!');
+        }
     }
 
-    // autenticação bem-sucedida
-    $request->session()->regenerate(); // importante pra segurança
-    $user = Auth::user();
-
-    // redireciona conforme nivel_acesso, com mensagem de sucesso
-    if ($user->nivel_acesso == 0) {
-        return redirect()->route('dashboard')
-                         ->with('success', 'Login realizado com sucesso!'); // admin
-    } else {
-        return redirect()->route('home')
-                         ->with('success', 'Login realizado com sucesso!');  // usuário comum
-    }
+    // 4. FALHA: Se o Auth::attempt() falhou, retorna para o login com erro.
+    return redirect('/Login')
+        ->withErrors(['login' => 'Credenciais inválidas.'])
+        ->withInput();
 }
+
 
 
     public function fazerLogOut(Request $request){

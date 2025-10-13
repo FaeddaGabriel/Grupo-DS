@@ -2,70 +2,44 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\ContatoController;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Aqui registramos as rotas web da aplicação.
-|
 */
 
-// Página inicial pública
+// ROTAS PÚBLICAS
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-// Contato público
-Route::get('/Contato', function () {
-    return view('Contato');
-})->name('Contato');
+Route::get('/Contato', [ContatoController::class, 'exibirContato'])->name('contato');
+Route::post('/Contato/inserir', [ContatoController::class, 'store'])->name('contato.store');
 
-// Formulário de login (GET)
-Route::get('/Login', function () {
-    return view('Form');
-})->name('login');
-
-// Processa o login (POST)
+Route::get('/Login', function () { return view('Form'); })->name('login');
 Route::post('/Login', [UsuarioController::class, 'fazerLogin'])->name('login.process');
 
-// Logout (POST)
-Route::post('/logout', [UsuarioController::class, 'fazerLogOut'])->name('fazerLogOut');
-
-// Cadastro de usuário (página e envio)
 Route::get('/Cadastro', [UsuarioController::class, 'exibirCadastro'])->name('cadastro');
 Route::post('/Cadastro/inserir', [UsuarioController::class, 'store'])->name('cadastro.store');
 
-// Rotas protegidas por autenticação e nível de acesso (apenas admin)
-Route::middleware(['auth', 'nivel:0'])->group(function () {
-    // Página de consultas só para o admin
-    Route::get('/Consultas', [UsuarioController::class, 'exibirConsultas'])->name('consultas');
 
-    // Dashboard do admin
-    Route::get('/Dashboard', [UsuarioController::class, 'dashboard'])->name('dashboard');
+// ROTAS PROTEGIDAS
+Route::middleware(['auth'])->group(function () {
+    
+    Route::post('/logout', [UsuarioController::class, 'fazerLogOut'])->name('fazerLogOut');
 
-    // Página de exercícios
-    Route::get('/exercicio', [UsuarioController::class, 'exercicio'])->name('exercicio');
-});
-
-// Rotas acessíveis por autenticação e nível de acesso (admin e usuário comum)
-Route::middleware(['auth', 'nivel:0,1'])->group(function () {
-    // Página inicial protegida
-    Route::get('/home', function () {
-        return view('welcome');
-    })->name('home.protected');
-
-    // Perfil do usuário
+    // Rotas para TODOS os usuários logados
     Route::get('/Perfil', function () {
         return view('Perfil');
     })->name('perfil');
+    Route::put('/perfil/foto', [UsuarioController::class, 'fotoPerfil'])->name('perfil.foto');
 
-    // Atualização da foto de perfil
-    Route::put('/perfil/foto', [UsuarioController::class, 'fotoPerfil'])
-        ->name('perfil.foto');
+    // Rotas EXCLUSIVAS para Admin
+    Route::middleware(['nivel:0'])->group(function () {
+        Route::get('/Dashboard', [UsuarioController::class, 'dashboard'])->name('dashboard');
+        Route::get('/Consultas', [UsuarioController::class, 'exibirConsultas'])->name('consultas');
+        Route::get('/exercicio', [UsuarioController::class, 'exercicio'])->name('exercicio');
+    });
 });
-
-// Contato
-Route::get('/Contato', 'App\Http\Controllers\ContatoController@exibirContato');
-Route::post('/Contato/inserir', 'App\Http\Controllers\ContatoController@store');
