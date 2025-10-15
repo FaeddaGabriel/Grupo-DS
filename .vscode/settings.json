@@ -1,0 +1,24 @@
+{
+    // --- Configurações do Formatador para ESTE PROJETO ---
+
+    // 1. Ativa a formatação ao salvar os arquivos.
+    "editor.formatOnSave": true,
+
+    // 2. Define o Prettier como o formatador padrão para as linguagens do projeto.
+    //    Isso garante que, após instalar as extensões recomendadas, tudo funcione.
+    "[php]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[blade]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+}

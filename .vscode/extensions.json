@@ -1,0 +1,12 @@
+{
+	"recommendations": [
+		// Formatador de código principal para JS, CSS, PHP, Blade, etc.
+		"esbenp.prettier-vscode",
+
+		// Essencial para Laravel: autocompletar, snippets e formatação de Blade
+		"onecentlin.laravel-blade",
+
+		// "Inteligência" para PHP: autocompletar, análise de código, etc.
+		"bmewburn.vscode-intelephense-client"
+	]
+}
