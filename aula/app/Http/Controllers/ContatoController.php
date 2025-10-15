@@ -16,10 +16,10 @@ class ContatoController extends Controller
     {
         //
     }
-    public function exibirContato() 
-    { 
+    public function exibirContato()
+    {
         $Contato = ContatoModel::all();
-        return view('Contato',compact('Contato'));  //n tem mt oq falar mas retorna pra view só
+        return view("Contato", compact("Contato")); //n tem mt oq falar mas retorna pra view só
     }
     /**
      * Show the form for creating a new resource.
@@ -41,12 +41,14 @@ class ContatoController extends Controller
     {
         $Contato = new ContatoModel(); //Contato é um objeto (da pra por qualquer nome)
 
-		$Contato->nomeContato = $request->txContNome; //"nomeContato" é a coluna da tabela agora o "$Contato" é o objeto, txContNome é o mesmo que vai estar na view pra salvar, funciona tipo id
-		$Contato->emailContato = $request->txContEmail;
+        $Contato->nomeContato = $request->txContNome; //"nomeContato" é a coluna da tabela agora o "$Contato" é o objeto, txContNome é o mesmo que vai estar na view pra salvar, funciona tipo id
+        $Contato->emailContato = $request->txContEmail;
         $Contato->mensagemContato = $request->txContMsg;
         $Contato->save();
 
-		return redirect()->action([ContatoController::class, 'exibirContato']) ->with('success', 'Mensagem enviada com sucesso!');
+        return redirect()
+            ->action([ContatoController::class, "exibirContato"])
+            ->with("success", "Mensagem enviada com sucesso!");
     }
 
     /**

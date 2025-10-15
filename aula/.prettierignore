@@ -1,0 +1,13 @@
+# Arquivos e pastas gerados pelo Composer e NPM
+/vendor
+/node_modules
+
+# Arquivos de cache e logs do Laravel
+/storage
+
+# Arquivos de build do Vite
+/public/build
+
+# Outros
+.env
+package-lock.json

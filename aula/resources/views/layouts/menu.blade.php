@@ -63,15 +63,24 @@
     <div>
         <h2>Painel ADM</h2>
         <nav>
-            <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
+            <a
+                href="{{ route("dashboard") }}"
+                class="{{ request()->routeIs("dashboard") ? "active" : "" }}"
+            >
                 <span class="icon">📊</span>
                 <span>Dashboard</span>
             </a>
-            <a href="{{ route('consultas') }}" class="{{ request()->routeIs('consultas') ? 'active' : '' }}">
+            <a
+                href="{{ route("consultas") }}"
+                class="{{ request()->routeIs("consultas") ? "active" : "" }}"
+            >
                 <span class="icon">🗂️</span>
                 <span>Consultas</span>
             </a>
-            <a href="{{ route('exercicio') }}" class="{{ request()->routeIs('exercicio') ? 'active' : '' }}">
+            <a
+                href="{{ route("exercicio") }}"
+                class="{{ request()->routeIs("exercicio") ? "active" : "" }}"
+            >
                 <span class="icon">📘</span>
                 <span>Exercícios</span>
             </a>
@@ -80,7 +89,7 @@
 
     <!-- Rodapé do Menu -->
     <div class="sidebar-footer">
-        <a href="{{ url('/') }}">
+        <a href="{{ url("/") }}">
             <span class="icon">🏠</span>
             <span>Voltar para o Site</span>
         </a>

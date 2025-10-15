@@ -19,11 +19,11 @@ class CheckNivelAcesso
     public function handle(Request $request, Closure $next, $role)
     {
         if (!Auth::check()) {
-            return redirect()->route('login'); // se não estiver logado, manda pro login
+            return redirect()->route("login"); // se não estiver logado, manda pro login
         }
 
         if (Auth::user()->nivel_acesso != $role) {
-            return redirect()->route('home'); // se não for o nível correto, manda pro home
+            return redirect()->route("home"); // se não for o nível correto, manda pro home
         }
 
         return $next($request); // usuário autorizado

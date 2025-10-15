@@ -1,19 +1,18 @@
 <?php
 
-include("conexao.php");
+include "conexao.php";
 
-$email = $_POST['txEmail'];
-$senha = $_POST['txSenha'];
-    $stmt = $pdo->prepare("
+$email = $_POST["txEmail"];
+$senha = $_POST["txSenha"];
+$stmt = $pdo->prepare("
     insert into tbCadastro values(
         null,
         '$email',
         '$senha'
     )
 ");
-$stmt-> execute();
+$stmt->execute();
 
 header("welcome.blade.php");
-
 
 ?>

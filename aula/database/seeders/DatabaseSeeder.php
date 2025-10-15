@@ -15,11 +15,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // Chamar os seeders criados para popular o banco com dados de teste
-        $this->call([
-            UsuarioSeeder::class,
-            ContatoSeeder::class,
-        ]);
-        
-        $this->command->info('Banco de dados populado com sucesso!');
+        $this->call([UsuarioSeeder::class, ContatoSeeder::class]);
+
+        $this->command->info("Banco de dados populado com sucesso!");
     }
 }

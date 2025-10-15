@@ -7,7 +7,7 @@
 }
 
 body {
-    background: #ffffff;  /* fundo branco */
+    background: #ffffff; /* fundo branco */
     transition: 9s;
 }
 
@@ -20,8 +20,10 @@ body.rolagem {
     height: 100vh;
     width: 100%;
     /* Overlay leve para não interferir na imagem de fundo */
-    background-image: linear-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.4)), url('/images/olympic.jpg');
-    background-size: cover; 
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)),
+        url("/images/olympic.jpg");
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     animation: moveBackground 20s linear infinite;
@@ -31,7 +33,7 @@ body.rolagem {
     width: 150px;
     height: auto;
     object-fit: contain;
-    border-radius: 10px;  /* Mantém arredondamento original */
+    border-radius: 10px; /* Mantém arredondamento original */
 }
 
 /* Navbar */
@@ -49,13 +51,12 @@ nav {
 }
 
 nav.scrolled {
-    background-color: #0077FF;  /* Acento em azul ao rolar */
+    background-color: #0077ff; /* Acento em azul ao rolar */
 }
 
 /* Logo – tamanho original 28px; o <span> em azul marinho */
 .logo {
     color: #000000;
-    
 }
 
 .logo span {
@@ -117,7 +118,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    color: #0077FF;
+    color: #0077ff;
 }
 
 /* Submenu */
@@ -191,7 +192,7 @@ button:hover {
 }
 
 .destaques h3 {
-    font-size: 39px;  /* tamanho original */
+    font-size: 39px; /* tamanho original */
     color: #000000;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -211,7 +212,7 @@ button:hover {
 .card {
     width: 30%;
     height: 500px;
-    background-color: #333;  /* Cor de fallback, se a imagem não carregar */
+    background-color: #333; /* Cor de fallback, se a imagem não carregar */
     border-radius: 15px;
     overflow: hidden;
     position: relative;
@@ -229,7 +230,7 @@ button:hover {
     bottom: 20px;
     left: 20px;
     right: 20px;
-    color: #ffffff;  /* Mantém a cor clara para contraste sobre imagem */
+    color: #ffffff; /* Mantém a cor clara para contraste sobre imagem */
 }
 
 .card h3 {
@@ -243,13 +244,13 @@ button:hover {
 
 /* Imagens de background dos cards */
 .card:nth-child(1) {
-    background-image: url('https://static.stealthelook.com.br/wp-content/uploads/2024/02/moda-e-esporte-tenis-miu-miu-1-20240226182943.png');
+    background-image: url("https://static.stealthelook.com.br/wp-content/uploads/2024/02/moda-e-esporte-tenis-miu-miu-1-20240226182943.png");
 }
 .card:nth-child(2) {
-    background-image: url('https://static.stealthelook.com.br/wp-content/uploads/2024/02/moda-e-esporte-tenis-arthur-ashe-1-20240226175205.png');
+    background-image: url("https://static.stealthelook.com.br/wp-content/uploads/2024/02/moda-e-esporte-tenis-arthur-ashe-1-20240226175205.png");
 }
 .card:nth-child(3) {
-    background-image: url('https://i.pinimg.com/1200x/c0/54/e4/c054e407b4af26285b261bd8a78b2f60.jpg');
+    background-image: url("https://i.pinimg.com/1200x/c0/54/e4/c054e407b4af26285b261bd8a78b2f60.jpg");
 }
 
 /* ===== FULL-WIDTH BANNER (com imagem fixa) ===== */
@@ -260,7 +261,7 @@ button:hover {
     margin: 20px auto;
     border-radius: 20px;
     overflow: hidden;
-    background-image: url('https://s3.us-east-1.amazonaws.com/vnda-cockpit/www-streetopia-me/2022/06/01/62976c391fb67pietint.jpg');
+    background-image: url("https://s3.us-east-1.amazonaws.com/vnda-cockpit/www-streetopia-me/2022/06/01/62976c391fb67pietint.jpg");
     background-size: cover;
     background-position: center;
     display: flex;
@@ -273,7 +274,7 @@ button:hover {
 .full-width-banner h2,
 .full-width-banner a {
     font-size: 30px;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-weight: 600;
 }
 
@@ -326,7 +327,7 @@ button:hover {
 
 /* Botão de compra para produtos */
 .buy-button {
-    background-color: #0077FF;
+    background-color: #0077ff;
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -381,7 +382,7 @@ button:hover {
     align-items: center;
     /* Mantém a altura original; se necessário, ajuste para sua preferência */
     height: auto;
-    background-color: #0077FF;
+    background-color: #0077ff;
     padding: 20px;
 }
 
@@ -397,11 +398,21 @@ button:hover {
 }
 
 @keyframes moveCarousel {
-    0%   { transform: translateX(0); }
-    10%  { transform: translateX(5%); }
-    20%  { transform: translateX(-5%); }
-    35%  { transform: translateX(-10%); }
-    40%  { transform: translateX(0); }
+    0% {
+        transform: translateX(0);
+    }
+    10% {
+        transform: translateX(5%);
+    }
+    20% {
+        transform: translateX(-5%);
+    }
+    35% {
+        transform: translateX(-10%);
+    }
+    40% {
+        transform: translateX(0);
+    }
 }
 
 .cardC {
@@ -440,7 +451,7 @@ button:hover {
 
 /* Botão de compra dentro dos cards de Super Promoções */
 .cardC .buy-button {
-    background-color: #0077FF;
+    background-color: #0077ff;
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -473,7 +484,7 @@ footer {
 .footer-column p {
     color: #ffffff;
     font-size: large;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .social-link {
@@ -500,7 +511,7 @@ footer {
 .fundo h1 {
     font-size: small;
     color: #ffffff;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* ===== NOVOS CARDS (ex: para tênis) ===== */
@@ -544,7 +555,7 @@ footer {
 }
 
 .buy-buttonN {
-    background-color: #0077FF;
+    background-color: #0077ff;
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -566,13 +577,12 @@ footer {
     margin-bottom: 16px;
     border-radius: 8px;
     font-size: 15px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     align-items: center;
     gap: 10px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
-
 
 .alert-message {
     position: fixed;
@@ -587,12 +597,11 @@ footer {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     z-index: 9999;
     font-size: 15px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     align-items: center;
     gap: 10px;
 }
-
 
 .error-icon {
     font-size: 18px;
