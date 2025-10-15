@@ -12,7 +12,6 @@
     <img src="{{ asset('images/King1.png') }}" alt="Logo" class="logo-img">
 </a>
 
-
   <div class="page">
     <form action="{{ route('login.process') }}" method="POST" class="formLogin">
       @csrf

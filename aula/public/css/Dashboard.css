@@ -103,6 +103,24 @@ body {
     height: 300px;
 }
 
+.alert-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #d1f5d3;
+    color: #27632a;
+    border: 1px solid #b5e3b8;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    font-size: 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 /* Responsividade */
 @media (max-width: 992px) {
     #dashboard-root .charts-grid {
@@ -124,3 +142,4 @@ body {
         grid-template-columns: 1fr; /* Uma coluna para os cards */
     }
 }
+

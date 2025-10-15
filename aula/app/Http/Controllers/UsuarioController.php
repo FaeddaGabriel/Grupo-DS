@@ -5,91 +5,59 @@ namespace App\Http\Controllers;
 use App\Models\ContatoModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-//Pra o login utilizar:
+// Pra o login utilizar:
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Hash;
 
-
 class UsuarioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+    public function index() { }
+
     public function exibirCadastro() 
     { 
         $usuarios = User::all();
-        return view('Cadastro', compact('usuarios')); //retorna pra view e em cima pega todos os registros do banco
+        return view('Cadastro', compact('usuarios')); 
     }
     
     public function exibirConsultas() 
     { 
         $usuarios = User::all();
         $contatos = ContatoModel::all();
-        
         return view('Consultas', compact('usuarios', 'contatos'));
     }
-    
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+
+    // --- LOGIN ---
+    public function fazerLogin(Request $request)
     {
-        //
-    }
+        $credentials = $request->only('email', 'password');
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            $user = Auth::user();
 
-
-    // Em app/Http/Controllers/UsuarioController.php
-
-public function fazerLogin(Request $request){
-    // 1. Valida as credenciais e tenta fazer o login
-    $credentials = $request->only('email', 'password');
-
-    if (Auth::attempt($credentials)) {
-        // 2. SUCESSO: O login foi bem-sucedido. Agora podemos trabalhar com o usuário.
-        $request->session()->regenerate();
-        $user = Auth::user();
-
-        // 3. Redireciona com base no nível de acesso
-        if ($user->nivel_acesso == 0) {
-            // Se for admin, vai para a dashboard
-            return redirect()->route('dashboard')->with('success', 'Login realizado com sucesso!');
-        } else {
-            // Se for usuário comum, vai para a página inicial PÚBLICA ('/')
-            return redirect('/')->with('success', 'Login realizado com sucesso!');
+            if ($user->nivel_acesso == 0) {
+                return redirect()->route('dashboard')->with('success', 'Login realizado com sucesso!');
+            } else {
+                return redirect('/')->with('success', 'Login realizado com sucesso!');
+            }
         }
+
+        return redirect('/Login')
+            ->withErrors(['login' => 'Credenciais inválidas.'])
+            ->withInput();
     }
 
-    // 4. FALHA: Se o Auth::attempt() falhou, retorna para o login com erro.
-    return redirect('/Login')
-        ->withErrors(['login' => 'Credenciais inválidas.'])
-        ->withInput();
-}
+    // --- LOGOUT ---
+    public function fazerLogOut(Request $request)
+    {
+        Auth::logout();
+        return redirect('/')->with('success', 'Logout realizado com sucesso!');
+    }
 
-
-
-    public function fazerLogOut(Request $request){
-    Auth::logout();
-    return redirect('/')->with('success', 'Logout realizado com sucesso!');
-}
-
+    // --- CADASTRO (corrigido) ---
     public function store(Request $request)
     {
         $request->validate([
@@ -99,56 +67,48 @@ public function fazerLogin(Request $request){
             'txSexo' => 'required|string',
         ]);
 
-        // Ele funciona em conjunto com a propriedade '$fillable' no Model 'User'.
         User::create([
-            'name' => $request->txNome, //"NomeUsuario" é a coluna da tabela agora o "$Usuario" é o objeto, txNome é o mesmo que vai estar na view pra salvar, funciona tipo id
+            'name' => $request->txNome,
             'email' => $request->txEmail,
             'sexo' => $request->txSexo,
-            'password' => Hash::make($request->txSenha),  
-            'nivel_acesso' => 1, // 0 = admin | 1 = usuário comum      
+            'password' => Hash::make($request->txSenha),
+            'nivel_acesso' => 1, // 0 = admin | 1 = usuário comum
         ]);
+
         
-        //Loga o usuário automaticamente após o cadastro
-        //Auth::login($usuario);
+        return redirect()->route('login')->with('success', 'Cadastro realizado com sucesso! Faça login.');
+    }
 
-        return redirect('/Login'); 
-  }
-  
-  public function fotoPerfil(Request $request)
-  {
-      $user = $request->user() ?? auth()->user();
-  
-      // Validação para garantir que o arquivo é uma imagem válida
-      $request->validate([
-          'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // max 2MB
-      ]);
-  
-      $image = $request->file('foto');
-  
-      if ($image) {
-          $path = $image->store('imagesPicture', 'public');
-          $user->foto_perfil = $path;
-          $user->save();
-  
-          return redirect()->route('perfil')->with('success', 'Modificações salvas com sucesso!');
-      }
-  
-      return redirect()->route('perfil')->with('error', 'Nenhuma imagem foi enviada.');
-  }
+    // --- FOTO DE PERFIL ---
+    public function fotoPerfil(Request $request)
+    {
+        $user = $request->user() ?? auth()->user();
+    
+        $request->validate([
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+    
+        $image = $request->file('foto');
+    
+        if ($image) {
+            $path = $image->store('imagesPicture', 'public');
+            $user->foto_perfil = $path;
+            $user->save();
+    
+            return redirect()->route('perfil')->with('success', 'Modificações salvas com sucesso!');
+        }
+    
+        return redirect()->route('perfil')->with('error', 'Nenhuma imagem foi enviada.');
+    }
 
-// Cole este código no seu Controller, substituindo a função dashboard antiga.
-
+    // --- DASHBOARD ---
     public function dashboard()
     {
-        // Contadores totais para os cards
         $totalUsuarios = User::count();
-        
-        // Contagem de usuários cadastrados este mês
         $usuariosEsteMes = User::whereMonth('created_at', date('m'))
                             ->whereYear('created_at', date('Y'))
                             ->count();
 
-        // Buscar usuários agrupados por mês de criação (últimos 12 meses)
         $usuariosPorMes = DB::select("
             SELECT 
                 DATE_FORMAT(created_at, '%Y-%m') as mes,
@@ -159,7 +119,6 @@ public function fazerLogin(Request $request){
             ORDER BY mes ASC
         ");
 
-        // Buscar contatos agrupados por mês de criação (últimos 12 meses)
         $contatosPorMes = DB::select("
             SELECT 
                 DATE_FORMAT(created_at, '%Y-%m') as mes,
@@ -170,7 +129,6 @@ public function fazerLogin(Request $request){
             ORDER BY mes ASC
         ");
 
-        // Preparar dados para os gráficos
         $mesesLabels = [];
         $mesesDados = [];
         foreach ($usuariosPorMes as $item) {
@@ -185,7 +143,6 @@ public function fazerLogin(Request $request){
             $contatosDados[] = $item->total;
         }
 
-        // Gráfico 3: Dados para análise de usuários com e sem contato
         $totalComContato = DB::table('users')
             ->whereIn('id', function($query) {
                 $query->select('user_id')->from('tbcontato')->whereNotNull('user_id');
@@ -199,7 +156,6 @@ public function fazerLogin(Request $request){
         $usuariosContatoLabels = ['Com contato', 'Sem contato'];
         $usuariosContatoDados = [$totalComContato, $totalSemContato];
 
-        // Gráfico 4 (Novo): Buscar dados de distribuição por sexo
         $sexoData = DB::select("
             SELECT 
                 CASE 
@@ -211,7 +167,6 @@ public function fazerLogin(Request $request){
             GROUP BY sexo_label
         ");
 
-        // Preparar dados para o gráfico de pizza de sexo
         $sexoLabels = [];
         $sexoDados = [];
         $colors = [
@@ -219,6 +174,7 @@ public function fazerLogin(Request $request){
             'Feminino' => '#f56565',
             'Não Informado' => '#a0aec0'
         ];
+
         foreach ($sexoData as $item) {
             $sexoLabels[] = $item->sexo_label;
             $sexoDados[] = [
@@ -228,7 +184,6 @@ public function fazerLogin(Request $request){
             ];
         }
 
-        // Retornar a view com todas as variáveis necessárias
         return view('Dashboard', compact(
             'totalUsuarios',
             'usuariosEsteMes',
@@ -243,9 +198,9 @@ public function fazerLogin(Request $request){
         ));
     }
 
+    // --- EXERCÍCIO ---
     public function exercicio()
     {
-        // Consulta 1: Total de usuários por nível de acesso
         $usuariosPorNivel = DB::table('users')
             ->select(
                 DB::raw("CASE WHEN nivel_acesso = 0 THEN 'Administrador' ELSE 'Usuário Comum' END as tipo_usuario"),
@@ -255,7 +210,6 @@ public function fazerLogin(Request $request){
             ->orderBy('nivel_acesso')
             ->get();
 
-        // Consulta 2: Usuários cadastrados por mês (últimos 6 meses)
         $usuariosPorMesRecente = DB::table('users')
             ->select(
                 DB::raw("DATE_FORMAT(created_at, '%Y-%m') as mes"),
@@ -267,7 +221,6 @@ public function fazerLogin(Request $request){
             ->orderBy('mes', 'ASC')
             ->get();
 
-        // Consulta 3: Contatos agrupados por tamanho da mensagem
         $contatosPorTamanho = DB::table('tbcontato')
             ->select(
                 DB::raw("CASE 
@@ -289,7 +242,6 @@ public function fazerLogin(Request $request){
             "), 'ASC')
             ->get();
 
-        // Consulta 4: Média de usuários cadastrados por dia da semana
         $usuariosPorDiaSemana = DB::table('users')
             ->select(
                 DB::raw("CASE DAYOFWEEK(created_at)
@@ -307,7 +259,6 @@ public function fazerLogin(Request $request){
             ->orderBy(DB::raw("DAYOFWEEK(created_at)"), 'ASC')
             ->get();
 
-        // Dados para as tabelas
         $grafico1Labels = $usuariosPorNivel->pluck('tipo_usuario');
         $grafico1Dados = $usuariosPorNivel->pluck('total');
         $grafico2Labels = $usuariosPorMesRecente->pluck('mes_nome');
@@ -325,49 +276,8 @@ public function fazerLogin(Request $request){
         ));
     }
 
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    public function show($id) { }
+    public function edit($id) { }
+    public function update(Request $request, $id) { }
+    public function destroy($id) { }
 }

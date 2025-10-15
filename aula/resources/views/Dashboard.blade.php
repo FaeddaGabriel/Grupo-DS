@@ -13,6 +13,19 @@
 <body>
   @include('layouts.menu')
 
+  @if(session('success'))
+<div id="alert-message" class="alert-message">
+    {{ session('success') }}
+</div>
+
+<script>
+    const alertDiv = document.getElementById('alert-message');
+    setTimeout(() => {
+        alertDiv.remove();
+    }, 3000);
+</script>
+@endif
+
   <div id="dashboard-root">
     <div class="main-content">
       <div class="header">
