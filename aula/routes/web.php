@@ -11,14 +11,19 @@ use App\Http\Controllers\ContatoController;
 */
 
 // ROTAS PÚBLICAS
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get(
+    '/',
+    function () {
+        return view('welcome');
+    }
+)->name('home');
 
 Route::get('/Contato', [ContatoController::class, 'exibirContato'])->name('contato');
 Route::post('/Contato/inserir', [ContatoController::class, 'store'])->name('contato.store');
 
-Route::get('/Login', function () { return view('Form'); })->name('login');
+Route::get('/Login', function () {
+    return view('Form');
+})->name('login');
 Route::post('/Login', [UsuarioController::class, 'fazerLogin'])->name('login.process');
 
 Route::get('/Cadastro', [UsuarioController::class, 'exibirCadastro'])->name('cadastro');
@@ -27,7 +32,6 @@ Route::post('/Cadastro/inserir', [UsuarioController::class, 'store'])->name('cad
 
 // ROTAS PROTEGIDAS
 Route::middleware(['auth'])->group(function () {
-    
     Route::post('/logout', [UsuarioController::class, 'fazerLogOut'])->name('fazerLogOut');
 
     // Rotas para TODOS os usuários logados
