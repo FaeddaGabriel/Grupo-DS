@@ -46,15 +46,15 @@ O script abaixo fará todo o trabalho pesado: clonar o projeto, instalar depend�
 ```powershell
 # --- INÍCIO DO SCRIPT DE INSTALAÇÃO ---
 
-# 1. Clonar o repositório (ATUALIZE A URL SE NECESSÁRIO)
+# 1. Clonar o repositório
 git clone https://github.com/FaeddaGabriel/Grupo-DS.git .;
 
-# 2. Instalar dependências do PHP (Composer ) e ferramentas de desenvolvimento (NPM)
+# 2. Instalar dependências
 echo "Instalando dependências do Composer e NPM...";
 composer install --prefix src;
 npm install;
 
-# 3. Configurar o ambiente Laravel (sem pausa, pois o .env.example está pré-configurado)
+# 3. Configurar o ambiente Laravel
 echo "Configurando o ambiente Laravel...";
 cp src/.env.example src/.env;
 php src/artisan key:generate;
@@ -66,7 +66,7 @@ php src/artisan migrate --force --seed;
 
 # 5. Iniciar o servidor
 echo "Iniciando o servidor Laravel! O projeto será aberto no seu navegador.";
-Start-Process powershell -ArgumentList "php src/artisan serve"; # Inicia o Laravel (backend) em uma nova janela.
+Start-Process powershell -ArgumentList "php src/artisan serve"; # Inicia o Laravel (backend ) em uma nova janela.
 Start-Process "http://127.0.0.1:8000"; # Abre o site no navegador
 
 echo "Instalação concluída! Uma nova janela do terminal foi aberta para o servidor.";
@@ -78,21 +78,17 @@ echo "Instalação concluída! Uma nova janela do terminal foi aberta para o ser
 
 ## 🛠️ Testando a API com o Postman
 
-*(Esta seção permanece a mesma )*
-
 ### Testando o Upload de Foto de Perfil
 
 **1. Gerar um Token de Acesso**
+
+Para interagir com a API, você precisa de um token. Execute o comando abaixo no terminal, na raiz do projeto, para abrir o Tinker:
 ```bash
 php src/artisan tinker
 ```
-ou (algum dos dois funciona, por enquanto eu Danilo não testei)
-```bash
-php artisan tinker
-```
-Dentro do Tinker:
+Dentro do Tinker, execute o seguinte para gerar um token para o usuário de ID 1 e copie o resultado:
 ```php
-$user = App\Models\User::find(1);
+$user = App\Models\User::find(1 );
 echo $user->createToken('PostmanToken')->plainTextToken;
 ```
 
