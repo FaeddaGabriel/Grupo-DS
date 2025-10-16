@@ -13,20 +13,20 @@ Projeto acadêmico de um sistema de e-commerce para a venda de roupas, acessóri
 
 ## 🚀 Guia de Instalação Rápida (Ambiente Windows com XAMPP)
 
-Este guia foi projetado para configurar o projeto em uma nova máquina de forma rápida e totalmente automatizada.
+Este guia foi projetado para configurar o projeto em uma nova máquina de forma rápida e automatizada.
 
-### 1. Pré-requisitos (O que precisa estar instalado)
+### 1. Pré-requisitos
 
 Antes de começar, garanta que os seguintes programas estão instalados na máquina:
 *   **Git:** [Link para download do Git](https://git-scm.com/downloads )
-*   **XAMPP:** Com os módulos **Apache** e **MySQL** iniciados.
+*   **XAMPP:** Essencial para o banco de dados e servidor web.
 *   **Composer:** [Link para download do Composer](https://getcomposer.org/download/ )
 *   **Node.js e NPM:** Necessário para as ferramentas de formatação de código. [Link para download do Node.js](https://nodejs.org/en/ )
 *   **VS Code:** [Link para download do VS Code](https://code.visualstudio.com/ )
 
 ### 2. Configuração Inicial do Git (Apenas na Primeira Vez)
 
-Se é a primeira vez que você usa o Git nesta máquina, configure sua identidade. Abra um terminal e execute:
+Se é a primeira vez que você usa o Git nesta máquina, configure sua identidade:
 ```bash
 git config --global user.name "Seu Nome Completo"
 git config --global user.email "seu-email@exemplo.com"
@@ -36,42 +36,51 @@ git config --global user.email "seu-email@exemplo.com"
 
 O script abaixo fará todo o trabalho pesado: clonar o projeto, instalar dependências, configurar o ambiente e iniciar o servidor.
 
-**Instruções:**
-1.  Abra o **VS Code**.
-2.  Vá em `File > Open Folder...` e escolha (ou crie) uma pasta vazia para o projeto.
-3.  Dentro do VS Code, abra o terminal integrado com o atalho `Ctrl + '` (Control + Aspas Simples).
-4.  **Copie o bloco de código inteiro abaixo e cole no terminal.**
-5.  Pressione Enter e aguarde a conclusão de todos os passos.
+**Instruções Passo a Passo:**
+1.  Abra o **XAMPP Control Panel** e inicie os módulos **Apache** e **MySQL**.
+2.  Abra o **VS Code**.
+3.  Vá em `File > Open Folder...` e escolha (ou crie) uma **pasta vazia** para o projeto.
+4.  Dentro do VS Code, abra o terminal integrado com o atalho **`Ctrl + '`** (Control + Aspas Simples).
+5.  **Copie o bloco de código inteiro abaixo e cole no terminal.**
+6.  Pressione Enter e aguarde a conclusão de todos os passos.
 
 ```powershell
-# --- INÍCIO DO SCRIPT DE INSTALAÇÃO ---
+# --- INÍCIO DO SCRIPT DE INSTALAÇÃO AUTOMATIZADA ---
 
-# 1. Clonar o repositório
+# 1. Clona o repositório na pasta atual que está aberta no VS Code
+Write-Host "Clonando o repositório..." -ForegroundColor Yellow;
 git clone https://github.com/FaeddaGabriel/Grupo-DS.git .;
 
-# 2. Instalar dependências
-echo "Instalando dependências do Composer e NPM...";
-composer install --prefix src;
+# 2. Define o caminho para a pasta de código-fonte
+$sourceDir = "src";
+
+# 3. Instala as dependências do Node.js (na raiz ) e do Composer (na pasta src)
+Write-Host "Instalando dependências (NPM e Composer)..." -ForegroundColor Green;
 npm install;
+composer install --working-dir=$sourceDir;
 
-# 3. Configurar o ambiente Laravel
-echo "Configurando o ambiente Laravel...";
-cp src/.env.example src/.env;
-php src/artisan key:generate;
-php src/artisan storage:link;
+# 4. Configura o ambiente Laravel
+Write-Host "Configurando o ambiente Laravel..." -ForegroundColor Green;
+cp "$sourceDir\.env.example" "$sourceDir\.env";
+php "$sourceDir\artisan" key:generate;
+php "$sourceDir\artisan" storage:link;
 
-# 4. Configurar o banco de dados
-echo "Executando migrações e seeders...";
-php src/artisan migrate --force --seed;
+# 5. Executa as migrações e seeders do banco de dados
+Write-Host "Configurando o banco de dados..." -ForegroundColor Green;
+php "$sourceDir\artisan" migrate --force --seed;
 
-# 5. Iniciar o servidor
-echo "Iniciando o servidor Laravel! O projeto será aberto no seu navegador.";
-Start-Process powershell -ArgumentList "php src/artisan serve"; # Inicia o Laravel (backend ) em uma nova janela.
-Start-Process "http://127.0.0.1:8000"; # Abre o site no navegador
+# 6. Inicia o servidor Laravel em uma nova janela
+Write-Host "Iniciando o servidor..." -ForegroundColor Green;
+Start-Process powershell -ArgumentList "php $sourceDir\artisan serve";
 
-echo "Instalação concluída! Uma nova janela do terminal foi aberta para o servidor.";
+# 7. Abre o projeto no navegador após uma pequena pausa
+Write-Host "Abrindo o projeto no navegador..." -ForegroundColor Green;
+Start-Sleep -Seconds 5;
+Start-Process "http://127.0.0.1:8000";
 
-# --- FIM DO SCRIPT DE INSTALAÇÃO ---
+Write-Host "Instalação concluída com sucesso!" -ForegroundColor Cyan;
+
+# --- FIM DO SCRIPT DE INSTALAÇÃO AUTOMATIZADA ---
 ```
 
 ---
@@ -81,14 +90,13 @@ echo "Instalação concluída! Uma nova janela do terminal foi aberta para o ser
 ### Testando o Upload de Foto de Perfil
 
 **1. Gerar um Token de Acesso**
-
-Para interagir com a API, você precisa de um token. Execute o comando abaixo no terminal, na raiz do projeto, para abrir o Tinker:
 ```bash
+# Execute este comando na raiz do projeto (dentro do terminal do VS Code)
 php src/artisan tinker
 ```
-Dentro do Tinker, execute o seguinte para gerar um token para o usuário de ID 1 e copie o resultado:
+Dentro do Tinker:
 ```php
-$user = App\Models\User::find(1 );
+$user = App\Models\User::find(1);
 echo $user->createToken('PostmanToken')->plainTextToken;
 ```
 
