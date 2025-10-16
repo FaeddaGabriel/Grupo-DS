@@ -2,7 +2,7 @@
     // --- Configurações do Formatador para ESTE PROJETO ---
 
     // 1. Ativa a formatação ao salvar os arquivos.
-    "editor.formatOnSave": false,
+    "editor.formatOnSave": true,
 
     // 2. Define o Prettier como o formatador padrão para as linguagens do projeto.
     //    Isso garante que, após instalar as extensões recomendadas, tudo funcione.
@@ -20,5 +20,6 @@
     },
     "[json]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
-    }
+    },
+    "git.ignoreLimitWarning": true
 }
