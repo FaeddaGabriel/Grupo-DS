@@ -3,8 +3,8 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "format": "prettier --write . --no-cache",
-        "format:check": "prettier --check .",
+        "format": "prettier --write src --no-cache",
+        "format:check": "prettier --check src --no-cache",
         "prepare": "husky"
     },
     "devDependencies": {

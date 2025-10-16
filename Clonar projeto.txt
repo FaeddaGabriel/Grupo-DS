@@ -1,9 +1,0 @@
-git clone https://github.com/FaeddaGabriel/Grupo-DS.git
-cd Grupo-DS\aula
-composer install
-cp .env.example .env 
-php artisan key:generate
-php artisan migrate --force --seed
-php artisan storage:link
-Start-Process powershell -ArgumentList "php artisan serve"
-Start-Process "http://127.0.0.1:8000"

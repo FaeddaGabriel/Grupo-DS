@@ -1,0 +1,24 @@
+# Regras para a raiz do projeto (Node.js, etc.)
+/node_modules
+npm-debug.log
+yarn-error.log
+
+# Regras para a pasta do projeto Laravel (src)
+/src/public/build
+/src/public/hot
+/src/public/storage
+/src/storage/*.key
+/src/vendor
+/src/.env
+/src/.env.backup
+/src/.env.production
+/src/.phpunit.result.cache
+
+# Arquivos de IDEs
+/.fleet
+/.idea
+
+# Arquivos legados do Laravel que podem estar na raiz
+Homestead.json
+Homestead.yaml
+auth.json

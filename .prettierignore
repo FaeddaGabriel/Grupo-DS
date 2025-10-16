@@ -1,0 +1,8 @@
+# Ignora pastas na raiz do projeto
+/node_modules
+
+# Ignora pastas dentro do código-fonte do Laravel (src)
+/src/vendor
+/src/storage
+/src/public/build
+/src/public/hot
