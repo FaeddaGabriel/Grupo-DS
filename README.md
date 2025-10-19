@@ -42,45 +42,20 @@ O script abaixo fará todo o trabalho pesado: clonar o projeto, instalar depend�
 3.  Vá em `File > Open Folder...` e escolha (ou crie) uma **pasta vazia** para o projeto.
 4.  Dentro do VS Code, abra o terminal integrado com o atalho **`Ctrl + '`** (Control + Aspas Simples).
 5.  **Copie o bloco de código inteiro abaixo e cole no terminal.**
-6.  Pressione Enter e aguarde a conclusão de todos os passos.
+6.  Pressione Enter e aguarde a conclusão dos comandos.
 
 ```powershell
-# --- INÍCIO DO SCRIPT DE INSTALAÇÃO AUTOMATIZADA ---
-
-# 1. Clona o repositório na pasta atual que está aberta no VS Code
-Write-Host "Clonando o repositório..." -ForegroundColor Yellow;
 git clone https://github.com/FaeddaGabriel/Grupo-DS.git .;
-
-# 2. Define o caminho para a pasta de código-fonte
 $sourceDir = "src";
-
-# 3. Instala as dependências do Node.js (na raiz ) e do Composer (na pasta src)
-Write-Host "Instalando dependências (NPM e Composer)..." -ForegroundColor Green;
 npm install;
 composer install --working-dir=$sourceDir;
-
-# 4. Configura o ambiente Laravel
-Write-Host "Configurando o ambiente Laravel..." -ForegroundColor Green;
 cp "$sourceDir\.env.example" "$sourceDir\.env";
 php "$sourceDir\artisan" key:generate;
 php "$sourceDir\artisan" storage:link;
-
-# 5. Executa as migrações e seeders do banco de dados
-Write-Host "Configurando o banco de dados..." -ForegroundColor Green;
 php "$sourceDir\artisan" migrate --force --seed;
-
-# 6. Inicia o servidor Laravel em uma nova janela
-Write-Host "Iniciando o servidor..." -ForegroundColor Green;
 Start-Process powershell -ArgumentList "php $sourceDir\artisan serve";
-
-# 7. Abre o projeto no navegador após uma pequena pausa
-Write-Host "Abrindo o projeto no navegador..." -ForegroundColor Green;
 Start-Sleep -Seconds 5;
 Start-Process "http://127.0.0.1:8000";
-
-Write-Host "Instalação concluída com sucesso!" -ForegroundColor Cyan;
-
-# --- FIM DO SCRIPT DE INSTALAÇÃO AUTOMATIZADA ---
 ```
 
 ---
