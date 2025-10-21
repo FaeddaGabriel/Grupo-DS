@@ -82,3 +82,54 @@ echo $user->createToken('PostmanToken')->plainTextToken;
 *   **Body:** `form-data`, chave `foto` do tipo `File`.
 
 ---
+
+Lista de comandos do git:
+Base:
+git init:			Cria um novo repositório git na pasta atual
+git clone (URL): 		Clona um repositório do github pro teu pc
+git status:			mostra o estado atual (se um arquivo foi modificado, pendente ou deletado)
+git add [arquivo]:		adiciona arquivos e prepara pro commit (se quiser adicionar todos os arquivos modificados é só usar git add .)
+git commit -m "Mensagem":	Salva as alterações no histórico e manda uma msg curta
+git log:			"Mostra histórico das commits
+git diff			mostra as diferenças entre versões dos arquivos
+
+
+Branches:
+git branch			Lista todas as branches
+git branch [nome da branch]	Cria uma branch nova
+git checkout [nome da branch]	Troca pra outra branch
+git switch [nome]		Novo checkout main, troca de branch
+git merge [branch]		Junta as alterações de outra branch na atual
+git fetch			Busca atualizações do repositório remoto sem aplicar
+git pull			Puxa e aplica atualizações do repositório remoto
+git push			Envia seus commits locais pro repositório remoto
+
+Repositórios remotos:
+git remote -v				Lista os repositórios remotos conectados
+git remote add origin [URL]		Conecta o repositório local a um remoto
+git remote remove [nome]		Remove a conexão com um repositório remoto
+git remote set-url origin [URL]		Altera o endereço do repositório remoto
+
+Controle de arquivos:
+git rm [arquivo]			Remove um arquivo do repositório e marca pra exclusão
+git mv [arquivo1] [arquivo2]		Renomeia ou move um arquivo e registra a mudança
+
+Reversão e correção:
+git reset [arquivo]			Desfaz o git add em um arquivo
+git reset --hard			Reverte tudo pro último commit, apagando alterações
+git revert [commit]			Cria um novo commit que desfaz um commit anterior
+git checkout [arquivo]			Descarta alterações em um arquivo específico
+
+Histórico e inspeção:
+git show [commit]			Exibe detalhes de um commit específico
+git log --oneline			Mostra o histórico de commits em formato resumido
+git blame [arquivo]			Mostra quem modificou cada linha de um arquivo
+
+Mais branches com comandos mais específicos:
+git branch -d [branch]			Deleta uma branch local
+git push origin --delete [branch]	Deleta uma branch no repositório remoto
+git stash				Guarda temporariamente alterações não commitadas
+git stash pop				Recupera as alterações guardadas com git stash
+
+
+
