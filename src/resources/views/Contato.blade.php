@@ -73,7 +73,6 @@
                 <br />
 
                 <button class="btn" type="submit" value="Salvar">Enviar</button>
-                <p><a href="{{ url("/") }}">Voltar</a></p>
             </form>
         </div>
     </body>
