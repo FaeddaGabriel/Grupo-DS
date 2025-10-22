@@ -4,8 +4,6 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Dashboard - Painel Administrativo</title>
-
-        <!-- CSS da página -->
         <link rel="stylesheet" href="{{ asset("css/Dashboard.css") }}" />
         <link
             href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
@@ -36,7 +34,7 @@
                     <p>Visão geral do sistema e análise de dados</p>
                 </div>
 
-                <!-- Cards de Indicadores -->
+                <!-- Cards que fica em cima -->
                 <div class="cards-grid">
                     <div class="card">
                         <h3>Usuários</h3>
@@ -56,27 +54,27 @@
                     </div>
                 </div>
 
-                <!-- Grid de Gráficos -->
+                <!-- Grid dos Gráficos -->
                 <div class="charts-grid">
-                    <!-- Gráfico 1: Linha - Usuários por Mês -->
+                    <!-- Gráfico 1 - Usuários por Mês -->
                     <div class="chart-container">
                         <h3>Usuários cadastrados</h3>
                         <div id="graficoLinha" class="chart"></div>
                     </div>
 
-                    <!-- Gráfico 2: Linha - Contatos por Mês -->
+                    <!-- Gráfico 2 - Contatos por Mês -->
                     <div class="chart-container">
                         <h3>Contatos recebidos</h3>
                         <div id="graficoLinhaContatos" class="chart"></div>
                     </div>
 
-                    <!-- Gráfico 3: Barras - Comparativo de usuários com e sem contato -->
+                    <!-- Gráfico 3 - Comparativo de usuários com e sem contato -->
                     <div class="chart-container">
                         <h3>Usuários com e sem Contato</h3>
                         <div id="graficoBarras" class="chart"></div>
                     </div>
 
-                    <!-- Gráfico 4: Pizza - Distribuição por Sexo -->
+                    <!-- Gráfico 4 - Distribuição por Sexo dos Usuários -->
                     <div class="chart-container">
                         <h3>Distribuição por Sexo dos Usuários</h3>
                         <div id="graficoPizzaSexo" class="chart"></div>
@@ -85,7 +83,7 @@
             </div>
         </div>
         <script>
-            // Gráfico 1: Linha - Usuários por Mês
+            // Gráfico 1 - Usuários por Mês
             var chartLinha = echarts.init(
                 document.getElementById('graficoLinha'),
             );
@@ -111,7 +109,7 @@
             };
             chartLinha.setOption(optionLinha);
 
-            // Gráfico 2: Linha - Contatos por Mês
+            // Gráfico 2 - Contatos por Mês
             var chartLinhaContatos = echarts.init(
                 document.getElementById('graficoLinhaContatos'),
             );
@@ -137,7 +135,7 @@
             };
             chartLinhaContatos.setOption(optionLinhaContatos);
 
-            // Gráfico 3: Barras - Comparativo de usuários com e sem contato
+            // Gráfico 3 - Comparativo de usuários com e sem contato
             var chartBarras = echarts.init(
                 document.getElementById('graficoBarras'),
             );
@@ -161,7 +159,7 @@
                 ],
             };
             chartBarras.setOption(optionBarras);
-            // Gráfico 4: Pizza - Distribuição por Sexo
+            // Gráfico 4 - Distribuição por Sexo dos Usuários
             var chartPizzaSexo = echarts.init(
                 document.getElementById('graficoPizzaSexo'),
             );
@@ -203,7 +201,7 @@
             };
             chartPizzaSexo.setOption(optionPizzaSexo);
 
-            // Responsividade dos gráficos
+            // Responsividade dos gráficos aqui embaixo é só chamar o método resize() do ECharts
             window.addEventListener('resize', function () {
                 chartLinha.resize();
                 chartLinhaContatos.resize();

@@ -24,7 +24,6 @@
                     </p>
                 </div>
 
-                <!-- Seção de Resultados das Consultas (Dados Dinâmicos) -->
                 <div style="margin-bottom: 30px">
                     <h2
                         style="
@@ -46,7 +45,7 @@
                             gap: 20px;
                         "
                     >
-                        <!-- Consulta 1: Usuários por Nível -->
+                        <!-- Consulta 1: Usuários por Nível de Acesso -->
                         <div class="card" style="padding: 20px">
                             <h3
                                 style="
@@ -112,7 +111,7 @@
                             </table>
                         </div>
 
-                        <!-- Consulta 2: Usuários por Mês -->
+                        <!-- Consulta 2: Usuários Cadastrados por Mês (Últimos 6 Meses) -->
                         <div class="card" style="padding: 20px">
                             <h3
                                 style="
@@ -179,7 +178,7 @@
                             </table>
                         </div>
 
-                        <!-- Consulta 3: Contatos por Tamanho -->
+                        <!-- Consulta 3: Contatos por Tamanho da Mensagem -->
                         <div class="card" style="padding: 20px">
                             <h3
                                 style="
@@ -345,7 +344,7 @@
         </div>
 
         <script>
-            // Gráfico 1: Barras Horizontais - Usuários por Nível (DADOS ESTÁTICOS)
+            // Gráfico 1: Barras Horizontais - Usuários por Nível. os dados são estáticos só pra deixar claro
             var chartBarrasHorizontal = echarts.init(
                 document.getElementById('graficoBarrasHorizontal'),
             );
@@ -355,13 +354,13 @@
                 xAxis: { type: 'value', name: 'Quantidade' },
                 yAxis: {
                     type: 'category',
-                    data: ['Usuário Comum', 'Administrador'], // Labels estáticos
+                    data: ['Usuário Comum', 'Administrador'],
                 },
                 series: [
                     {
                         name: 'Total de Usuários',
                         type: 'bar',
-                        data: [50, 12], // Dados numéricos estáticos
+                        data: [50, 12],
                         itemStyle: {
                             color: function (params) {
                                 var colors = ['#4299e1', '#48bb78'];
@@ -378,7 +377,7 @@
             };
             chartBarrasHorizontal.setOption(optionBarrasHorizontal);
 
-            // Gráfico 2: Área - Usuários por Mês (DADOS ESTÁTICOS)
+            // Gráfico 2: Área - Usuários por Mês. os dados são estáticos só pra deixar claro
             var chartArea = echarts.init(
                 document.getElementById('graficoArea'),
             );
@@ -393,7 +392,7 @@
                         'Agosto/2025',
                         'Setembro/2025',
                         'Outubro/2025',
-                    ], // Labels estáticos
+                    ],
                     boundaryGap: false,
                     axisLabel: { rotate: 45 },
                 },
@@ -402,7 +401,7 @@
                     {
                         name: 'Cadastros',
                         type: 'line',
-                        data: [8, 15, 11, 20, 14, 25], // Dados numéricos estáticos
+                        data: [8, 15, 11, 20, 14, 25],
                         smooth: true,
                         areaStyle: {
                             color: {
@@ -430,7 +429,7 @@
             };
             chartArea.setOption(optionArea);
 
-            // Responsividade dos gráficos
+            // Responsividade dos gráficos aqui embaixo é só chamar o método resize() do ECharts
             window.addEventListener('resize', function () {
                 chartBarrasHorizontal.resize();
                 chartArea.resize();

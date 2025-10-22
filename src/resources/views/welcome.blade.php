@@ -10,11 +10,8 @@
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
             rel="stylesheet"
         />
-
-        <!-- Se houver necessidade de scripts adicionais, adicione aqui -->
     </head>
     <body>
-        <!-- NavBar Atualizada em NavBar blade, chamada pelo include agr-->
         <div class="hero">
             @include("NavBar")
         </div>
@@ -214,8 +211,7 @@
                 </div>
             </div>
         </div>
-
-        <!-- Novos Cards -->
+        <!-- Seção de Destaques - Tênis -->
         <div class="destaques">
             <h3>Tênis</h3>
             <br />
@@ -265,15 +261,12 @@
             </div>
         </div>
 
-        <!-- Footer atualizado pra só include-->
-
         @include("Footer")
 
         <div class="fundo">
             <h1>©Etec de Guaianazes 2025</h1>
         </div>
 
-        <!-- Link do JS -->
         <script src="{{ asset("js/rol.js") }}"></script>
     </body>
 </html>

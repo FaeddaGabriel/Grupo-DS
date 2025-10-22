@@ -9,10 +9,10 @@
         <input type="text" placeholder="Buscar..." />
         <button type="button">🔍</button>
     </div>
-    <!-- Navbar atualizada com botões de cadastro e login aparecendo apenas para visitantes -->
+    <!-- Navbar  com botões de cadastro e login aparecendo apenas para visitantes -->
     <ul>
         <li>
-            <!-- Comando para um futuro modo de seleção -->
+            <!-- Comando para um futuro modo de seleção, deixa na lista pra talvez fazer -->
             <ul class="sub-menu"></ul>
         </li>
         <li><a href="/Contato">Contato</a></li>

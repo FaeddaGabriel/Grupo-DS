@@ -29,7 +29,7 @@ class UsuarioController extends Controller
         return view("Consultas", compact("usuarios", "contatos"));
     }
 
-    // --- LOGIN ---
+    // Login
     public function fazerLogin(Request $request)
     {
         $credentials = $request->only("email", "password");
@@ -55,14 +55,14 @@ class UsuarioController extends Controller
             ->withInput();
     }
 
-    // --- LOGOUT ---
+    // Logout
     public function fazerLogOut(Request $request)
     {
         Auth::logout();
         return redirect("/")->with("success", "Logout realizado com sucesso!");
     }
 
-    // --- CADASTRO (corrigido) ---
+    // Cadastro de usuário
     public function store(Request $request)
     {
         $request->validate([
@@ -85,7 +85,7 @@ class UsuarioController extends Controller
             ->with("success", "Cadastro realizado com sucesso! Faça login.");
     }
 
-    // --- FOTO DE PERFIL ---
+    // Foto de perfil
     public function fotoPerfil(Request $request)
     {
         $user = $request->user() ?? auth()->user();
@@ -111,7 +111,7 @@ class UsuarioController extends Controller
             ->with("error", "Nenhuma imagem foi enviada.");
     }
 
-    // --- DASHBOARD ---
+    // Dashboard
     public function dashboard()
     {
         $totalUsuarios = User::count();
@@ -221,7 +221,7 @@ class UsuarioController extends Controller
         );
     }
 
-    // --- EXERCÍCIO ---
+    // Exercício do PDF
     public function exercicio()
     {
         $usuariosPorNivel = DB::table("users")

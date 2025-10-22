@@ -22,7 +22,7 @@
                 </div>
             @endif
 
-            <!-- Imagem de perfil no topo -->
+            <!-- Imagem de perfil no topo, fica daora assim -->
             <div class="profile-picture-wrapper">
                 @if (auth()->check() && auth()->user()->foto_perfil)
                     <img
@@ -69,8 +69,6 @@
                         {{ auth()->user()->email }}
                     </p>
                 </div>
-
-                <!-- Botão de envio -->
                 <button type="submit">Salvar</button>
             </form>
         </div>

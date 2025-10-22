@@ -23,7 +23,7 @@ class CheckNivelAcesso
         }
 
         if (Auth::user()->nivel_acesso != $role) {
-            return redirect()->route("home"); // se não for o nível correto, manda pro home
+            return redirect()->route("home"); // se não for o nível correto, manda pra home
         }
 
         return $next($request); // usuário autorizado
