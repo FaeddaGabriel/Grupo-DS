@@ -43,14 +43,35 @@
                 />
 
                 <label for="sexo">Sexo</label>
-                <select name="txSexo" id="sexo" required>
-                    <option value="" disabled selected>
-                        Selecione seu sexo
-                    </option>
-                    <option value="Masculino">Masculino</option>
-                    <option value="Feminino">Feminino</option>
-                    <option value="Outro">Outro</option>
-                </select>
+                <div class="sexo-container">
+                    <label>
+                        <input
+                            type="radio"
+                            name="txSexo"
+                            value="Masculino"
+                            required
+                        />
+                        Masculino
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            name="txSexo"
+                            id="txSexo"
+                            value="Feminino"
+                        />
+                        Feminino
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            name="txSexo"
+                            id="txSexo"
+                            value="Outro"
+                        />
+                        Prefiro não informar
+                    </label>
+                </div>
 
                 <label for="password">Senha</label>
                 <input
