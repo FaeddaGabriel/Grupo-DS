@@ -9,7 +9,7 @@ use App\Models\ContatoModel;
 
 class RelatorioController extends Controller
 {
-    public function downloadPdf()
+    public function userPdf()
     {
         $user = User::all();
 
