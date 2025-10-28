@@ -57,7 +57,28 @@ Start-Process powershell -ArgumentList "php $sourceDir\artisan serve";
 Start-Sleep -Seconds 5;
 Start-Process "http://127.0.0.1:8000";
 ```
+---
 
+### Uso Diário (Iniciar e Parar o Projeto)
+
+Após a primeira instalação, use os comandos abaixo no terminal do VS Code para gerenciar o ambiente de desenvolvimento.
+
+#### Para INICIAR o ambiente:
+*Lembre-se de iniciar os módulos **Apache** e **MySQL** no painel do XAMPP antes de rodar o comando.*
+
+*Este comando inicia o servidor do projeto e abre o site no seu navegador.*
+```powershell
+Start-Process powershell -ArgumentList "php src/artisan serve";
+Start-Sleep -Seconds 3;
+Start-Process "http://127.0.0.1:8000";
+```
+
+#### Para PARAR o servidor:
+*Este comando fecha o processo do servidor PHP que foi iniciado.*
+```powershell
+Get-Process -Name "php" -ErrorAction SilentlyContinue | Stop-Process -Force;
+Write-Host "Servidor finalizado." -ForegroundColor Yellow;
+```
 ---
 
 ## 🛠️ Testando a API com o Postman
