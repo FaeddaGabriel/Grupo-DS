@@ -21,4 +21,17 @@ class RelatorioController extends Controller
 
         // return $pdf->stream('documento.pdf'); // Exibe o PDF no navegador
     }
+
+    public function contatoPdf()
+    {
+        $Contato = ContatoModel::all();
+
+        $dados = compact("Contato");
+
+        $pdf = PDF::loadView("Contato_pdf", $dados);
+
+        return $pdf->download("documento.pdf"); // Faz o download do PDF
+
+        // return $pdf->stream('documento.pdf'); // Exibe o PDF no navegador
+    }
 }

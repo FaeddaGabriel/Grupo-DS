@@ -6,11 +6,12 @@
         <title>Document</title>
     </head>
     <body>
-        <h1>Usuários</h1>
+        <h1>Contato</h1>
 
-        @foreach ($user as $u)
+        @foreach ($Contato as $C)
             <p>
-                {{ $u->id }} {{ $u->name }} {{ $u->email }} {{ $u->sexo }}
+                {{ $C->idContato }} {{ $C->user_id }} {{ $C->nomeContato }}
+                {{ $C->emailContato }}
             </p>
         @endforeach
     </body>

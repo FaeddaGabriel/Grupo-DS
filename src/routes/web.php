@@ -66,3 +66,7 @@ Route::middleware(["auth"])->group(function () {
 });
 
 Route::get("/user-pdf", "App\Http\Controllers\RelatorioController@userPdf");
+Route::get(
+    "/Contato-pdf",
+    "App\Http\Controllers\RelatorioController@contatoPdf",
+);
