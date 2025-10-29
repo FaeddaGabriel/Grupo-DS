@@ -11,126 +11,102 @@ use App\Models\ContatoModel;
 
 class RelatorioController extends Controller
 {
-    // PDF Usuarios
+    /**
+     * Gerar e baixar PDF de Usuários
+     */
     public function userPdf()
     {
-        $user = User::all();
+        $users = User::all();
 
-        $dados = compact("user");
+        // Gera o PDF com base na view
+        $pdf = Pdf::loadView("relatorios.user_pdf", compact("users"))->setPaper(
+            "a4",
+            "portrait",
+        );
 
-        $pdf = PDF::loadView("user_pdf", $dados);
-
-        return $pdf->download("user_pdf.pdf"); // Faz o download do PDF
-
-        // return $pdf->stream('documento.pdf'); // Exibe o PDF no navegador
+        // Faz o download direto do arquivo
+        return $pdf->download("usuarios.pdf");
     }
-    // PDF Contato
+
+    /**
+     * Gerar e baixar PDF de Contatos
+     */
     public function contatoPdf()
     {
-        $Contato = ContatoModel::all();
+        $contatos = ContatoModel::all();
 
-        $dados = compact("Contato");
+        $pdf = Pdf::loadView(
+            "relatorios.contato_pdf",
+            compact("contatos"),
+        )->setPaper("a4", "portrait");
 
-        $pdf = PDF::loadView("Contato_pdf", $dados);
-
-        return $pdf->download("Contato_pdf.pdf"); // Faz o download do PDF
-
-        // return $pdf->stream('documento.pdf'); // Exibe o PDF no navegador
+        return $pdf->download("contatos.pdf");
     }
-    /// CSV Usuarios
+
+    /**
+     * Gerar e baixar CSV de Usuários
+     */
     public function userCsv()
     {
-        $sql = "select * from users";
+        $usuarios = DB::table("users")->get();
 
-        $queryJson = DB::select($sql);
-
-        // Nome do arquivo CSV
-        $filename = "user_csv.csv";
-
-        // Cabeçalho do arquivo
-
+        $filename = "usuarios.csv";
         $headers = [
-            "Content-Type" => "text/csv;charset=utf-8",
-            "Content-Disposition" => 'attachment; filename="' . $filename . '"',
+            "Content-Type" => "text/csv; charset=utf-8",
+            "Content-Disposition" => "attachment; filename=$filename",
         ];
 
-        //Cabeçalho
-
-        $file = fopen("php://output", "w");
-
-        fclose($file);
-
-        // Gera o arquivo CSV
-        $callback = function () use ($queryJson) {
+        $callback = function () use ($usuarios) {
             $file = fopen("php://output", "w");
+            fputcsv($file, ["ID", "Nome", "Email", "Sexo"], ";");
 
-            //Cabeçalho
-            $col1 = "ID";
-            $col2 = "Nome";
-            $col3 = mb_convert_encoding("Email", "ISO-8859-1");
-            $col4 = "Sexo";
-
-            $escreve = fwrite($file, "$col1;$col2;$col3;$col4;");
-
-            foreach ($queryJson as $d) {
-                $data1 = $d->id;
-                $data2 = mb_convert_encoding($d->name, "ISO-8859-1");
-                $data3 = $d->email;
-                $data4 = mb_convert_encoding($d->sexo, "ISO-8859-1");
-                $escreve = fwrite($file, "\n$data1;$data2;$data3;$data4;");
+            foreach ($usuarios as $u) {
+                fputcsv(
+                    $file,
+                    [$u->id, $u->name, $u->email, $u->sexo ?? ""],
+                    ";",
+                );
             }
+
             fclose($file);
         };
 
-        // Retorna o arquivo CSV para download
         return Response::stream($callback, 200, $headers);
     }
-    // CSV Contato
+
+    /**
+     * Gerar e baixar CSV de Contatos
+     */
     public function contatoCsv()
     {
-        $sql = "select * from tbcontato";
+        $contatos = DB::table("tbcontato")->get();
 
-        $queryJson = DB::select($sql);
-
-        // Nome do arquivo CSV
-        $filename = "contato_csv.csv";
-
-        // Cabeçalho do arquivo
-
+        $filename = "contatos.csv";
         $headers = [
-            "Content-Type" => "text/csv;charset=utf-8",
-            "Content-Disposition" => 'attachment; filename="' . $filename . '"',
+            "Content-Type" => "text/csv; charset=utf-8",
+            "Content-Disposition" => "attachment; filename=$filename",
         ];
 
-        //Cabeçalho
-
-        $file = fopen("php://output", "w");
-
-        fclose($file);
-
-        // Gera o arquivo CSV
-        $callback = function () use ($queryJson) {
+        $callback = function () use ($contatos) {
             $file = fopen("php://output", "w");
+            fputcsv($file, ["ID", "Nome", "Email", "Mensagem"], ";");
 
-            //Cabeçalho
-            $col1 = "ID";
-            $col2 = "Nome";
-            $col3 = mb_convert_encoding("Email", "ISO-8859-1");
-            $col4 = mb_convert_encoding("Mensagem", "ISO-8859-1");
-
-            $escreve = fwrite($file, "$col1;$col2;$col3;$col4;");
-
-            foreach ($queryJson as $d) {
-                $data1 = $d->idContato;
-                $data2 = mb_convert_encoding($d->nomeContato, "ISO-8859-1");
-                $data3 = $d->emailContato;
-                $data4 = mb_convert_encoding($d->mensagemContato, "ISO-8859-1");
-                $escreve = fwrite($file, "\n$data1;$data2;$data3;$data4;");
+            foreach ($contatos as $c) {
+                fputcsv(
+                    $file,
+                    [
+                        $c->idContato,
+                        $c->nomeContato,
+                        $c->emailContato,
+                        $c->mensagemContato,
+                    ],
+                    ";",
+                );
             }
+
             fclose($file);
         };
 
-        // Retorna o arquivo CSV para download
         return Response::stream($callback, 200, $headers);
     }
 }
