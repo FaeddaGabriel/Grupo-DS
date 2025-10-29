@@ -65,8 +65,19 @@ Route::middleware(["auth"])->group(function () {
     });
 });
 
+// ROTAS DOS RELATÓRIOS - PDF
 Route::get("/user-pdf", "App\Http\Controllers\RelatorioController@userPdf");
 Route::get(
     "/Contato-pdf",
     "App\Http\Controllers\RelatorioController@contatoPdf",
 );
+
+// ROTAS DOS RELATÓRIOS - CSV
+Route::get(
+    "/user-csv",
+    "App\Http\Controllers\RelatorioController@userCsv",
+)->name("user_csv.csv");
+Route::get(
+    "/contato-csv",
+    "App\Http\Controllers\RelatorioController@contatoCsv",
+)->name("contato_csv.csv");

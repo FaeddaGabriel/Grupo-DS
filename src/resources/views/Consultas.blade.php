@@ -27,6 +27,10 @@
                     <!-- Consulta de Usuários -->
                     <section class="consulta">
                         <h2>Consulta de Usuários</h2>
+                        <!--//Botão PDF-->
+                        <a href="/user-pdf">PDF</a>
+                        <!--//Botão CSV-->
+                        <a href="/user-csv">CSV</a>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -62,6 +66,10 @@
                     <!-- Consulta de Contatos -->
                     <section class="consulta">
                         <h2>Consulta de Contatos</h2>
+                        <!--Botão PDF-->
+                        <a href="/contato-pdf">PDF</a>
+                        <!--Botão CSV-->
+                        <a href="/contato-csv">CSV</a>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
