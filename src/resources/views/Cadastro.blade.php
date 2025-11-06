@@ -67,7 +67,7 @@
                             type="radio"
                             name="txSexo"
                             id="txSexo"
-                            value="Outro"
+                            value="N/I"
                         />
                         Prefiro não informar
                     </label>

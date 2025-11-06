@@ -10,92 +10,31 @@ use Carbon\Carbon;
 class UsuarioSeeder extends Seeder
 {
     /**
-     * Popula a tabela users com dados de testeeee.
+     * Popula a tabela users com dados de teste.
      *
      * @return void
      */
     public function run()
     {
         $nomesFemininos = [
-            "Maria",
-            "Ana",
-            "Juliana",
-            "Beatriz",
-            "Camila",
-            "Patrícia",
-            "Mariana",
-            "Amanda",
-            "Larissa",
-            "Fernanda",
-            "Aline",
-            "Vanessa",
-            "Renata",
-            "Priscila",
-            "Daniela",
-            "Carolina",
-            "Isabela",
-            "Bianca",
-            "Tatiana",
-            "Natália",
-            "Letícia",
-            "Sabrina",
-            "Adriana",
-            "Cristina",
+            "Maria", "Ana", "Juliana", "Beatriz", "Camila", "Patrícia",
+            "Mariana", "Amanda", "Larissa", "Fernanda", "Aline", "Vanessa",
+            "Renata", "Priscila", "Daniela", "Carolina", "Isabela", "Bianca",
+            "Tatiana", "Natália", "Letícia", "Sabrina", "Adriana", "Cristina",
             "Elaine",
         ];
-        $sexos = ["Masculino", "Feminino"];
 
         $nomes = [
-            "João Silva",
-            "Maria Santos",
-            "Pedro Oliveira",
-            "Ana Costa",
-            "Carlos Souza",
-            "Juliana Lima",
-            "Fernando Alves",
-            "Beatriz Rocha",
-            "Ricardo Martins",
-            "Camila Ferreira",
-            "Lucas Pereira",
-            "Patrícia Gomes",
-            "Rafael Barbosa",
-            "Mariana Ribeiro",
-            "Thiago Carvalho",
-            "Amanda Araújo",
-            "Bruno Dias",
-            "Larissa Monteiro",
-            "Gabriel Cardoso",
-            "Fernanda Castro",
-            "Rodrigo Pinto",
-            "Aline Correia",
-            "Marcelo Teixeira",
-            "Vanessa Moreira",
-            "Diego Nascimento",
-            "Renata Freitas",
-            "Felipe Cavalcanti",
-            "Priscila Mendes",
-            "Gustavo Ramos",
-            "Daniela Vieira",
-            "André Campos",
-            "Carolina Duarte",
-            "Matheus Rodrigues",
-            "Isabela Nunes",
-            "Leonardo Santana",
-            "Bianca Azevedo",
-            "Vinicius Lopes",
-            "Tatiana Melo",
-            "Henrique Cunha",
-            "Natália Farias",
-            "Paulo Batista",
-            "Letícia Moraes",
-            "Fábio Rezende",
-            "Sabrina Barros",
-            "Alexandre Pires",
-            "Adriana Soares",
-            "Leandro Macedo",
-            "Cristina Fonseca",
-            "Márcio Viana",
-            "Elaine Borges",
+            "João Silva", "Maria Santos", "Pedro Oliveira", "Ana Costa", "Carlos Souza",
+            "Juliana Lima", "Fernando Alves", "Beatriz Rocha", "Ricardo Martins", "Camila Ferreira",
+            "Lucas Pereira", "Patrícia Gomes", "Rafael Barbosa", "Mariana Ribeiro", "Thiago Carvalho",
+            "Amanda Araújo", "Bruno Dias", "Larissa Monteiro", "Gabriel Cardoso", "Fernanda Castro",
+            "Rodrigo Pinto", "Aline Correia", "Marcelo Teixeira", "Vanessa Moreira", "Diego Nascimento",
+            "Renata Freitas", "Felipe Cavalcanti", "Priscila Mendes", "Gustavo Ramos", "Daniela Vieira",
+            "André Campos", "Carolina Duarte", "Matheus Rodrigues", "Isabela Nunes", "Leonardo Santana",
+            "Bianca Azevedo", "Vinicius Lopes", "Tatiana Melo", "Henrique Cunha", "Natália Farias",
+            "Paulo Batista", "Letícia Moraes", "Fábio Rezende", "Sabrina Barros", "Alexandre Pires",
+            "Adriana Soares", "Leandro Macedo", "Cristina Fonseca", "Márcio Viana", "Elaine Borges",
         ];
 
         $usuarios = [
@@ -119,7 +58,7 @@ class UsuarioSeeder extends Seeder
             ],
         ];
 
-        // Cria 60 usuários de teste
+        // Cria 60 usuários de teste com chance de sexo "Não informado"
         for ($i = 0; $i < 60; $i++) {
             $diasAtras = rand(0, 365);
             $dataRegistro = Carbon::now()->subDays($diasAtras);
@@ -129,9 +68,15 @@ class UsuarioSeeder extends Seeder
             $primeiroNome = explode(" ", $nomes[$i % count($nomes)])[0];
             $email = "usuario" . ($i + 1) . "@sportsking.com";
 
-            $sexoUsuario = in_array($primeiroNome, $nomesFemininos)
-                ? "Feminino"
-                : "Masculino";
+            // Determina o sexo com chance de "Não informado"
+            $chance = rand(1, 100);
+            if ($chance <= 10) { // 10% de chance
+                $sexoUsuario = "N/I";
+            } elseif (in_array($primeiroNome, $nomesFemininos)) {
+                $sexoUsuario = "Feminino";
+            } else {
+                $sexoUsuario = "Masculino";
+            }
 
             $usuarios[] = [
                 "name" => $nomeCompleto,
@@ -144,9 +89,8 @@ class UsuarioSeeder extends Seeder
             ];
         }
 
-        // Inserir todos os usuários de uma vez
         DB::table("users")->insert($usuarios);
 
-        $this->command->info("62 usuários de teste criados com sucesso!");
+        $this->command->info("62 usuários de teste criados com sucesso! (incluindo sexo 'Não informado')");
     }
 }
