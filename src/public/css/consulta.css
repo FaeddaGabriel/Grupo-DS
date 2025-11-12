@@ -154,37 +154,34 @@ body {
         margin-right: 10px;
     }
     /* Styles botões download de PDF E CSV */
-.download-buttons {
-    margin-bottom: 20px;
-}
+/* Botões de alternância */
+            .toggle-buttons {
+                display: flex;
+                gap: 10px;
+                margin-bottom: 20px;
+            }
 
-.btn {
-    display: inline-block;
-    padding: 10px 18px;
-    font-weight: 600;
-    border-radius: 6px;
-    color: white;
-    text-decoration: none;
-    transition: all 0.25s ease;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-}
+            .toggle-buttons button {
+                background-color: #007bff;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-weight: 600;
+                transition: 0.3s;
+            }
 
-.btn-pdf {
-    background: #e63946;
-}
+            .toggle-buttons button:hover {
+                background-color: #0056b3;
+            }
 
-.btn-pdf:hover {
-    background: #b71c1c;
-    transform: scale(1.05);
-}
+            .toggle-buttons button.active {
+                background-color: #0056b3;
+            }
 
-.btn-csv {
-    background: #2a9d8f;
-}
-
-.btn-csv:hover {
-    background: #1b6f63;
-    transform: scale(1.05);
-}
-
+            /* Ocultar seção */
+            .hidden {
+                display: none;
+            }
 }
