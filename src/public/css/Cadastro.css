@@ -122,3 +122,31 @@ body {
     height: 120px;
     width: auto;
 }
+
+/* ===== Estilo dos botões de rádio ===== */
+.sexo-container {
+    display: flex;
+    justify-content: space-between; /* coloca lado a lado com espaçamento igual */
+    align-items: center;
+    gap: 20px; /* espaço entre as opções */
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #1f008d;
+    border-radius: 5px;
+    background-color: #ffffff;
+}
+
+.sexo-container label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #000;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sexo-container input[type="radio"] {
+    accent-color: #0077ff; /* deixa o círculo azul combinando com o tema */
+    cursor: pointer;
+    transform: scale(1.1); /* deixa o botão um pouco maior */
+}
