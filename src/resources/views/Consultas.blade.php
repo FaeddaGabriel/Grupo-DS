@@ -20,7 +20,7 @@
                 gap: 10px;
                 margin-bottom: 20px;
             }
-
+ 
             .toggle-buttons button {
                 background-color: #007bff;
                 color: white;
