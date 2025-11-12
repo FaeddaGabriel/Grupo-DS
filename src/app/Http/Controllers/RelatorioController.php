@@ -11,29 +11,32 @@ use App\Models\ContatoModel;
 
 class RelatorioController extends Controller
 {
-  // PDF Usuarios
-public function userPdf()
-{
-    $user = User::all();
+    // PDF Usuarios
+    public function userPdf()
+    {
+        $user = User::all();
 
-    $dados = compact("user");
+        $dados = compact("user");
 
-    $pdf = PDF::loadView("relatorios.user_pdf", $dados); // <- relatorios.
+        $pdf = PDF::loadView("user_pdf", $dados);
 
-    return $pdf->download("user_pdf.pdf");
-}
+        return $pdf->download("user_pdf.pdf"); // Faz o download do PDF
 
-// PDF Contato
-public function contatoPdf()
-{
-    $Contato = ContatoModel::all();
+        // return $pdf->stream('documento.pdf'); // Exibe o PDF no navegador
+    }
+    // PDF Contato
+    public function contatoPdf()
+    {
+        $Contato = ContatoModel::all();
 
-    $dados = compact("Contato");
+        $dados = compact("Contato");
 
-    $pdf = PDF::loadView("relatorios.Contato_pdf", $dados); // <- relatorios.
+        $pdf = PDF::loadView("Contato_pdf", $dados);
 
-    return $pdf->download("Contato_pdf.pdf");
-}
+        return $pdf->download("Contato_pdf.pdf"); // Faz o download do PDF
+
+        // return $pdf->stream('documento.pdf'); // Exibe o PDF no navegador
+    }
     /// CSV Usuarios
     public function userCsv()
     {
