@@ -17,24 +17,84 @@ class UsuarioSeeder extends Seeder
     public function run()
     {
         $nomesFemininos = [
-            "Maria", "Ana", "Juliana", "Beatriz", "Camila", "Patrícia",
-            "Mariana", "Amanda", "Larissa", "Fernanda", "Aline", "Vanessa",
-            "Renata", "Priscila", "Daniela", "Carolina", "Isabela", "Bianca",
-            "Tatiana", "Natália", "Letícia", "Sabrina", "Adriana", "Cristina",
+            "Maria",
+            "Ana",
+            "Juliana",
+            "Beatriz",
+            "Camila",
+            "Patrícia",
+            "Mariana",
+            "Amanda",
+            "Larissa",
+            "Fernanda",
+            "Aline",
+            "Vanessa",
+            "Renata",
+            "Priscila",
+            "Daniela",
+            "Carolina",
+            "Isabela",
+            "Bianca",
+            "Tatiana",
+            "Natália",
+            "Letícia",
+            "Sabrina",
+            "Adriana",
+            "Cristina",
             "Elaine",
         ];
 
         $nomes = [
-            "João Silva", "Maria Santos", "Pedro Oliveira", "Ana Costa", "Carlos Souza",
-            "Juliana Lima", "Fernando Alves", "Beatriz Rocha", "Ricardo Martins", "Camila Ferreira",
-            "Lucas Pereira", "Patrícia Gomes", "Rafael Barbosa", "Mariana Ribeiro", "Thiago Carvalho",
-            "Amanda Araújo", "Bruno Dias", "Larissa Monteiro", "Gabriel Cardoso", "Fernanda Castro",
-            "Rodrigo Pinto", "Aline Correia", "Marcelo Teixeira", "Vanessa Moreira", "Diego Nascimento",
-            "Renata Freitas", "Felipe Cavalcanti", "Priscila Mendes", "Gustavo Ramos", "Daniela Vieira",
-            "André Campos", "Carolina Duarte", "Matheus Rodrigues", "Isabela Nunes", "Leonardo Santana",
-            "Bianca Azevedo", "Vinicius Lopes", "Tatiana Melo", "Henrique Cunha", "Natália Farias",
-            "Paulo Batista", "Letícia Moraes", "Fábio Rezende", "Sabrina Barros", "Alexandre Pires",
-            "Adriana Soares", "Leandro Macedo", "Cristina Fonseca", "Márcio Viana", "Elaine Borges",
+            "João Silva",
+            "Maria Santos",
+            "Pedro Oliveira",
+            "Ana Costa",
+            "Carlos Souza",
+            "Juliana Lima",
+            "Fernando Alves",
+            "Beatriz Rocha",
+            "Ricardo Martins",
+            "Camila Ferreira",
+            "Lucas Pereira",
+            "Patrícia Gomes",
+            "Rafael Barbosa",
+            "Mariana Ribeiro",
+            "Thiago Carvalho",
+            "Amanda Araújo",
+            "Bruno Dias",
+            "Larissa Monteiro",
+            "Gabriel Cardoso",
+            "Fernanda Castro",
+            "Rodrigo Pinto",
+            "Aline Correia",
+            "Marcelo Teixeira",
+            "Vanessa Moreira",
+            "Diego Nascimento",
+            "Renata Freitas",
+            "Felipe Cavalcanti",
+            "Priscila Mendes",
+            "Gustavo Ramos",
+            "Daniela Vieira",
+            "André Campos",
+            "Carolina Duarte",
+            "Matheus Rodrigues",
+            "Isabela Nunes",
+            "Leonardo Santana",
+            "Bianca Azevedo",
+            "Vinicius Lopes",
+            "Tatiana Melo",
+            "Henrique Cunha",
+            "Natália Farias",
+            "Paulo Batista",
+            "Letícia Moraes",
+            "Fábio Rezende",
+            "Sabrina Barros",
+            "Alexandre Pires",
+            "Adriana Soares",
+            "Leandro Macedo",
+            "Cristina Fonseca",
+            "Márcio Viana",
+            "Elaine Borges",
         ];
 
         $usuarios = [
@@ -70,7 +130,8 @@ class UsuarioSeeder extends Seeder
 
             // Determina o sexo com chance de "Não informado"
             $chance = rand(1, 100);
-            if ($chance <= 10) { // 10% de chance
+            if ($chance <= 10) {
+                // 10% de chance
                 $sexoUsuario = "N/I";
             } elseif (in_array($primeiroNome, $nomesFemininos)) {
                 $sexoUsuario = "Feminino";
@@ -91,6 +152,8 @@ class UsuarioSeeder extends Seeder
 
         DB::table("users")->insert($usuarios);
 
-        $this->command->info("62 usuários de teste criados com sucesso! (incluindo sexo 'Não informado')");
+        $this->command->info(
+            "62 usuários de teste criados com sucesso! (incluindo sexo 'Não informado')",
+        );
     }
 }
