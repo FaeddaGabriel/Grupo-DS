@@ -12,39 +12,6 @@
             rel="stylesheet"
         />
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-        <style>
-            /* Botões de alternância */
-            .toggle-buttons {
-                display: flex;
-                gap: 10px;
-                margin-bottom: 20px;
-            }
-
-            .toggle-buttons button {
-                background-color: #007bff;
-                color: white;
-                border: none;
-                padding: 10px 20px;
-                border-radius: 5px;
-                cursor: pointer;
-                font-weight: 600;
-                transition: 0.3s;
-            }
-
-            .toggle-buttons button:hover {
-                background-color: #0056b3;
-            }
-
-            .toggle-buttons button.active {
-                background-color: #0056b3;
-            }
-
-            /* Ocultar seção */
-            .hidden {
-                display: none;
-            }
-        </style>
     </head>
 
     <body>
@@ -67,8 +34,32 @@
                     <!-- Consulta de Usuários -->
                     <section id="usuarios" class="consulta">
                         <h2>Consulta de Usuários</h2>
-                        <a href="/user-pdf">PDF</a>
-                        <a href="/user-csv">CSV</a>
+
+                        <div class="download-buttons">
+                            <a
+                                href="/user-pdf"
+                                class="btn-download"
+                                title="Baixar PDF"
+                            >
+                                <img
+                                    src="{{ asset("images/pdf.png") }}"
+                                    alt="Logo"
+                                    width="200"
+                                />
+                            </a>
+                            <a
+                                href="/user-csv"
+                                class="btn-download"
+                                title="Baixar CSV"
+                            >
+                                <img
+                                    src="{{ asset("images/exel.png") }}"
+                                    alt="Logo"
+                                    width="200"
+                                />
+                            </a>
+                        </div>
+
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -96,8 +87,31 @@
                     <!-- Consulta de Contatos -->
                     <section id="contatos" class="consulta hidden">
                         <h2>Consulta de Contatos</h2>
-                        <a href="/Contato-pdf">PDF</a>
-                        <a href="/contato-csv">CSV</a>
+
+                        <div class="download-buttons">
+                            <a
+                                href="/user-pdf"
+                                class="btn-download"
+                                title="Baixar PDF"
+                            >
+                                <img
+                                    src="{{ asset("images/pdf.png") }}"
+                                    alt="PDF"
+                                />
+                            </a>
+                            <a
+                                href="/user-csv"
+                                class="btn-download"
+                                title="Baixar CSV"
+                            >
+                                <img
+                                    src="{{ asset("images/exel.png") }}"
+                                    alt="Logo"
+                                    width="200"
+                                />
+                            </a>
+                        </div>
+
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>

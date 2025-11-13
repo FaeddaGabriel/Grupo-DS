@@ -15,19 +15,19 @@ body {
     overflow-x: hidden;
 }
 
-/* Layout Principal da Página de Consultas com Menu Lateral */
+/* Layout Principal */
 #consultas-root {
     display: flex;
     min-height: 100vh;
 }
 
 #consultas-root .main-content {
-    margin-left: 240px; /* Espaço para o menu lateral de 240px */
+    margin-left: 240px;
     flex: 1;
     padding: 30px;
 }
 
-/* Cabeçalho do Conteúdo Principal */
+/* Cabeçalho */
 #consultas-root .header {
     margin-bottom: 30px;
 }
@@ -43,7 +43,7 @@ body {
     font-size: 14px;
 }
 
-/* Container para as seções de tabela */
+/* Container das tabelas */
 .consulta {
     margin-bottom: 40px;
     background: #ffffff;
@@ -60,7 +60,7 @@ body {
     font-size: 22px;
 }
 
-/* Estilos da Tabela */
+/* Tabelas */
 .table-responsive {
     overflow-x: auto;
 }
@@ -101,6 +101,68 @@ body {
     background-color: #f7fafc;
 }
 
+/* Botões para alternar */
+.toggle-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.toggle-buttons button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.toggle-buttons button:hover {
+    background-color: #0056b3;
+}
+
+.toggle-buttons button.active {
+    background-color: #0056b3;
+}
+
+/* Botões de download (PDF e CSV) */
+.download-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.btn-download {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e2e8f0;
+    border-radius: 8px;
+    padding: 8px;
+    transition:
+        background-color 0.3s,
+        transform 0.2s;
+    text-decoration: none;
+}
+
+.btn-download:hover {
+    background-color: #cbd5e0;
+    transform: scale(1.05);
+}
+
+.btn-download img {
+    width: 32px;
+    height: 32px;
+    display: block;
+}
+
+/* Ocultar seção */
+.hidden {
+    display: none;
+}
+
 /* Responsividade */
 @media (max-width: 992px) {
     #consultas-root .main-content {
@@ -110,11 +172,11 @@ body {
 
 @media (max-width: 768px) {
     #consultas-root .main-content {
-        margin-left: 0; /* Remove a margem para o menu poder sobrepor ou ser escondido */
+        margin-left: 0;
     }
 
     .table thead {
-        display: none; /* Esconde o cabeçalho da tabela em telas pequenas */
+        display: none;
     }
 
     .table tbody tr {
@@ -128,7 +190,7 @@ body {
     }
 
     .table tbody tr:hover {
-        background-color: #ffffff; /* Reseta o hover para não interferir no layout de card */
+        background-color: #ffffff;
     }
 
     .table tbody td {
@@ -145,43 +207,11 @@ body {
         border-bottom: none;
     }
 
-    /* Adiciona o label do cabeçalho antes do dado usando o atributo 'data-label' */
     .table tbody td::before {
         content: attr(data-label);
         font-weight: bold;
         color: #4a5568;
         text-align: left;
         margin-right: 10px;
-    }
-    /* Styles botões download de PDF E CSV */
-    /* Botões de alternância */
-    .toggle-buttons {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 20px;
-    }
-
-    .toggle-buttons button {
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-weight: 600;
-        transition: 0.3s;
-    }
-
-    .toggle-buttons button:hover {
-        background-color: #0056b3;
-    }
-
-    .toggle-buttons button.active {
-        background-color: #0056b3;
-    }
-
-    /* Ocultar seção */
-    .hidden {
-        display: none;
     }
 }
