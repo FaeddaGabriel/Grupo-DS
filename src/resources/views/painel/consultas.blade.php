@@ -4,9 +4,10 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Consultas</title>
-
-        <!-- CSS da página -->
-        <link rel="stylesheet" href="{{ asset("css/consulta.css") }}" />
+        <link
+            rel="stylesheet"
+            href="{{ asset("css/painel/painel-consultas.css") }}"
+        />
         <link
             href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
             rel="stylesheet"
@@ -15,7 +16,7 @@
     </head>
 
     <body>
-        @include("layouts.menu")
+        @include("painel.componentes.menu")
 
         <div id="consultas-root">
             <div class="main-content">
@@ -24,14 +25,12 @@
                     <p>Visualize os dados de usuários e contatos</p>
                 </div>
 
-                <!-- Botões para alternar -->
                 <div class="toggle-buttons">
                     <button id="btnUsuarios" class="active">Usuários</button>
                     <button id="btnContatos">Contatos</button>
                 </div>
 
                 <main>
-                    <!-- Consulta de Usuários -->
                     <section id="usuarios" class="consulta">
                         <h2>Consulta de Usuários</h2>
 
@@ -67,7 +66,9 @@
                                         <th>ID</th>
                                         <th>Nome</th>
                                         <th>Email</th>
-                                        <th>Senha</th>
+                                        <th>Sexo</th>
+                                        <th>Nível Acesso</th>
+                                        <th>Criado em</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -76,7 +77,19 @@
                                             <td>{{ $usuario->id }}</td>
                                             <td>{{ $usuario->name }}</td>
                                             <td>{{ $usuario->email }}</td>
-                                            <td>{{ $usuario->password }}</td>
+                                            <td>
+                                                {{ $usuario->sexo }}
+                                            </td>
+                                            <td>
+                                                @if ($usuario->nivel_acesso == 0)
+                                                    Administrador
+                                                @else
+                                                        Usuário Comum
+                                                @endif
+                                            </td>
+                                            <td>
+                                                {{ date("d/m/Y H:i", strtotime($usuario->created_at)) }}
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -84,7 +97,6 @@
                         </div>
                     </section>
 
-                    <!-- Consulta de Contatos -->
                     <section id="contatos" class="consulta hidden">
                         <h2>Consulta de Contatos</h2>
 
@@ -120,6 +132,7 @@
                                         <th>Nome</th>
                                         <th>Email</th>
                                         <th>Mensagem</th>
+                                        <th>Data</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -135,6 +148,9 @@
                                             <td>
                                                 {{ $contato->mensagemContato }}
                                             </td>
+                                            <td>
+                                                {{ date("d/m/Y H:i", strtotime($contato->created_at)) }}
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -145,7 +161,6 @@
             </div>
         </div>
 
-        <!-- Script para alternar seções -->
         <script>
             const btnUsuarios = document.getElementById('btnUsuarios');
             const btnContatos = document.getElementById('btnContatos');

@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\Usuario\PerfilController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +20,6 @@ Route::middleware("auth:sanctum")->get("/user", function (Request $request) {
 });
 
 Route::middleware("auth:sanctum")->post("/perfil/foto", [
-    UsuarioController::class,
+    PerfilController::class,
     "fotoPerfil",
 ]);

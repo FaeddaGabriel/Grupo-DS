@@ -4,7 +4,10 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Sports King - Home</title>
-        <link rel="stylesheet" href="{{ asset("css/style.css") }}" />
+        <link
+            rel="stylesheet"
+            href="{{ asset("css/pages/pagina-home.css") }}"
+        />
 
         <link
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
@@ -13,7 +16,7 @@
     </head>
     <body>
         <div class="hero">
-            @include("NavBar")
+            @include("componentes.navbar")
         </div>
 
         @if (session("success"))
@@ -261,7 +264,7 @@
             </div>
         </div>
 
-        @include("Footer")
+        @include("componentes.footer")
 
         <div class="fundo">
             <h1>©Etec de Guaianazes 2025</h1>

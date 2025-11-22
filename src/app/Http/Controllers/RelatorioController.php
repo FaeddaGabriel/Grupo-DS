@@ -69,15 +69,28 @@ class RelatorioController extends Controller
             $col2 = "Nome";
             $col3 = mb_convert_encoding("Email", "ISO-8859-1");
             $col4 = "Sexo";
+            $col5 = mb_convert_encoding("Nível Acesso", "ISO-8859-1");
+            $col6 = mb_convert_encoding("Criado em", "ISO-8859-1");
 
-            $escreve = fwrite($file, "$col1;$col2;$col3;$col4;");
+            $escreve = fwrite($file, "$col1;$col2;$col3;$col4;$col5;$col6;");
 
             foreach ($queryJson as $d) {
                 $data1 = $d->id;
                 $data2 = mb_convert_encoding($d->name, "ISO-8859-1");
                 $data3 = $d->email;
-                $data4 = mb_convert_encoding($d->sexo, "ISO-8859-1");
-                $escreve = fwrite($file, "\n$data1;$data2;$data3;$data4;");
+                $data4 = mb_convert_encoding($d->sexo ?: "N/I", "ISO-8859-1");
+                $data5 = mb_convert_encoding(
+                    $d->nivel_acesso == 0 ? "Administrador" : "Usuário Comum",
+                    "ISO-8859-1",
+                );
+                $data6 = mb_convert_encoding(
+                    date("d/m/Y H:i", strtotime($d->created_at)),
+                    "ISO-8859-1",
+                );
+                $escreve = fwrite(
+                    $file,
+                    "\n$data1;$data2;$data3;$data4;$data5;$data6;",
+                );
             }
             fclose($file);
         };
@@ -117,15 +130,23 @@ class RelatorioController extends Controller
             $col2 = "Nome";
             $col3 = mb_convert_encoding("Email", "ISO-8859-1");
             $col4 = mb_convert_encoding("Mensagem", "ISO-8859-1");
+            $col5 = mb_convert_encoding("Data", "ISO-8859-1");
 
-            $escreve = fwrite($file, "$col1;$col2;$col3;$col4;");
+            $escreve = fwrite($file, "$col1;$col2;$col3;$col4;$col5;");
 
             foreach ($queryJson as $d) {
                 $data1 = $d->idContato;
                 $data2 = mb_convert_encoding($d->nomeContato, "ISO-8859-1");
                 $data3 = $d->emailContato;
                 $data4 = mb_convert_encoding($d->mensagemContato, "ISO-8859-1");
-                $escreve = fwrite($file, "\n$data1;$data2;$data3;$data4;");
+                $data5 = mb_convert_encoding(
+                    date("d/m/Y H:i", strtotime($d->created_at)),
+                    "ISO-8859-1",
+                );
+                $escreve = fwrite(
+                    $file,
+                    "\n$data1;$data2;$data3;$data4;$data5;",
+                );
             }
             fclose($file);
         };

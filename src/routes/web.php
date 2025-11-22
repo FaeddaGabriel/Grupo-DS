@@ -1,8 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\CadastroController;
+use App\Http\Controllers\Painel\DashboardController;
+use App\Http\Controllers\Painel\ConsultasController;
+use App\Http\Controllers\Painel\ExerciciosController;
+use App\Http\Controllers\Usuario\PerfilController;
 use App\Http\Controllers\ContatoController;
+use App\Http\Controllers\RelatorioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +18,7 @@ use App\Http\Controllers\ContatoController;
 
 // Rotas Públicas
 Route::get("/", function () {
-    return view("welcome");
+    return view("paginas.welcome");
 })->name("home");
 
 Route::get("/Contato", [ContatoController::class, "exibirContato"])->name(
@@ -22,62 +28,57 @@ Route::post("/Contato/inserir", [ContatoController::class, "store"])->name(
     "contato.store",
 );
 
-Route::get("/Login", function () {
-    return view("Form");
-})->name("login");
-Route::post("/Login", [UsuarioController::class, "fazerLogin"])->name(
+Route::get("/Login", [LoginController::class, "exibirLogin"])->name("login");
+Route::post("/Login", [LoginController::class, "fazerLogin"])->name(
     "login.process",
 );
 
-Route::get("/Cadastro", [UsuarioController::class, "exibirCadastro"])->name(
+Route::get("/Cadastro", [CadastroController::class, "exibirCadastro"])->name(
     "cadastro",
 );
-Route::post("/Cadastro/inserir", [UsuarioController::class, "store"])->name(
+Route::post("/Cadastro/inserir", [CadastroController::class, "store"])->name(
     "cadastro.store",
 );
 
 // Rotas Protegidas
 Route::middleware(["auth"])->group(function () {
-    Route::post("/logout", [UsuarioController::class, "fazerLogOut"])->name(
+    Route::post("/logout", [LoginController::class, "fazerLogOut"])->name(
         "fazerLogOut",
     );
 
     // Rotas para TODOS os usuários logados
-    Route::get("/Perfil", function () {
-        return view("Perfil");
-    })->name("perfil");
-    Route::put("/perfil/foto", [UsuarioController::class, "fotoPerfil"])->name(
+    Route::get("/Perfil", [PerfilController::class, "exibirPerfil"])->name(
+        "perfil",
+    );
+    Route::put("/perfil/foto", [PerfilController::class, "fotoPerfil"])->name(
         "perfil.foto",
     );
 
     // Rotas EXCLUSIVAS para Admin
     Route::middleware(["nivel:0"])->group(function () {
-        Route::get("/Dashboard", [UsuarioController::class, "dashboard"])->name(
+        Route::get("/Dashboard", [
+            DashboardController::class,
             "dashboard",
-        );
+        ])->name("dashboard");
         Route::get("/Consultas", [
-            UsuarioController::class,
+            ConsultasController::class,
             "exibirConsultas",
         ])->name("consultas");
-        Route::get("/exercicio", [UsuarioController::class, "exercicio"])->name(
+        Route::get("/exercicio", [
+            ExerciciosController::class,
             "exercicio",
-        );
+        ])->name("exercicio");
     });
 });
 
 // ROTAS DOS RELATÓRIOS - PDF
-Route::get("/user-pdf", "App\Http\Controllers\RelatorioController@userPdf");
-Route::get(
-    "/Contato-pdf",
-    "App\Http\Controllers\RelatorioController@contatoPdf",
-);
+Route::get("/user-pdf", [RelatorioController::class, "userPdf"]);
+Route::get("/Contato-pdf", [RelatorioController::class, "contatoPdf"]);
 
 // ROTAS DOS RELATÓRIOS - CSV
-Route::get(
-    "/user-csv",
-    "App\Http\Controllers\RelatorioController@userCsv",
-)->name("user_csv.csv");
-Route::get(
-    "/contato-csv",
-    "App\Http\Controllers\RelatorioController@contatoCsv",
-)->name("contato_csv.csv");
+Route::get("/user-csv", [RelatorioController::class, "userCsv"])->name(
+    "user_csv.csv",
+);
+Route::get("/contato-csv", [RelatorioController::class, "contatoCsv"])->name(
+    "contato_csv.csv",
+);

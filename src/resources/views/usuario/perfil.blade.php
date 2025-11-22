@@ -3,7 +3,10 @@
     <head>
         <meta charset="UTF-8" />
         <title>Perfil do Usuário</title>
-        <link rel="stylesheet" href="css/Perfil.css" />
+        <link
+            rel="stylesheet"
+            href="{{ asset("css/usuario/usuario-perfil.css") }}"
+        />
     </head>
     <body>
         <a href="{{ route("home") }}" class="logo-link">

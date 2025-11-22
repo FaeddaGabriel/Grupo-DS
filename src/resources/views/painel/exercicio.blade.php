@@ -4,7 +4,10 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Exercício - Exercícios do PDF</title>
-        <link rel="stylesheet" href="{{ asset("css/exercicio.css") }}" />
+        <link
+            rel="stylesheet"
+            href="{{ asset("css/painel/painel-exercicio.css") }}"
+        />
         <link
             href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
             rel="stylesheet"
@@ -12,7 +15,7 @@
         <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     </head>
     <body>
-        @include("layouts.menu")
+        @include("painel.componentes.menu")
 
         <div id="analise-root">
             <div class="main-content">

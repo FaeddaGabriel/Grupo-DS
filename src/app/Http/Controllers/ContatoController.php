@@ -19,7 +19,7 @@ class ContatoController extends Controller
     public function exibirContato()
     {
         $Contato = ContatoModel::all();
-        return view("Contato", compact("Contato")); //n tem mt oq falar mas retorna pra view só
+        return view("paginas.contato", compact("Contato"));
     }
     /**
      * Show the form for creating a new resource.

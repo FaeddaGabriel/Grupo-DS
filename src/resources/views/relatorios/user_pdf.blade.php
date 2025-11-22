@@ -10,7 +10,10 @@
 
         @foreach ($user as $u)
             <p>
-                {{ $u->id }} {{ $u->name }} {{ $u->email }} {{ $u->sexo }}
+                {{ $u->id }} {{ $u->name }} {{ $u->email }}
+                {{ $u->sexo }}
+                {{ $u->nivel_acesso == 0 ? "Administrador" : "Usuário Comum" }}
+                {{ date("d/m/Y H:i", strtotime($u->created_at)) }}
             </p>
         @endforeach
     </body>

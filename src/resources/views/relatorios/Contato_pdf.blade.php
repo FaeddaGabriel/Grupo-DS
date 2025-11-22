@@ -10,8 +10,9 @@
 
         @foreach ($Contato as $C)
             <p>
-                {{ $C->idContato }} {{ $C->user_id }} {{ $C->nomeContato }}
-                {{ $C->emailContato }}
+                {{ $C->idContato }} {{ $C->nomeContato }}
+                {{ $C->emailContato }} {{ $C->mensagemContato }}
+                {{ date("d/m/Y H:i", strtotime($C->created_at)) }}
             </p>
         @endforeach
     </body>

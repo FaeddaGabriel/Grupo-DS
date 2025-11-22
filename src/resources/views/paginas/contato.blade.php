@@ -4,8 +4,10 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Sports King - Contato</title>
-        <link rel="stylesheet" href="{{ asset("css/Contato.css") }}" />
-        <link rel="stylesheet" href="{{ asset("css/NavBar.css") }}" />
+        <link
+            rel="stylesheet"
+            href="{{ asset("css/pages/pagina-contato.css") }}"
+        />
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
 
