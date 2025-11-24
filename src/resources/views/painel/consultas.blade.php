@@ -102,7 +102,7 @@
 
                         <div class="download-buttons">
                             <a
-                                href="/user-pdf"
+                                href="/Contato-pdf"
                                 class="btn-download"
                                 title="Baixar PDF"
                             >
@@ -112,7 +112,7 @@
                                 />
                             </a>
                             <a
-                                href="/user-csv"
+                                href="/contato-csv"
                                 class="btn-download"
                                 title="Baixar CSV"
                             >
