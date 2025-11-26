@@ -42,9 +42,9 @@
                             >
                                 <img
                                     src="{{ asset("images/pdf.png") }}"
-                                    alt="Logo"
-                                    width="200"
+                                    alt="PDF"
                                 />
+                                Exportar PDF
                             </a>
                             <a
                                 href="/user-csv"
@@ -53,9 +53,9 @@
                             >
                                 <img
                                     src="{{ asset("images/exel.png") }}"
-                                    alt="Logo"
-                                    width="200"
+                                    alt="CSV"
                                 />
+                                Exportar CSV
                             </a>
                         </div>
 
@@ -110,6 +110,7 @@
                                     src="{{ asset("images/pdf.png") }}"
                                     alt="PDF"
                                 />
+                                Exportar PDF
                             </a>
                             <a
                                 href="/contato-csv"
@@ -118,9 +119,9 @@
                             >
                                 <img
                                     src="{{ asset("images/exel.png") }}"
-                                    alt="Logo"
-                                    width="200"
+                                    alt="CSV"
                                 />
+                                Exportar CSV
                             </a>
                         </div>
 
