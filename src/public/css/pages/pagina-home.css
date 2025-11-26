@@ -42,25 +42,38 @@ nav {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding-top: 20px;
-    padding-left: 5%;
-    padding-right: 10%;
-    position: static;
-    z-index: 10;
-    transition: background-color 0.3s ease;
+    padding: 15px 5% 15px 5%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: transparent;
+    transition: all 0.3s ease;
 }
 
 nav.scrolled {
-    background-color: #0077ff; /* Acento em azul ao rolar */
+    background-color: #2d3748;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    padding: 10px 5%;
 }
 
 /* Logo – tamanho original 28px; o <span> em azul marinho */
 .logo {
     color: #000000;
+    transition: color 0.3s;
 }
 
 .logo span {
     color: #296cb8;
+    transition: color 0.3s;
+}
+
+nav.scrolled .logo {
+    color: #ffffff;
+}
+
+nav.scrolled .logo span {
+    color: #e2e8f0;
 }
 
 /* ===== BARRA DE BUSCA ===== */
@@ -114,11 +127,19 @@ nav ul li a {
     font-weight: bold;
     display: block;
     padding: 10px;
-    transition: color 1s;
+    transition: color 0.3s;
+}
+
+nav.scrolled ul li a {
+    color: #ffffff;
 }
 
 nav ul li a:hover {
     color: #0077ff;
+}
+
+nav.scrolled ul li a:hover {
+    color: #e2e8f0;
 }
 
 /* Submenu */
