@@ -54,42 +54,43 @@ body {
 }
 
 .formLogin input {
-    width: calc(100% - 20px);
-    padding: 12px;
+    width: 100%;
+    padding: 12px 15px;
     margin-bottom: 15px;
     font-size: 14px;
-    border: 1px solid #1f008d;
-    border-radius: 5px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
     background-color: #ffffff;
-    color: #000000;
+    color: #2d3748;
     outline: none;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .formLogin input:focus {
-    border-color: #1f008d;
-    box-shadow: 0 0 5px #0077ff;
+    border-color: #4a5568;
+    box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
 }
 
 .btn {
     width: 100%;
-    padding: 12px;
-    font-size: 14px;
-    font-weight: bold;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 700;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: 0.3s;
-    background-color: #0077ff;
+    transition:
+        background-color 0.3s,
+        transform 0.2s,
+        box-shadow 0.3s;
+    background-color: #4a5568;
     color: #fff;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 .btn:hover {
-    background-color: #0077ff;
-    box-shadow: 0px 0px 10px #0077ff;
+    background-color: #2d3748;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     transform: translateY(-2px);
 }
 
