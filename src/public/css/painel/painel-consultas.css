@@ -175,12 +175,59 @@ body {
 @media (max-width: 992px) {
     #consultas-root .main-content {
         padding: 20px;
+        margin-left: 200px;
+    }
+
+    .header h1 {
+        font-size: 28px;
+    }
+
+    .toggle-buttons {
+        flex-wrap: wrap;
+    }
+
+    .download-buttons {
+        flex-wrap: wrap;
+        justify-content: center;
     }
 }
 
 @media (max-width: 768px) {
     #consultas-root .main-content {
         margin-left: 0;
+        padding: 15px;
+    }
+
+    .header h1 {
+        font-size: 24px;
+    }
+
+    .header p {
+        font-size: 12px;
+    }
+
+    .toggle-buttons {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .toggle-buttons button {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .download-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-download {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .consulta h2 {
+        font-size: 18px;
     }
 
     .table thead {
@@ -221,5 +268,29 @@ body {
         color: #4a5568;
         text-align: left;
         margin-right: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    #consultas-root .main-content {
+        padding: 10px;
+    }
+
+    .header h1 {
+        font-size: 20px;
+    }
+
+    .consulta {
+        padding: 15px;
+    }
+
+    .table tbody td {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .table tbody td::before {
+        margin-bottom: 5px;
     }
 }
