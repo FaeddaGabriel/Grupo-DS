@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: "Inter", sans-serif;
     margin: 0;
@@ -7,9 +11,11 @@ body {
     color: #fff;
     background: linear-gradient(to bottom, #ffffff, #3ca7ff);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    padding-top: 140px;
 }
 
 .page {
@@ -19,10 +25,11 @@ body {
     justify-content: center;
     width: 90%;
     max-width: 500px;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 40px 30px;
+    margin: 20px auto;
+    border-radius: 15px;
     background-color: #ffffff;
-    box-shadow: 0 0 10px #0077ff;
+    box-shadow: 0 0 20px rgba(0, 119, 255, 0.3);
     border: 2px solid #0077ff;
 }
 
@@ -37,12 +44,14 @@ body {
     text-align: center;
     font-size: 2rem;
     font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 10px;
 }
 
 .formLogin p {
     font-size: 14px;
     color: #000000;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     text-align: center;
 }
 
@@ -50,27 +59,30 @@ body {
     font-size: 14px;
     font-weight: 600;
     color: #000000;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    margin-top: 5px;
 }
 
-.formLogin input {
-    width: calc(100% - 20px);
+.formLogin input[type="text"],
+.formLogin input[type="email"],
+.formLogin input[type="password"] {
+    width: 100%;
     padding: 12px;
     margin-bottom: 15px;
     font-size: 14px;
     border: 1px solid #1f008d;
-    border-radius: 5px;
+    border-radius: 8px;
     background-color: #ffffff;
     color: #000000;
     outline: none;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    transition: all 0.3s ease;
 }
 
-.formLogin input:focus {
-    border-color: #1f008d;
-    box-shadow: 0 0 5px #0077ff;
+.formLogin input[type="text"]:focus,
+.formLogin input[type="email"]:focus,
+.formLogin input[type="password"]:focus {
+    border-color: #0077ff;
+    box-shadow: 0 0 8px rgba(0, 119, 255, 0.4);
 }
 
 .btn {
@@ -79,17 +91,17 @@ body {
     font-size: 14px;
     font-weight: bold;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.3s ease;
     background-color: #0077ff;
     color: #fff;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 .btn:hover {
-    background-color: #0077ff;
-    box-shadow: 0px 0px 10px #0077ff;
+    background-color: #005bb5;
+    box-shadow: 0px 4px 15px rgba(0, 119, 255, 0.4);
     transform: translateY(-2px);
 }
 
@@ -97,7 +109,7 @@ body {
     background-color: #333;
     color: #0077ff;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 8px;
     text-decoration: none;
     font-weight: bold;
     display: inline-block;
@@ -111,42 +123,140 @@ body {
 }
 
 .logo-link {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
     padding: 10px;
-    position: absolute;
-    top: 0;
-    left: 100px;
 }
 
 .logo-img {
-    height: 120px;
+    height: 80px;
     width: auto;
+    max-width: 100%;
 }
 
 /* ===== Estilo dos botões de rádio ===== */
 .sexo-container {
     display: flex;
-    justify-content: space-between; /* coloca lado a lado com espaçamento igual */
+    justify-content: space-between;
     align-items: center;
-    gap: 20px; /* espaço entre as opções */
+    gap: 10px;
     margin-bottom: 15px;
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #1f008d;
-    border-radius: 5px;
+    border-radius: 8px;
     background-color: #ffffff;
+    flex-wrap: wrap;
 }
 
 .sexo-container label {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     color: #000;
     display: flex;
     align-items: center;
     gap: 6px;
+    margin: 0;
+    flex: 1;
+    min-width: 100px;
 }
 
 .sexo-container input[type="radio"] {
-    accent-color: #0077ff; /* deixa o círculo azul combinando com o tema */
+    accent-color: #0077ff;
     cursor: pointer;
-    transform: scale(1.1); /* deixa o botão um pouco maior */
+    transform: scale(1.1);
+}
+
+/* Responsividade para tablets */
+@media (max-width: 768px) {
+    body {
+        padding-top: 130px;
+    }
+
+    .page {
+        width: 95%;
+        padding: 30px 20px;
+        margin: 15px auto;
+    }
+
+    .formLogin h1 {
+        font-size: 1.5rem;
+    }
+
+    .logo-img {
+        height: 70px;
+    }
+
+    .sexo-container {
+        gap: 8px;
+    }
+
+    .sexo-container label {
+        font-size: 12px;
+        min-width: 80px;
+    }
+}
+
+/* Responsividade para celulares */
+@media (max-width: 480px) {
+    body {
+        padding-top: 120px;
+    }
+
+    .page {
+        width: 100%;
+        padding: 25px 15px;
+        margin: 10px auto;
+        border-radius: 10px;
+    }
+
+    .formLogin h1 {
+        font-size: 1.3rem;
+        margin-bottom: 8px;
+    }
+
+    .formLogin p {
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+
+    .formLogin label {
+        font-size: 13px;
+        margin-bottom: 6px;
+    }
+
+    .formLogin input[type="text"],
+    .formLogin input[type="email"],
+    .formLogin input[type="password"] {
+        font-size: 14px;
+        padding: 10px;
+        margin-bottom: 12px;
+    }
+
+    .btn {
+        padding: 11px;
+        font-size: 13px;
+        margin-top: 12px;
+    }
+
+    .logo-img {
+        height: 60px;
+    }
+
+    .sexo-container {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .sexo-container label {
+        width: 100%;
+        justify-content: flex-start;
+        font-size: 12px;
+        min-width: unset;
+    }
 }

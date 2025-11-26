@@ -1,20 +1,31 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
 body {
     background: linear-gradient(to bottom, #ffffff, #3ca7ff);
     min-height: 100vh;
-    margin: 0;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
     font-family: "Inter", sans-serif;
+    padding-top: 140px;
 }
 
 .container {
     max-width: 700px;
     width: 90%;
     margin: 40px auto;
-    padding: 40px;
+    padding: 40px 30px;
     border-radius: 20px;
     background-color: #fff;
     box-shadow: 0 0 20px rgba(0, 119, 255, 0.3);
@@ -25,13 +36,14 @@ h2 {
     color: #0077ff;
     font-size: 28px;
     margin-bottom: 20px;
+    margin-top: 0;
 }
 
 /* Moldura da imagem de perfil */
 .profile-picture-wrapper {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .profile-picture {
@@ -81,9 +93,7 @@ h2 {
     border-radius: 50px;
     cursor: pointer;
     font-weight: bold;
-    transition:
-        background-color 0.3s ease,
-        transform 0.2s ease;
+    transition: all 0.3s ease;
     text-align: center;
     display: inline-block;
 }
@@ -91,6 +101,7 @@ h2 {
 .file-label:hover {
     background-color: #005bb5;
     transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 119, 255, 0.3);
 }
 
 .hidden-file {
@@ -134,14 +145,13 @@ button[type="submit"] {
     background-color: #0077ff;
     color: #fff;
     cursor: pointer;
-    transition:
-        background-color 0.3s,
-        transform 0.3s;
+    transition: all 0.3s ease;
 }
 
 button[type="submit"]:hover {
     background-color: #005bb5;
     transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 119, 255, 0.3);
 }
 
 .alert-success {
@@ -169,14 +179,115 @@ button[type="submit"]:hover {
 }
 
 .logo-link {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
     padding: 10px;
-    position: absolute;
-    top: 0;
-    left: 100px;
 }
 
 .logo-img {
-    height: 120px;
+    height: 80px;
     width: auto;
+    max-width: 100%;
+}
+
+/* Responsividade para tablets */
+@media (max-width: 768px) {
+    body {
+        padding-top: 130px;
+    }
+
+    .container {
+        width: 95%;
+        padding: 30px 20px;
+        margin: 20px auto;
+    }
+
+    h2 {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+
+    .profile-picture,
+    .profile-picture.no-photo {
+        width: 120px;
+        height: 120px;
+    }
+
+    .logo-img {
+        height: 70px;
+    }
+}
+
+/* Responsividade para celulares */
+@media (max-width: 480px) {
+    body {
+        padding-top: 120px;
+    }
+
+    .container {
+        width: 100%;
+        padding: 25px 15px;
+        margin: 15px auto;
+        border-radius: 15px;
+    }
+
+    h2 {
+        font-size: 20px;
+        margin-bottom: 12px;
+    }
+
+    .profile-picture,
+    .profile-picture.no-photo {
+        width: 100px;
+        height: 100px;
+        border: 3px solid #0077ff;
+    }
+
+    .profile-picture-wrapper {
+        margin-bottom: 20px;
+    }
+
+    .custom-file-upload {
+        margin-bottom: 20px;
+    }
+
+    .custom-file-upload label {
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .file-label {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+
+    #file-name {
+        font-size: 12px;
+        margin-top: 8px;
+    }
+
+    .user-info {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .user-info p {
+        font-size: 14px;
+        margin: 8px 0;
+    }
+
+    button[type="submit"] {
+        padding: 11px;
+        font-size: 14px;
+    }
+
+    .logo-img {
+        height: 60px;
+    }
 }
