@@ -4,6 +4,7 @@ body {
     background: linear-gradient(to bottom, #ffffff, #3ca7ff);
     min-height: 100vh;
     margin: 0;
+    padding-top: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -168,15 +169,4 @@ button[type="submit"]:hover {
     }
 }
 
-.logo-link {
-    display: block;
-    padding: 10px;
-    position: absolute;
-    top: 0;
-    left: 100px;
-}
 
-.logo-img {
-    height: 120px;
-    width: auto;
-}

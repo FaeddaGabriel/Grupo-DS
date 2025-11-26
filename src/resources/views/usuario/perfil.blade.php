@@ -5,17 +5,15 @@
         <title>Perfil do Usuário</title>
         <link
             rel="stylesheet"
+            href="{{ asset("css/components/componente-navbar.css") }}"
+        />
+        <link
+            rel="stylesheet"
             href="{{ asset("css/usuario/usuario-perfil.css") }}"
         />
     </head>
     <body>
-        <a href="{{ route("home") }}" class="logo-link">
-            <img
-                src="{{ asset("images/King1.png") }}"
-                alt="Logo"
-                class="logo-img"
-            />
-        </a>
+        @include("componentes.navbar")
         <div class="container">
             <h2>Perfil do Usuário</h2>
 

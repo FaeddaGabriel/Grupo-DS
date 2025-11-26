@@ -4,12 +4,13 @@ body {
     font-family: "Inter", sans-serif;
     margin: 0;
     padding: 0;
+    padding-top: 100px;
     color: #fff;
     background: linear-gradient(to bottom, #ffffff, #3ca7ff);
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .page {
@@ -109,18 +110,7 @@ body {
     background-color: #0077ff;
     color: #fff;
 }
-.logo-link {
-    display: block;
-    padding: 10px;
-    position: absolute;
-    top: 0;
-    left: 100px;
-}
 
-.logo-img {
-    height: 120px;
-    width: auto;
-}
 
 .alert-success {
     background-color: #d1f5d3;

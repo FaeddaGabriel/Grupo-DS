@@ -109,7 +109,7 @@ body {
 }
 
 .toggle-buttons button {
-    background-color: #007bff;
+    background-color: #4a5568;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -120,11 +120,11 @@ body {
 }
 
 .toggle-buttons button:hover {
-    background-color: #0056b3;
+    background-color: #2d3748;
 }
 
 .toggle-buttons button.active {
-    background-color: #0056b3;
+    background-color: #2d3748;
 }
 
 /* Botões de download (PDF e CSV) */
