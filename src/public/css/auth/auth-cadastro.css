@@ -15,7 +15,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding-top: 140px;
+    padding-top: 20px;
 }
 
 .page {
@@ -76,6 +76,7 @@ body {
     color: #000000;
     outline: none;
     transition: all 0.3s ease;
+    box-sizing: border-box;
 }
 
 .formLogin input[type="text"]:focus,
@@ -126,11 +127,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 100;
+    position: relative;
+    margin-bottom: 30px;
     padding: 10px;
 }
 
@@ -175,7 +173,7 @@ body {
 /* Responsividade para tablets */
 @media (max-width: 768px) {
     body {
-        padding-top: 130px;
+        padding-top: 20px;
     }
 
     .page {
@@ -205,7 +203,7 @@ body {
 /* Responsividade para celulares */
 @media (max-width: 480px) {
     body {
-        padding-top: 120px;
+        padding-top: 20px;
     }
 
     .page {

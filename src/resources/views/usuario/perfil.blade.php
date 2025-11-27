@@ -2,21 +2,20 @@
 <html lang="pt-BR">
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Perfil do Usuário</title>
+        <link
+            rel="stylesheet"
+            href="{{ asset("css/components/componente-navbar.css") }}"
+        />
         <link
             rel="stylesheet"
             href="{{ asset("css/usuario/usuario-perfil.css") }}"
         />
     </head>
     <body>
-        <a href="{{ route("home") }}" class="logo-link">
-            <img
-                src="{{ asset("images/King1.png") }}"
-                alt="Logo"
-                class="logo-img"
-            />
-        </a>
-        <div class="container">
+        @include('componentes.navbar')
+        <div class="container" style="margin-top: 40px;">
             <h2>Perfil do Usuário</h2>
 
             @if (session("success"))
@@ -91,5 +90,7 @@
                 });
             });
         </script>
+
+        @include('componentes.footer')
     </body>
 </html>

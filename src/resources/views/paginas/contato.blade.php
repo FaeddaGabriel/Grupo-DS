@@ -6,23 +6,20 @@
         <title>Sports King - Contato</title>
         <link
             rel="stylesheet"
+            href="{{ asset("css/components/componente-navbar.css") }}"
+        />
+        <link
+            rel="stylesheet"
             href="{{ asset("css/pages/pagina-contato.css") }}"
         />
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
 
     <body>
-        {{-- LOGO --}}
-        <a href="{{ route("home") }}" class="logo-link">
-            <img
-                src="{{ asset("images/King1.png") }}"
-                alt="Logo"
-                class="logo-img"
-            />
-        </a>
+        @include('componentes.navbar')
 
         {{-- FORMULÁRIO --}}
-        <div class="page">
+        <div class="page" style="margin-top: 40px;">
             <form
                 class="formLogin"
                 action="{{ url("/Contato/inserir") }}"
@@ -77,5 +74,7 @@
                 <button class="btn" type="submit" value="Salvar">Enviar</button>
             </form>
         </div>
+
+        @include('componentes.footer')
     </body>
 </html>
