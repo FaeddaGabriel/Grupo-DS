@@ -109,7 +109,7 @@ body {
 }
 
 .toggle-buttons button {
-    background-color: #007bff;
+    background-color: #4a5568;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -120,42 +120,50 @@ body {
 }
 
 .toggle-buttons button:hover {
-    background-color: #0056b3;
+    background-color: #2d3748;
 }
 
 .toggle-buttons button.active {
-    background-color: #0056b3;
+    background-color: #2d3748;
 }
 
 /* Botões de download (PDF e CSV) */
 .download-buttons {
     display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
+    gap: 15px;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+    padding: 10px 0;
 }
 
 .btn-download {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background-color: #e2e8f0;
+    gap: 8px;
+    background-color: #4a5568;
+    color: white;
     border-radius: 8px;
-    padding: 8px;
+    padding: 10px 20px;
     transition:
         background-color 0.3s,
         transform 0.2s;
     text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
 }
 
 .btn-download:hover {
-    background-color: #cbd5e0;
-    transform: scale(1.05);
+    background-color: #2d3748;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn-download img {
-    width: 32px;
-    height: 32px;
+    width: 20px;
+    height: 20px;
     display: block;
+    filter: brightness(0) invert(1);
 }
 
 /* Ocultar seção */
@@ -167,12 +175,59 @@ body {
 @media (max-width: 992px) {
     #consultas-root .main-content {
         padding: 20px;
+        margin-left: 200px;
+    }
+
+    .header h1 {
+        font-size: 28px;
+    }
+
+    .toggle-buttons {
+        flex-wrap: wrap;
+    }
+
+    .download-buttons {
+        flex-wrap: wrap;
+        justify-content: center;
     }
 }
 
 @media (max-width: 768px) {
     #consultas-root .main-content {
         margin-left: 0;
+        padding: 15px;
+    }
+
+    .header h1 {
+        font-size: 24px;
+    }
+
+    .header p {
+        font-size: 12px;
+    }
+
+    .toggle-buttons {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .toggle-buttons button {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .download-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-download {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .consulta h2 {
+        font-size: 18px;
     }
 
     .table thead {
@@ -213,5 +268,29 @@ body {
         color: #4a5568;
         text-align: left;
         margin-right: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    #consultas-root .main-content {
+        padding: 10px;
+    }
+
+    .header h1 {
+        font-size: 20px;
+    }
+
+    .consulta {
+        padding: 15px;
+    }
+
+    .table tbody td {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .table tbody td::before {
+        margin-bottom: 5px;
     }
 }

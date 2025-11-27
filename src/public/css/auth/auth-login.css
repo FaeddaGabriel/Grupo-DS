@@ -72,7 +72,7 @@ body {
     border: 1px solid #1f008d;
     border-radius: 8px;
     background-color: #ffffff;
-    color: #000000;
+    color: #2d3748;
     outline: none;
     transition: all 0.3s ease;
     box-sizing: border-box;
@@ -86,9 +86,9 @@ body {
 
 .btn {
     width: 100%;
-    padding: 12px;
-    font-size: 14px;
-    font-weight: bold;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 700;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -215,5 +215,35 @@ body {
 
     .logo-img {
         height: 60px;
+    }
+}
+
+/* Mensagens de erro */
+.error-message {
+    background-color: #fee;
+    color: #c33;
+    border: 1px solid #fcc;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.error-message p {
+    margin: 5px 0;
+    color: #c33;
+}
+
+/* Animação de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

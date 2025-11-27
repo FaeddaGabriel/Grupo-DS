@@ -73,7 +73,7 @@ body {
     border: 1px solid #1f008d;
     border-radius: 8px;
     background-color: #ffffff;
-    color: #000000;
+    color: #2d3748;
     outline: none;
     transition: all 0.3s ease;
     box-sizing: border-box;
@@ -88,9 +88,9 @@ body {
 
 .btn {
     width: 100%;
-    padding: 12px;
-    font-size: 14px;
-    font-weight: bold;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 700;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -155,7 +155,7 @@ body {
 .sexo-container label {
     font-size: 13px;
     font-weight: 500;
-    color: #000;
+    color: #2d3748;
     display: flex;
     align-items: center;
     gap: 6px;
