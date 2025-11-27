@@ -8,7 +8,6 @@ body {
     font-family: "Inter", sans-serif;
     margin: 0;
     padding: 0;
-    padding-top: 100px;
     color: #fff;
     background: linear-gradient(to bottom, #ffffff, #3ca7ff);
     display: flex;
@@ -16,7 +15,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding-top: 20px;
+    padding-top: 0;
 }
 
 .page {
@@ -27,11 +26,12 @@ body {
     width: 90%;
     max-width: 500px;
     padding: 40px 30px;
-    margin: 20px auto;
+    margin: 30px auto;
     border-radius: 15px;
     background-color: #ffffff;
     box-shadow: 0 0 20px rgba(0, 119, 255, 0.3);
     border: 2px solid #0077ff;
+    flex: 1;
 }
 
 .formLogin {
@@ -73,7 +73,7 @@ body {
     border: 1px solid #1f008d;
     border-radius: 8px;
     background-color: #ffffff;
-    color: #2d3748;
+    color: #000000;
     outline: none;
     transition: all 0.3s ease;
     box-sizing: border-box;
@@ -87,9 +87,9 @@ body {
 
 .btn {
     width: 100%;
-    padding: 14px;
-    font-size: 15px;
-    font-weight: 700;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: bold;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -122,21 +122,6 @@ body {
     color: #fff;
 }
 
-.logo-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    margin-bottom: 30px;
-    padding: 10px;
-}
-
-.logo-img {
-    height: 80px;
-    width: auto;
-    max-width: 100%;
-}
-
 .alert-success {
     background-color: #d1f5d3;
     color: #27632a;
@@ -164,7 +149,7 @@ body {
 /* Responsividade para tablets */
 @media (max-width: 768px) {
     body {
-        padding-top: 20px;
+        padding-top: 0;
     }
 
     .page {
@@ -176,16 +161,12 @@ body {
     .formLogin h1 {
         font-size: 1.5rem;
     }
-
-    .logo-img {
-        height: 70px;
-    }
 }
 
 /* Responsividade para celulares */
 @media (max-width: 480px) {
     body {
-        padding-top: 20px;
+        padding-top: 0;
     }
 
     .page {
@@ -221,9 +202,5 @@ body {
         padding: 11px;
         font-size: 13px;
         margin-top: 12px;
-    }
-
-    .logo-img {
-        height: 60px;
     }
 }

@@ -19,7 +19,7 @@
         @include('componentes.navbar')
 
         {{-- FORMULÁRIO --}}
-        <div class="page" style="margin-top: 40px;">
+        <div class="page">
             <form
                 class="formLogin"
                 action="{{ url("/Contato/inserir") }}"

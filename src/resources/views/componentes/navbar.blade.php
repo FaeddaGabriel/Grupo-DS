@@ -1,16 +1,18 @@
-<nav>
-    <img src="{{ asset("images/King1.png") }}" alt="" />
-    <h2 class="logo">
-        Sports
-        <span>King</span>
-    </h2>
+<nav class="navbar">
+    <div class="logo">
+        <img src="{{ asset("images/King1.png") }}" alt="Logo" />
+        <h2>
+            Sports
+            <span>King</span>
+        </h2>
+    </div>
 
     <div class="search-bar">
         <input type="text" placeholder="Buscar..." />
         <button type="button">🔍</button>
     </div>
     <!-- Navbar  com botões de cadastro e login aparecendo apenas para visitantes -->
-    <ul>
+    <ul class="nav-links">
         <li>
             <!-- Comando para um futuro modo de seleção, deixa na lista pra talvez fazer -->
             <ul class="sub-menu"></ul>

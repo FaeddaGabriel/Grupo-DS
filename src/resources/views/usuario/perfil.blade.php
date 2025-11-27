@@ -15,7 +15,7 @@
     </head>
     <body>
         @include('componentes.navbar')
-        <div class="container" style="margin-top: 40px;">
+        <div class="container">
             <h2>Perfil do Usuário</h2>
 
             @if (session("success"))
